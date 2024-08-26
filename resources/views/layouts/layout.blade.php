@@ -1,33 +1,29 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    @if (!empty($head))
-        {!! $head !!}
-    @endif
+    @include('components.partials.head')
 </head>
 <body>
-@if (!empty($header))
+
     <header>
-        {!! $header !!}
+        @include('components.partials.header', [
+            'is_auth' => $is_auth,
+            'user_name' => $user_name,
+            'user_avatar' => $user_avatar
+        ])
     </header>
-@endif
-
-@if (!empty($nav))
+    
     <nav>
-        {!! $nav !!}
+        @include('components.partials.nav')
     </nav>
-@endif
-
-@if (!empty($content))
+    
     <main class="container">
-        {!! $content !!}
+        @yield('content')
     </main>
-@endif
-
-@if (!empty($footer))
+    
     <footer class="main-footer">
-        {!! $footer !!}
+        @include('components.partials.footer')
     </footer>
-@endif
+
 </body>
 </html>

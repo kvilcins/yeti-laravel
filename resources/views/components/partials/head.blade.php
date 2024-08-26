@@ -6,5 +6,5 @@
 <script src="{{ asset('js/viewed_lots.js') }}"></script>
 
 @isset($id)
-    <meta name="lot-id" content="{{ htmlspecialchars($id) }}">
+    <meta name="lot-id" content="{{ $id }}">
 @endisset
