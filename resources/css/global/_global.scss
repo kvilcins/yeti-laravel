@@ -1,0 +1,88 @@
+body {
+  min-width: 1140px;
+  background-color: #dbe6e9;
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #25434e;
+}
+
+a {
+  text-decoration: none;
+}
+
+h2 {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 28px;
+  line-height: 35px;
+  font-weight: 700;
+}
+
+.text-link {
+  font-weight: 700;
+  color: #45abde;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+.text-link:active {
+  color: #2590c6;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  -webkit-clip-path: inset(100%);
+  clip-path: inset(100%);
+}
+
+.container {
+  width: 1110px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.button {
+  display: block;
+  padding: 9px 32px;
+  background-color: #45abde;
+  color: #ffffff;
+  text-align: center;
+  font-weight: 700;
+  border: none;
+  border-radius: 3px;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #61c3f4;
+}
+
+.button:active {
+  background-color: #2590c6;
+}
+
+.button:disabled {
+  background-color: #45abde;
+  opacity: 0.2;
+}
+
+.rub {
+  display: inline-block;
+  width: 12px;
+  height: 13px;
+  margin-left: 4px;
+  font-size: 0;
+  vertical-align: baseline;
+  background: url("../img/rub.svg") 0 0 no-repeat;
+}

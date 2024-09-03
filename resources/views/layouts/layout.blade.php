@@ -1,29 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    @include('components.partials.head')
-</head>
+
+@include('components.partials.head')
+
 <body>
 
-    <header>
-        @include('components.partials.header', [
-            'is_auth' => $is_auth,
-            'user_name' => $user_name,
-            'user_avatar' => $user_avatar
-        ])
-    </header>
+    @include('components.partials.header', [
+        'is_auth' => $is_auth,
+        'user_name' => $user_name,
+        'user_avatar' => $user_avatar
+    ])
+
+    @yield('content')
     
-    <nav>
-        @include('components.partials.nav')
-    </nav>
-    
-    <main class="container">
-        @yield('content')
-    </main>
-    
-    <footer class="main-footer">
-        @include('components.partials.footer')
-    </footer>
+    @include('components.partials.footer')
 
 </body>
 </html>

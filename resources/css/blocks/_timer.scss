@@ -1,0 +1,39 @@
+.timer {
+  position: relative;
+  padding: 6px 8px 5px 23px;
+  background-color: #879296;
+  font-size: 13px;
+  line-height: 18px;
+  color: #ffffff;
+  border-radius: 2px;
+  height: 26px;
+}
+
+.timer::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 9px;
+  width: 12px;
+  height: 12px;
+  background: url("../img/timer.svg") 0 0 no-repeat;
+}
+
+.timer--finishing {
+  background-color: #f84646;
+}
+
+.timer--win {
+  padding: 6px 8px 5px 8px;
+  background-color: #ffffff;
+  color: #25434e;
+}
+
+.timer--end {
+  padding: 6px 8px 5px 8px;
+}
+
+.timer--win::before,
+.timer--end::before {
+  display: none;
+}

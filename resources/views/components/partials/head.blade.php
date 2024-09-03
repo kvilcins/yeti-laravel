@@ -1,10 +1,13 @@
-<meta charset="UTF-8">
-<title>@yield('title')</title>
-<link href="{{ asset('css/normalize.min.css') }}" rel="stylesheet">
-<link href="{{ asset('css/style.css') }}" rel="stylesheet">
-<script src="{{ asset('js/form-validation.js') }}"></script>
-<script src="{{ asset('js/viewed_lots.js') }}"></script>
-
-@isset($id)
-    <meta name="lot-id" content="{{ $id }}">
-@endisset
+<head>
+    <meta charset="UTF-8">
+    <title>@yield('title')</title>
+    <!-- Подключение Normalize CSS -->
+    <link href="{{ asset('css/normalize.min.css') }}" rel="stylesheet">
+    <!-- Подключение скомпилированных стилей -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Подключение скомпилированных JavaScript файлов -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    @isset($id)
+        <meta name="lot-id" content="{{ $id }}">
+    @endisset
+</head>

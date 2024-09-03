@@ -1,0 +1,52 @@
+.pagination-list {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  margin-bottom: 120px;
+  padding: 22px 20px;
+  list-style: none;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: #ffffff;
+}
+
+.pagination-item {
+  margin-right: 5px;
+}
+
+.pagination-item a {
+  color: #879296;
+  padding: 5px 10px;
+}
+
+.pagination-item a:hover {
+  color: #45abde;
+}
+
+.pagination-item a:active {
+  color: #2590c6;
+}
+
+.pagination-item-prev {
+  margin-right: auto;
+}
+
+.pagination-item-next {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.pagination-item-active a {
+  color: #25434e;
+  background-color: rgba(135, 146, 150, 0.1);
+}
+
+.pagination-item-active a:hover {
+  color: #25434e;
+}
+
+.pagination-item-active a:active {
+  color: #25434e;
+}

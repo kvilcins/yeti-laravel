@@ -1,0 +1,141 @@
+.lot-item {
+  padding-top: 50px;
+}
+
+.lot-item h2 {
+  padding-bottom: 25px;
+}
+
+.lot-item__content {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.lot-item__left {
+  width: 730px;
+}
+
+.lot-item__right {
+  width: 350px;
+}
+
+.lot-item__image {
+  position: relative;
+  width: 730px;
+  height: 550px;
+  text-align: center;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.lot-item__image img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.lot-item__category {
+  margin: 20px 0 12px;
+  font-size: 13px;
+}
+
+.lot-item__category span {
+  color: #879296;
+}
+
+.lot-item__description {
+  margin: 0;
+  font-weight: 400;
+}
+
+.lot-item__state {
+  padding: 30px;
+  background-color: #ffffff;
+}
+
+.lot-item__timer {
+  -webkit-align-self: flex-end;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  width: 80px;
+  margin-bottom: 19px;
+  box-sizing: border-box;
+}
+
+.lot-item__cost-state {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.lot-item__amount {
+  font-size: 13px;
+}
+
+.lot-item__cost {
+  display: block;
+  margin-top: -5px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 28px;
+  line-height: 31px;
+  font-weight: 700;
+}
+
+.lot-item__min-cost {
+  -webkit-align-self: flex-end;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+}
+
+.lot-item__form {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-top: 17px;
+}
+
+.lot-item__form-item {
+  margin: 0;
+}
+
+.lot-item__form-item label {
+  display: block;
+  font-size: 13px;
+  line-height: 21px;
+}
+
+.lot-item__form-item input {
+  display: block;
+  width: 130px;
+  padding: 5px 7px;
+  font-size: 13px;
+  box-sizing: border-box;
+  border: 1px solid #e1e6e7;
+  border-radius: 3px;
+}
+
+.lot-item__form-item input:focus {
+  border-color: #45abde;
+}
+
+.lot-item__form .button {
+  -webkit-align-self: flex-end;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  padding: 6px 20px 7px;
+  height: 38px;
+}
