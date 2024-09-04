@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Item;
 
 class MainController extends Controller
 {
     public function index()
     {
-        // Подключение конфигурационных файлов
-        $categories = include base_path('config/categories.php');
-        $ads = include base_path('config/items.php');
-        $bets = include base_path('config/data.php');
-        $users = include base_path('config/userdata.php');
+        // Получаем данные из базы данных
+        $categories = Category::all(); // Получаем все категории
+        $ads = Item::all(); // Получаем все лоты
         
-        // Данные
+        // Данные для примера (можно убрать или заменить на логику аутентификации)
         $is_auth = (bool) rand(0, 1);
         $user_name = 'Константин';
         $user_avatar = 'img/user.jpg';
@@ -26,8 +26,6 @@ class MainController extends Controller
             'user_avatar' => $user_avatar,
             'categories' => $categories,
             'ads' => $ads,
-            'bets' => $bets,
-            'users' => $users,
         ]);
     }
 }
