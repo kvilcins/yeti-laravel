@@ -15,6 +15,11 @@ use App\Http\Controllers\LotController;
 |
 */
 
-Route::get('/', [MainController::class, 'index']);
+Route::get('/', [MainController::class, 'index'])->name('home');
 
-Route::get('pages/add', [LotController::class, 'showForm'])->name('add.form');
+Route::get('/test', function() {
+    return 'Работает!';
+});
+
+
+Route::match(['get', 'post'], 'add', [LotController::class, 'handleForm'])->name('add.form');
