@@ -12,7 +12,7 @@ class LotController extends Controller
     public function handleForm(Request $request)
     {
         if ($request->isMethod('post')) {
-            // Обработка данных формы
+            // Валидация данных формы
             $validatedData = $request->validate([
                 'lot-name' => 'required|string|max:255',
                 'category' => 'required|string',
@@ -23,37 +23,47 @@ class LotController extends Controller
                 'lot-date' => 'required|date|after:today',
             ]);
             
+            // Поиск категории
+            $category = Category::where('name', $request->input('category'))->first();
+            if (!$category) {
+                return redirect()->back()->withErrors(['category' => 'Категория не найдена'])->withInput();
+            }
+            
             // Обработка изображения
             if ($request->hasFile('lot-img')) {
-                $imageName = time() . '.' . $request->file('lot-img')->extension();
+                $imageName = uniqid() . '.' . $request->file('lot-img')->extension();
                 $request->file('lot-img')->move(public_path('img'), $imageName);
                 $validatedData['lot-img'] = 'img/' . $imageName;
             }
             
-            // Сохранение данных в БД
-            $categoryId = Category::where('name', $request->input('category'))->first()->id;
+            // Сохранение данных в таблицу `items`
             Item::create([
                 'title' => $validatedData['lot-name'],
                 'description' => $validatedData['message'],
                 'price' => $validatedData['lot-rate'],
-                'min_bid' => $validatedData['lot-rate'],
+                'min_bid' => $validatedData['lot-step'],
                 'img' => $validatedData['lot-img'],
-                'category_id' => $categoryId,
-                'end_date' => $validatedData['lot-date']
+                'category_id' => $category->id,
+                'end_date' => $validatedData['lot-date'],
             ]);
             
             return redirect()->route('add.form')->with('success', 'Лот успешно добавлен!');
         }
         
-        // Отображение формы
-        $categories = Category::all(); // Загружаем категории из базы данных
+        // Данные для примера (замени на логику аутентификации)
+        $is_auth = (bool) rand(0, 1);
+        $user_name = 'Константин';
+        $user_avatar = 'img/user.jpg';
         
+        // Загрузка категорий для формы
+        $categories = Category::all();
+        
+        // Передача данных в представление
         return view('pages.add', [
+            'is_auth' => $is_auth,
+            'user_name' => $user_name,
+            'user_avatar' => $user_avatar,
             'categories' => $categories,
-            'errors' => session('errors', []),
-            'submitted_data' => session('submitted_data', [])
         ]);
     }
 }
-
-

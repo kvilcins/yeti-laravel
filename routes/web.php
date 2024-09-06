@@ -21,5 +21,6 @@ Route::get('/test', function() {
     return 'Работает!';
 });
 
-
 Route::match(['get', 'post'], 'add', [LotController::class, 'handleForm'])->name('add.form');
+
+Route::post('/lot/store', [LotController::class, 'handleForm'])->name('lot.store');
