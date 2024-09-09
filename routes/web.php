@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\LotController;
+use App\Http\Controllers\BidController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +19,12 @@ use App\Http\Controllers\LotController;
 
 Route::get('/', [MainController::class, 'index'])->name('home');
 
-Route::get('/test', function() {
-    return 'Работает!';
-});
-
-Route::match(['get', 'post'], 'add', [LotController::class, 'handleForm'])->name('add.form');
+Route::match(['get', 'post'], '/add', [LotController::class, 'handleForm'])->name('add.form');
 
 Route::post('/lot/store', [LotController::class, 'handleForm'])->name('lot.store');
+
+Route::get('/lot/{id}', [LotController::class, 'show'])->name('lot.show');
+
+Route::post('/lot/{id}/bid', [BidController::class, 'store'])->name('bids.store');
+
+Route::match(['get', 'post'], '/login', [AuthController::class, 'handleLogin'])->name('login');

@@ -20,7 +20,7 @@
             @else
                 <ul class="user-menu__list">
                     <li class="user-menu__item">
-                        <a href="{{ url('pages/login') }}">Войти</a>
+                        <a href="{{ route('login') }}">Войти</a>
                     </li>
                     <li class="user-menu__item">
                         <a href="{{ url('register') }}">Регистрация</a>

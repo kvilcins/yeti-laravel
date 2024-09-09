@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.main')
 
 @section('title', 'Главная страница')
 
@@ -24,12 +24,12 @@
                 @foreach ($ads as $ad)
                     <li class="lots__item lot">
                         <div class="lot__image">
-                            <img src="{{ asset('img/' . $ad->img) }}" width="350" height="260" alt="Сноуборд">
+                            <img src="{{ asset($ad->img) }}" width="350" height="260" alt="Сноуборд">
                         </div>
                         <div class="lot__info">
                             <span class="lot__category">{{ $ad->category->name }}</span>
                             <h3 class="lot__title">
-                                <a class="text-link" href="{{ url('pages/lot', ['id' => $ad->id]) }}">{{ $ad->title }}</a>
+                                <a class="text-link" href="{{ url('lot', ['id' => $ad->id]) }}">{{ $ad->title }}</a>
                             </h3>
                             <div class="lot__state">
                                 <div class="lot__rate">

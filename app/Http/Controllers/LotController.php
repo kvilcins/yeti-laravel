@@ -66,4 +66,27 @@ class LotController extends Controller
             'categories' => $categories,
         ]);
     }
+    
+    public function show($id)
+    {
+        $lot = Item::with('category')->find($id);
+        
+        if (!$lot) {
+            abort(404, 'Лот не найден');
+        }
+        
+        $is_auth = (bool) rand(0, 1);
+        $user_name = 'Константин';
+        $user_avatar = 'img/user.jpg';
+        
+        $categories = Category::all();
+        
+        return view('pages.lot', [
+            'lot' => $lot,
+            'is_auth' => $is_auth,
+            'user_name' => $user_name,
+            'categories' => $categories,
+            'user_avatar' => $user_avatar,
+        ]);
+    }
 }
