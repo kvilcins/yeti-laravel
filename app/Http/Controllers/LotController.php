@@ -50,7 +50,7 @@ class LotController extends Controller
             return redirect()->route('add.form')->with('success', 'Лот успешно добавлен!');
         }
         
-        // Данные для примера (замени на логику аутентификации)
+        // Данные для аутентификации
         $is_auth = (bool) rand(0, 1);
         $user_name = 'Константин';
         $user_avatar = 'img/user.jpg';

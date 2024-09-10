@@ -23,7 +23,7 @@
                         <a href="{{ route('login') }}">Войти</a>
                     </li>
                     <li class="user-menu__item">
-                        <a href="{{ url('register') }}">Регистрация</a>
+                        <a href="{{ route('register') }}">Регистрация</a>
                     </li>
                 </ul>
             @endif

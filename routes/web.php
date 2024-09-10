@@ -28,3 +28,5 @@ Route::get('/lot/{id}', [LotController::class, 'show'])->name('lot.show');
 Route::post('/lot/{id}/bid', [BidController::class, 'store'])->name('bids.store');
 
 Route::match(['get', 'post'], '/login', [AuthController::class, 'handleLogin'])->name('login');
+
+Route::match(['get', 'post'], '/register', [AuthController::class, 'handleRegistration'])->name('register');
