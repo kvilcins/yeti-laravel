@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Category;
@@ -21,14 +22,14 @@ class AuthController extends Controller
                 'message' => 'required|string',
                 'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-            
+    
             // Обработка аватара
             if ($request->hasFile('avatar')) {
                 $avatarName = uniqid() . '.' . $request->file('avatar')->extension();
                 $request->file('avatar')->move(public_path('img'), $avatarName);
                 $validatedData['avatar'] = 'img/' . $avatarName;
             } else {
-                $validatedData['avatar'] = 'img/default_avatar.jpg'; // Стандартный аватар
+                $validatedData['avatar'] = 'img/default-avatar.jpg'; // Стандартный аватар
             }
             
             // Хэширование пароля и сохранение пользователя
@@ -43,21 +44,12 @@ class AuthController extends Controller
             return redirect()->route('login')->with('success', 'Аккаунт успешно зарегистрирован!');
         }
         
-        // Данные для примера (если аутентификации нет)
-        $is_auth = (bool) rand(0, 1);
-        $user_name = 'Константин';
-        $user_avatar = 'img/user.jpg';
-        
-        // Загрузка категорий для формы
-        $categories = Category::all();
+        // Получение общих данных для отображения на странице регистрации
+        $dataController = new DataController();
+        $commonData = $dataController->getCommonData();
         
         // Передача данных в представление
-        return view('pages.sign-up', [
-            'is_auth' => $is_auth,
-            'user_name' => $user_name,
-            'user_avatar' => $user_avatar,
-            'categories' => $categories,
-        ]);
+        return view('pages.sign-up', $commonData);
     }
     
     // Авторизация
@@ -70,24 +62,31 @@ class AuthController extends Controller
                 'password' => 'required|string|min:6',
             ]);
             
-            // Здесь надо добавить логику проверки учетных данных, но пока просто возвращает успех
-            return redirect()->route('login')->with('success', 'Вы успешно вошли в систему!');
+            // Проверка учетных данных
+            $user = User::where('email', $validatedData['email'])->first();
+            
+            if ($user && Hash::check($validatedData['password'], $user->password)) {
+                Auth::login($user); // Авторизация пользователя
+                return redirect()->route('home')->with('success', 'Вы успешно вошли в систему!');
+            } else {
+                return redirect()->back()->withErrors([
+                    'email' => 'Неверные учетные данные.',
+                ]);
+            }
         }
         
-        // Пример данных пользователя
-        $is_auth = false; // Пользователь не авторизован
-        $user_name = 'Гость';
-        $user_avatar = 'img/default-avatar.jpg';
-        
-        // Загрузка категорий для отображения на странице (по аналогии с LotController)
-        $categories = Category::all();
+        // Получение общих данных для отображения на странице логина
+        $dataController = new DataController();
+        $commonData = $dataController->getCommonData();
         
         // Передача данных в представление страницы логина
-        return view('pages.login', [
-            'is_auth' => $is_auth,
-            'user_name' => $user_name,
-            'user_avatar' => $user_avatar,
-            'categories' => $categories,
-        ]);
+        return view('pages.login', $commonData);
+    }
+    
+    // Разлогирование
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect()->route('home')->with('success', 'Вы успешно вышли из системы!');
     }
 }

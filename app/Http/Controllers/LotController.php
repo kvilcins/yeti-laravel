@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Item;
+use App\Http\Controllers\DataController;
 
 class LotController extends Controller
 {
@@ -50,21 +51,10 @@ class LotController extends Controller
             return redirect()->route('add.form')->with('success', 'Лот успешно добавлен!');
         }
         
-        // Данные для аутентификации
-        $is_auth = (bool) rand(0, 1);
-        $user_name = 'Константин';
-        $user_avatar = 'img/user.jpg';
+        // Получаем общие данные через DataController
+        $commonData = DataController::getCommonData();
         
-        // Загрузка категорий для формы
-        $categories = Category::all();
-        
-        // Передача данных в представление
-        return view('pages.add', [
-            'is_auth' => $is_auth,
-            'user_name' => $user_name,
-            'user_avatar' => $user_avatar,
-            'categories' => $categories,
-        ]);
+        return view('pages.add', $commonData);
     }
     
     public function show($id)
@@ -75,18 +65,13 @@ class LotController extends Controller
             abort(404, 'Лот не найден');
         }
         
-        $is_auth = (bool) rand(0, 1);
-        $user_name = 'Константин';
-        $user_avatar = 'img/user.jpg';
+        // Получаем общие данные через DataController
+        $commonData = DataController::getCommonData();
         
-        $categories = Category::all();
-        
-        return view('pages.lot', [
+        // Передача данных в представление с lot-id
+        return view('pages.lot', array_merge($commonData, [
             'lot' => $lot,
-            'is_auth' => $is_auth,
-            'user_name' => $user_name,
-            'categories' => $categories,
-            'user_avatar' => $user_avatar,
-        ]);
+            'id' => $id
+        ]));
     }
 }

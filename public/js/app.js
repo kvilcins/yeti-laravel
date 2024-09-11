@@ -121,8 +121,6 @@ function addViewedLot(lotId) {
 function updateViewedLots() {
   const viewedLots = JSON.parse(localStorage.getItem('viewed_lots')) || [];
   document.cookie = `viewed_lots=${JSON.stringify(viewedLots)}; path=/`;
-
-  // Можно добавить логику для обновления DOM здесь, если необходимо
 }
 
 /***/ })

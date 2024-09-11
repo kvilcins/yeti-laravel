@@ -8,16 +8,22 @@
             <input type="search" name="search" placeholder="Поиск лота">
             <input class="main-header__search-btn" type="submit" name="find" value="Найти">
         </form>
-        <a class="main-header__add-lot button" href="{{ route('add.form') }}">Добавить лот</a>
         <nav class="user-menu">
             @if($is_auth)
+                <!-- Если пользователь авторизован -->
+                <a class="main-header__add-lot button" href="{{ route('add.form') }}">Добавить лот</a>
                 <div class="user-menu__image">
                     <img src="{{ asset($user_avatar) }}" width="40" height="40" alt="Пользователь">
                 </div>
                 <div class="user-menu__logged">
                     <p>{{ $user_name }}</p>
                 </div>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="button">Выйти</button>
+                </form>
             @else
+                <!-- Если пользователь не авторизован -->
                 <ul class="user-menu__list">
                     <li class="user-menu__item">
                         <a href="{{ route('login') }}">Войти</a>
