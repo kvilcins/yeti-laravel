@@ -11,7 +11,7 @@
         <nav class="user-menu">
             @if($is_auth)
                 <!-- Если пользователь авторизован -->
-                <a class="main-header__add-lot button" href="{{ route('add.form') }}">Добавить лот</a>
+                <a class="main-header__add-lot button" href="{{ route('lot.create') }}">Добавить лот</a>
                 <div class="user-menu__image">
                     <img src="{{ asset($user_avatar) }}" width="40" height="40" alt="Пользователь">
                 </div>

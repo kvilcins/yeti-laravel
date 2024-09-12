@@ -28,7 +28,7 @@
                                     <span class="lot__cost">{{ formatPrice($ad->price) }}</span>
                                 </div>
                                 <div class="lot__timer timer">
-                                    {{ $ad->end_date->diffInSeconds(now()) }}
+                                    {{ time_to_midnight() }}
                                 </div>
                             </div>
                         </div>

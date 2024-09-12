@@ -23,24 +23,31 @@ Route::get('/', [MainController::class, 'index'])->name('home');
 
 // Доступ к добавлению лота только для авторизованных пользователей
 Route::middleware('auth')->group(function () {
-    Route::match(['get', 'post'], '/add', [LotController::class, 'handleForm'])->name('add.form');
+    Route::get('/add', [LotController::class, 'create'])->name('lot.create');
+    Route::post('/add', [LotController::class, 'store'])->name('lot.store');
+    
+    // Пока закомментирую на будущее роуты для редактирования, удаления и обновления лотов
+    
+    // Route::get('/lot/{id}/edit', [LotController::class, 'edit'])->name('lot.edit');
+    // Route::put('/lot/{id}', [LotController::class, 'update'])->name('lot.update');
+    // Route::delete('/lot/{id}', [LotController::class, 'destroy'])->name('lot.destroy');
 });
-
-// Я что-то забыла, для чего это :D
-Route::post('/lot/store', [LotController::class, 'handleForm'])->name('lot.store');
-
 // Страницы лотов
 Route::get('/lot/{id}', [LotController::class, 'show'])->name('lot.show');
 
 // Ставки (в разработке)
 Route::post('/lot/{id}/bid', [BidController::class, 'store'])->name('bids.store');
 
-// Авторизация
-Route::match(['get', 'post'], '/login', [AuthController::class, 'handleLogin'])->name('login');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-// Регистрация
-Route::match(['get', 'post'], '/register', [AuthController::class, 'handleRegistration'])->name('register');
-
 // Просмотренные лоты
 Route::get('/viewed-lots', [ViewedLotsController::class, 'index'])->name('viewed.lots');
+
+// Показать форму регистрации и входа
+Route::get('/register', [AuthController::class, 'create'])->name('register');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+
+// Обработка данных регистрации и логина
+Route::post('/register', [AuthController::class, 'store'])->name('register.store');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+// Разлогирование
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

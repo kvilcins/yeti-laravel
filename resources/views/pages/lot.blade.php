@@ -16,15 +16,15 @@
             <div class="lot-item__right">
                 <div class="lot-item__state">
                     <div class="lot-item__timer timer">
-                        {{ now()->diffForHumans($lot->end_date, ['syntax' => \Carbon\CarbonInterface::DIFF_RELATIVE_TO_NOW]) }}
+                        {{ time_to_midnight() }}
                     </div>
                     <div class="lot-item__cost-state">
                         <div class="lot-item__rate">
                             <span class="lot-item__amount">Текущая цена</span>
-                            <span class="lot-item__cost">{{ number_format($lot->price, 0, ',', ' ') }} ₽</span>
+                            <span class="lot-item__cost">{{ formatPrice($lot->price) }}</span>
                         </div>
                         <div class="lot-item__min-cost">
-                            Мин. ставка <span>{{ number_format($lot->min_bid, 0, ',', ' ') }} ₽</span>
+                            Мин. ставка <span>{{ formatPrice($lot->min_bid) }}</span>
                         </div>
                     </div>
                     <form class="lot-item__form" action="{{ route('bids.store', $lot->id) }}" method="post">
