@@ -6,6 +6,7 @@ use App\Http\Controllers\LotController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ViewedLotsController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function () {
     // Route::put('/lot/{id}', [LotController::class, 'update'])->name('lot.update');
     // Route::delete('/lot/{id}', [LotController::class, 'destroy'])->name('lot.destroy');
 });
+
 // Страницы лотов
 Route::get('/lot/{id}', [LotController::class, 'show'])->name('lot.show');
 
@@ -51,3 +53,9 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 // Разлогирование
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Поиск
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+// Поисковые подсказки
+Route::get('/search-suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');

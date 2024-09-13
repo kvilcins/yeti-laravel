@@ -4,9 +4,10 @@
         <a class="main-header__logo" href="{{ route('home') }}">
             <img src="{{ asset('img/logo.svg') }}" width="160" height="39" alt="Логотип компании YetiCave">
         </a>
-        <form class="main-header__search" method="get" action="https://echo.htmlacademy.ru">
-            <input type="search" name="search" placeholder="Поиск лота">
-            <input class="main-header__search-btn" type="submit" name="find" value="Найти">
+        <form class="main-header__search" method="get" action="{{ route('search') }}">
+            <input type="search" name="search" id="search-input" placeholder="Поиск лота" autocomplete="off">
+            <datalist id="search-suggestions" class="search-suggestions"></datalist>
+            <button class="main-header__search-btn" type="button" id="search-button">Найти</button>
         </form>
         <nav class="user-menu">
             @if($is_auth)

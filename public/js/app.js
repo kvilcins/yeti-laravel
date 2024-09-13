@@ -92,6 +92,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /***/ }),
 
+/***/ "./resources/js/modules/search-suggestions.js":
+/*!****************************************************!*\
+  !*** ./resources/js/modules/search-suggestions.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+document.getElementById('search-input').addEventListener('input', function () {
+  let query = this.value;
+  if (query.length > 2) {
+    fetch(`/search-suggestions?query=${query}`).then(response => response.json()).then(data => {
+      let suggestions = data.map(item => `<option value="${item.title}">${item.title}</option>`).join('');
+      document.getElementById('search-suggestions').innerHTML = suggestions;
+    }).catch(error => console.error('Error:', error));
+  }
+});
+document.getElementById('search-suggestions').addEventListener('change', function (event) {
+  let selectedValue = event.target.value;
+  if (selectedValue.length > 0) {
+    document.getElementById('search-input').value = selectedValue;
+    performSearch(selectedValue);
+  }
+});
+document.getElementById('search-input').addEventListener('change', function () {
+  let enteredValue = this.value;
+  if (enteredValue.length > 0) {
+    performSearch(enteredValue);
+  }
+});
+document.getElementById('search-button').addEventListener('click', function () {
+  let query = document.getElementById('search-input').value;
+  performSearch(query);
+});
+function performSearch(query) {
+  if (query.length > 0) {
+    window.location.href = `/search?search=${encodeURIComponent(query)}`;
+  }
+}
+
+/***/ }),
+
 /***/ "./resources/js/modules/viewed_lots.js":
 /*!*********************************************!*\
   !*** ./resources/js/modules/viewed_lots.js ***!
@@ -172,6 +213,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _css_app_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/app.scss */ "./resources/css/app.scss");
 /* harmony import */ var _modules_form_validation_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/form-validation.js */ "./resources/js/modules/form-validation.js");
 /* harmony import */ var _modules_viewed_lots_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/viewed_lots.js */ "./resources/js/modules/viewed_lots.js");
+/* harmony import */ var _modules_search_suggestions_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/search-suggestions.js */ "./resources/js/modules/search-suggestions.js");
+
 
 
 

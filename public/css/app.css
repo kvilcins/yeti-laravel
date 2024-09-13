@@ -1171,4 +1171,9 @@ input:invalid .form__error {
   color: #727b7f;
 }
 
+.search-suggestions {
+  display: block;
+  background-color: #fff;
+}
+
 /*# sourceMappingURL=app.css.map*/
