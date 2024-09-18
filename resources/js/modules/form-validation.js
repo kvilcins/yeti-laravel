@@ -7,69 +7,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const photoPreview = form.querySelector('.preview__img img');
     const previewContainer = form.querySelector('.preview');
     const inputFileContainer = form.querySelector('.form__input-file');
+    const fileInput = form.querySelector('input[type="file"]');
     
+    // Проверка формы на наличие ошибок
     const checkFormForErrors = () => {
         let hasErrors = false;
-        const inputs = form.querySelectorAll('input, select, textarea');
-        
-        inputs.forEach(input => {
-            if (!input.checkValidity()) {
-                input.classList.add('form__item--invalid');
-                if (input.nextElementSibling) {
-                    input.nextElementSibling.style.display = 'block';
-                }
-                hasErrors = true;
-            } else {
-                input.classList.remove('form__item--invalid');
-                if (input.nextElementSibling) {
-                    input.nextElementSibling.style.display = 'none';
-                }
+        form.querySelectorAll('input, select, textarea').forEach(input => {
+            const isValid = input.checkValidity();
+            input.classList.toggle('form__item--invalid', !isValid);
+            if (input.nextElementSibling) {
+                input.nextElementSibling.style.display = isValid ? 'none' : 'block';
             }
+            hasErrors = !isValid || hasErrors;
         });
-        
-        if (hasErrors) {
-            form.classList.add('form--invalid');
-        } else {
-            form.classList.remove('form--invalid');
-        }
+        form.classList.toggle('form--invalid', hasErrors);
     };
     
-    submitButton.addEventListener('click', event => {
-        checkFormForErrors();
-        if (form.checkValidity()) {
-            form.submit();  // Отправка формы, если нет ошибок
-        }
-    });
-    
     // Отображение выбранного изображения в превью
-    const fileInput = form.querySelector('input[type="file"]');
-    if (fileInput) {
-        fileInput.addEventListener('change', event => {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            
-            reader.onload = function(e) {
-                if (photoPreview) {
-                    photoPreview.src = e.target.result;
-                }
-                if (previewContainer) {
-                    previewContainer.classList.add('form__item--uploaded');
-                    previewContainer.style.display = 'block';
-                    previewContainer.style.position = 'unset';
-                }
-                if (inputFileContainer) {
-                    inputFileContainer.classList.add('hidden');
-                }
-            };
-            
-            reader.readAsDataURL(file);
-        });
-    }
+    const handleFileInputChange = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            if (photoPreview) photoPreview.src = e.target.result;
+            if (previewContainer) {
+                previewContainer.classList.add('form__item--uploaded');
+                previewContainer.style.display = 'block';
+                previewContainer.style.position = 'unset';
+            }
+            if (inputFileContainer) inputFileContainer.classList.add('hidden');
+        };
+        reader.readAsDataURL(file);
+    };
     
-    // Проверка на наличие изображения при нажатии на кнопку "добавить лот"
-    submitButton.addEventListener('click', event => {
-        if (fileInput && !fileInput.value) {
-            photoLabel.style.display = 'block';
-        }
-    });
+    // Обработка клика по кнопке отправки формы
+    const handleSubmitClick = (event) => {
+        checkFormForErrors();
+        if (form.checkValidity()) form.submit();
+        if (fileInput && !fileInput.value) photoLabel.style.display = 'block';
+    };
+    
+    submitButton.addEventListener('click', handleSubmitClick);
+    if (fileInput) fileInput.addEventListener('change', handleFileInputChange);
 });

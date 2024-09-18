@@ -6,7 +6,7 @@
         </a>
         <form class="main-header__search" method="get" action="{{ route('search') }}">
             <input type="search" name="search" id="search-input" placeholder="Поиск лота" autocomplete="off">
-            <datalist id="search-suggestions" class="search-suggestions"></datalist>
+            <ul id="search-suggestions" class="search-suggestions"></ul>
             <button class="main-header__search-btn" type="button" id="search-button">Найти</button>
         </form>
         <nav class="user-menu">

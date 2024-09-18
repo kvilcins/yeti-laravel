@@ -9,7 +9,7 @@ use App\Models\Item;
 class DataController extends Controller
 {
     // Метод для получения общих данных
-    public function getCommonData()
+    public function getCommonData($categoryId = null)
     {
         $isAuth = Auth::check(); // Проверка аутентификации
         
@@ -27,6 +27,20 @@ class DataController extends Controller
         
         // Получаем все лоты с жадной загрузкой связанных категорий
         $ads = Item::with('category')->get();
+    
+        // Если передан $categoryId, ищем категорию и лоты по этой категории
+        $categoryName = null;
+        $ads = [];
+        if ($categoryId) {
+            $category = Category::find($categoryId);
+            if ($category) {
+                $categoryName = $category->name;
+                $ads = Item::where('category_id', $categoryId)->with('category')->get();
+            }
+        } else {
+            // Если категория не указана, получаем все лоты
+            $ads = Item::with('category')->get();
+        }
         
         // Возвращаем данные в виде массива
         return [
@@ -35,6 +49,7 @@ class DataController extends Controller
             'user_avatar' => $userAvatar,
             'categories' => $categories,
             'ads' => $ads,
+            'category_name' => $categoryName,
         ];
     }
     

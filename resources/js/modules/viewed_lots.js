@@ -1,27 +1,21 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     const lotIdMetaTag = document.querySelector('meta[name="lot-id"]');
     if (lotIdMetaTag) {
         const lotId = parseInt(lotIdMetaTag.getAttribute('content'));
-        
-        if (!isNaN(lotId)) {
-            addViewedLot(lotId);
-        }
+        if (!isNaN(lotId)) addViewedLot(lotId);
     }
-    
-    // Обновление списка просмотренных лотов
     updateViewedLots();
 });
 
-function addViewedLot(lotId) {
-    let viewedLots = JSON.parse(localStorage.getItem('viewed_lots')) || [];
-    
+const addViewedLot = lotId => {
+    const viewedLots = JSON.parse(localStorage.getItem('viewed_lots')) || [];
     if (!viewedLots.includes(lotId)) {
         viewedLots.push(lotId);
         localStorage.setItem('viewed_lots', JSON.stringify(viewedLots));
     }
-}
+};
 
-function updateViewedLots() {
+const updateViewedLots = () => {
     const viewedLots = JSON.parse(localStorage.getItem('viewed_lots')) || [];
     document.cookie = `viewed_lots=${JSON.stringify(viewedLots)}; path=/`;
-}
+};

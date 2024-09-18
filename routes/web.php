@@ -7,6 +7,7 @@ use App\Http\Controllers\BidController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ViewedLotsController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,3 +60,6 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 // Поисковые подсказки
 Route::get('/search-suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');
+
+// Страницы категорий
+Route::get('/category/{categoryId}', [CategoryController::class, 'show'])->name('category.show');

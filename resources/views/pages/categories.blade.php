@@ -1,27 +1,14 @@
-@extends('layouts.main')
+@extends('layouts.page')
 
-@section('title', 'Главная страница')
+@section('title', 'Категория: ' . $category_name)
 
 @section('content')
     <main class="container">
-        <section class="promo">
-            <h2 class="promo__title">Нужен стафф для катки?</h2>
-            <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
-            <ul class="promo__list">
-                @foreach ($categories as $category)
-                    <li class="promo__item promo__item--{{ $category->class }}">
-                        <a class="promo__link" href="{{ route('category.show', ['categoryId' => $category->id]) }}">{{ $category->name }}</a>
-                    </li>
-                @endforeach
-            </ul>
-        </section>
-        
         <section class="lots">
-            <div class="lots__header">
-                <h2>Открытые лоты</h2>
-            </div>
+            <h2>Все лоты в категории <span>«{{ $category_name ?? 'Все категории' }}»</span></h2>
+    
             <ul class="lots__list">
-                @foreach ($ads as $ad)
+                @forelse ($ads as $ad)
                     <li class="lots__item lot">
                         <div class="lot__image">
                             <img src="{{ asset($ad->img) }}" width="350" height="260" alt="Сноуборд">
@@ -42,7 +29,11 @@
                             </div>
                         </div>
                     </li>
-                @endforeach
+                @empty
+                    <li class="lots__item lot">
+                        <p>Нет лотов в этой категории.</p>
+                    </li>
+                @endforelse
             </ul>
         </section>
     </main>

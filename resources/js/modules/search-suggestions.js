@@ -1,41 +1,51 @@
-document.getElementById('search-input').addEventListener('input', function () {
-    let query = this.value;
+// Обработчик ввода в поле поиска
+document.getElementById('search-input').addEventListener('input', (event) => {
+    const query = event.target.value;
     
+    // Если запрос больше 2 символов, запрашиваем подсказки
     if (query.length > 2) {
         fetch(`/search-suggestions?query=${query}`)
             .then(response => response.json())
             .then(data => {
-                let suggestions = data.map(item => `<option value="${item.title}">${item.title}</option>`).join('');
-                document.getElementById('search-suggestions').innerHTML = suggestions;
+                // Создаем список подсказок и добавляем его в DOM
+                const suggestions = data.map(item =>
+                    `<li class="suggestion-item">${item.title}</li>`
+                ).join('');
+                const suggestionsContainer = document.getElementById('search-suggestions');
+                suggestionsContainer.innerHTML = suggestions;
+                
+                // Добавляем обработчик кликов на подсказки
+                document.querySelectorAll('.suggestion-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        document.getElementById('search-input').value = item.innerText;
+                        performSearch(item.innerText);
+                    });
+                });
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error fetching suggestions:', error));
+    } else {
+        // Очищаем список подсказок, если запрос меньше 3 символов
+        document.getElementById('search-suggestions').innerHTML = '';
     }
 });
 
-document.getElementById('search-suggestions').addEventListener('change', function (event) {
-    let selectedValue = event.target.value;
-    
-    if (selectedValue.length > 0) {
-        document.getElementById('search-input').value = selectedValue;
-        performSearch(selectedValue);
-    }
-});
-
-document.getElementById('search-input').addEventListener('change', function () {
-    let enteredValue = this.value;
-    
+// Обработчик изменения поля поиска
+document.getElementById('search-input').addEventListener('change', () => {
+    const enteredValue = document.getElementById('search-input').value;
     if (enteredValue.length > 0) {
         performSearch(enteredValue);
     }
 });
 
-document.getElementById('search-button').addEventListener('click', function () {
-    let query = document.getElementById('search-input').value;
+// Обработчик клика на кнопку поиска
+document.getElementById('search-button').addEventListener('click', () => {
+    const query = document.getElementById('search-input').value;
     performSearch(query);
 });
 
-function performSearch(query) {
+// Функция для выполнения поиска
+const performSearch = (query) => {
     if (query.length > 0) {
         window.location.href = `/search?search=${encodeURIComponent(query)}`;
     }
-}
+};

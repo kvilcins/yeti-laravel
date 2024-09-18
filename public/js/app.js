@@ -29,65 +29,46 @@ document.addEventListener('DOMContentLoaded', () => {
   const photoPreview = form.querySelector('.preview__img img');
   const previewContainer = form.querySelector('.preview');
   const inputFileContainer = form.querySelector('.form__input-file');
+  const fileInput = form.querySelector('input[type="file"]');
+
+  // Проверка формы на наличие ошибок
   const checkFormForErrors = () => {
     let hasErrors = false;
-    const inputs = form.querySelectorAll('input, select, textarea');
-    inputs.forEach(input => {
-      if (!input.checkValidity()) {
-        input.classList.add('form__item--invalid');
-        if (input.nextElementSibling) {
-          input.nextElementSibling.style.display = 'block';
-        }
-        hasErrors = true;
-      } else {
-        input.classList.remove('form__item--invalid');
-        if (input.nextElementSibling) {
-          input.nextElementSibling.style.display = 'none';
-        }
+    form.querySelectorAll('input, select, textarea').forEach(input => {
+      const isValid = input.checkValidity();
+      input.classList.toggle('form__item--invalid', !isValid);
+      if (input.nextElementSibling) {
+        input.nextElementSibling.style.display = isValid ? 'none' : 'block';
       }
+      hasErrors = !isValid || hasErrors;
     });
-    if (hasErrors) {
-      form.classList.add('form--invalid');
-    } else {
-      form.classList.remove('form--invalid');
-    }
+    form.classList.toggle('form--invalid', hasErrors);
   };
-  submitButton.addEventListener('click', event => {
-    checkFormForErrors();
-    if (form.checkValidity()) {
-      form.submit(); // Отправка формы, если нет ошибок
-    }
-  });
 
   // Отображение выбранного изображения в превью
-  const fileInput = form.querySelector('input[type="file"]');
-  if (fileInput) {
-    fileInput.addEventListener('change', event => {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        if (photoPreview) {
-          photoPreview.src = e.target.result;
-        }
-        if (previewContainer) {
-          previewContainer.classList.add('form__item--uploaded');
-          previewContainer.style.display = 'block';
-          previewContainer.style.position = 'unset';
-        }
-        if (inputFileContainer) {
-          inputFileContainer.classList.add('hidden');
-        }
-      };
-      reader.readAsDataURL(file);
-    });
-  }
+  const handleFileInputChange = event => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = e => {
+      if (photoPreview) photoPreview.src = e.target.result;
+      if (previewContainer) {
+        previewContainer.classList.add('form__item--uploaded');
+        previewContainer.style.display = 'block';
+        previewContainer.style.position = 'unset';
+      }
+      if (inputFileContainer) inputFileContainer.classList.add('hidden');
+    };
+    reader.readAsDataURL(file);
+  };
 
-  // Проверка на наличие изображения при нажатии на кнопку "добавить лот"
-  submitButton.addEventListener('click', event => {
-    if (fileInput && !fileInput.value) {
-      photoLabel.style.display = 'block';
-    }
-  });
+  // Обработка клика по кнопке отправки формы
+  const handleSubmitClick = event => {
+    checkFormForErrors();
+    if (form.checkValidity()) form.submit();
+    if (fileInput && !fileInput.value) photoLabel.style.display = 'block';
+  };
+  submitButton.addEventListener('click', handleSubmitClick);
+  if (fileInput) fileInput.addEventListener('change', handleFileInputChange);
 });
 
 /***/ }),
@@ -99,37 +80,52 @@ document.addEventListener('DOMContentLoaded', () => {
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-document.getElementById('search-input').addEventListener('input', function () {
-  let query = this.value;
+// Обработчик ввода в поле поиска
+document.getElementById('search-input').addEventListener('input', event => {
+  const query = event.target.value;
+
+  // Если запрос больше 2 символов, запрашиваем подсказки
   if (query.length > 2) {
     fetch(`/search-suggestions?query=${query}`).then(response => response.json()).then(data => {
-      let suggestions = data.map(item => `<option value="${item.title}">${item.title}</option>`).join('');
-      document.getElementById('search-suggestions').innerHTML = suggestions;
-    }).catch(error => console.error('Error:', error));
+      // Создаем список подсказок и добавляем его в DOM
+      const suggestions = data.map(item => `<li class="suggestion-item">${item.title}</li>`).join('');
+      const suggestionsContainer = document.getElementById('search-suggestions');
+      suggestionsContainer.innerHTML = suggestions;
+
+      // Добавляем обработчик кликов на подсказки
+      document.querySelectorAll('.suggestion-item').forEach(item => {
+        item.addEventListener('click', () => {
+          document.getElementById('search-input').value = item.innerText;
+          performSearch(item.innerText);
+        });
+      });
+    }).catch(error => console.error('Error fetching suggestions:', error));
+  } else {
+    // Очищаем список подсказок, если запрос меньше 3 символов
+    document.getElementById('search-suggestions').innerHTML = '';
   }
 });
-document.getElementById('search-suggestions').addEventListener('change', function (event) {
-  let selectedValue = event.target.value;
-  if (selectedValue.length > 0) {
-    document.getElementById('search-input').value = selectedValue;
-    performSearch(selectedValue);
-  }
-});
-document.getElementById('search-input').addEventListener('change', function () {
-  let enteredValue = this.value;
+
+// Обработчик изменения поля поиска
+document.getElementById('search-input').addEventListener('change', () => {
+  const enteredValue = document.getElementById('search-input').value;
   if (enteredValue.length > 0) {
     performSearch(enteredValue);
   }
 });
-document.getElementById('search-button').addEventListener('click', function () {
-  let query = document.getElementById('search-input').value;
+
+// Обработчик клика на кнопку поиска
+document.getElementById('search-button').addEventListener('click', () => {
+  const query = document.getElementById('search-input').value;
   performSearch(query);
 });
-function performSearch(query) {
+
+// Функция для выполнения поиска
+const performSearch = query => {
   if (query.length > 0) {
     window.location.href = `/search?search=${encodeURIComponent(query)}`;
   }
-}
+};
 
 /***/ }),
 
@@ -140,29 +136,25 @@ function performSearch(query) {
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   const lotIdMetaTag = document.querySelector('meta[name="lot-id"]');
   if (lotIdMetaTag) {
     const lotId = parseInt(lotIdMetaTag.getAttribute('content'));
-    if (!isNaN(lotId)) {
-      addViewedLot(lotId);
-    }
+    if (!isNaN(lotId)) addViewedLot(lotId);
   }
-
-  // Обновление списка просмотренных лотов
   updateViewedLots();
 });
-function addViewedLot(lotId) {
-  let viewedLots = JSON.parse(localStorage.getItem('viewed_lots')) || [];
+const addViewedLot = lotId => {
+  const viewedLots = JSON.parse(localStorage.getItem('viewed_lots')) || [];
   if (!viewedLots.includes(lotId)) {
     viewedLots.push(lotId);
     localStorage.setItem('viewed_lots', JSON.stringify(viewedLots));
   }
-}
-function updateViewedLots() {
+};
+const updateViewedLots = () => {
   const viewedLots = JSON.parse(localStorage.getItem('viewed_lots')) || [];
   document.cookie = `viewed_lots=${JSON.stringify(viewedLots)}; path=/`;
-}
+};
 
 /***/ })
 
