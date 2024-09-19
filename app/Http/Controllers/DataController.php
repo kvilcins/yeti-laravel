@@ -25,21 +25,21 @@ class DataController extends Controller
         // Получаем категории
         $categories = Category::all();
         
-        // Получаем все лоты с жадной загрузкой связанных категорий
-        $ads = Item::with('category')->get();
-    
-        // Если передан $categoryId, ищем категорию и лоты по этой категории
-        $categoryName = null;
+        // Инициализируем переменные для лотов и имени категории
         $ads = [];
+        $categoryName = null;
+        
+        // Если передан $categoryId, ищем категорию и лоты по этой категории
         if ($categoryId) {
             $category = Category::find($categoryId);
             if ($category) {
                 $categoryName = $category->name;
-                $ads = Item::where('category_id', $categoryId)->with('category')->get();
+                // Получаем лоты по категории с пагинацией
+                $ads = Item::where('category_id', $categoryId)->with('category')->paginate(10);
             }
         } else {
-            // Если категория не указана, получаем все лоты
-            $ads = Item::with('category')->get();
+            // Если категория не указана, получаем все лоты с пагинацией
+            $ads = Item::with('category')->paginate(10);
         }
         
         // Возвращаем данные в виде массива
