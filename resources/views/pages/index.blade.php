@@ -45,9 +45,6 @@
                 @endforeach
             </ul>
     
-            {{--            Для тестирования, пока мало лотов --}}
-            <x-partials.pagination :paginator="$ads" />
-    
             @if ($ads->hasPages())
                 <x-partials.pagination :paginator="$ads" />
             @endif

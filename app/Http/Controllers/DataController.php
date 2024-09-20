@@ -35,11 +35,11 @@ class DataController extends Controller
             if ($category) {
                 $categoryName = $category->name;
                 // Получаем лоты по категории с пагинацией
-                $ads = Item::where('category_id', $categoryId)->with('category')->paginate(10);
+                $ads = Item::where('category_id', $categoryId)->with('category')->paginate(9);
             }
         } else {
             // Если категория не указана, получаем все лоты с пагинацией
-            $ads = Item::with('category')->paginate(10);
+            $ads = Item::with('category')->paginate(9);
         }
         
         // Возвращаем данные в виде массива
