@@ -12,10 +12,12 @@ class LotController extends Controller
 {
     // Используем DataController для получения общих данных
     protected $dataController;
+    protected $breadcrumbsController;
     
-    public function __construct(DataController $dataController)
+    public function __construct(DataController $dataController, BreadcrumbsController $breadcrumbsController)
     {
         $this->dataController = $dataController;
+        $this->breadcrumbsController = $breadcrumbsController;
     }
     
     // Метод для отображения страницы со всеми лотами
@@ -23,15 +25,22 @@ class LotController extends Controller
     {
         $commonData = $this->dataController->getCommonData();
         $lots = Item::all();
-        
-        return view('pages.index', array_merge($commonData, ['lots' => $lots]));
+    
+        // Генерация хлебных крошек
+        $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
+    
+        return view('pages.index', array_merge($commonData, ['lots' => $lots, 'breadcrumbs' => $breadcrumbs]));
     }
     
     // Метод для отображения формы создания лота
     public function create()
     {
         $commonData = $this->dataController->getCommonData();
-        return view('pages.add', $commonData);
+    
+        // Генерация хлебных крошек
+        $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
+    
+        return view('pages.add', array_merge($commonData, ['breadcrumbs' => $breadcrumbs]));
     }
     
     // Метод для сохранения данных формы создания лота
@@ -76,8 +85,11 @@ class LotController extends Controller
         if (!$lot) {
             abort(404, 'Лот не найден');
         }
-        
-        return view('pages.lot', array_merge($commonData, ['lot' => $lot]));
+    
+        // Генерация хлебных крошек
+        $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
+    
+        return view('pages.lot', array_merge($commonData, ['lot' => $lot, 'breadcrumbs' => $breadcrumbs]));
     }
     
     // Методы для редактирования, удаления и обновления лотов (закомментированы на будущее)

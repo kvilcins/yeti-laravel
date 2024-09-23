@@ -3,6 +3,8 @@
 @section('title', 'Страница лота')
 
 @section('content')
+    <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
+    
     <section class="lot-item container">
         <h2>{{ $lot->title }}</h2>
         <div class="lot-item__content">

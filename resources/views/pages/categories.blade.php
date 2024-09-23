@@ -3,6 +3,8 @@
 @section('title', 'Категория: ' . $category_name)
 
 @section('content')
+    <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
+    
     <main class="container">
         <section class="lots">
             <h2>Все лоты в категории <span>«{{ $category_name ?? 'Все категории' }}»</span></h2>
