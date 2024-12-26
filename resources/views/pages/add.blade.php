@@ -1,8 +1,10 @@
-@extends('layouts.main')
+@extends('layouts.page')
 
 @section('title', 'Добавление лота')
 
 @section('content')
+    <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
+    
     <form class="form form--add-lot container {{ $errors->any() ? 'form--invalid' : '' }}" action="{{ route('lot.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <h2>Добавление лота</h2>

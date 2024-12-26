@@ -45,3 +45,11 @@ function time_to_midnight() {
     // Форматирование времени в формат "Ч:М"
     return sprintf('%02d:%02d', $hours, $minutes);
 }
+
+if (!function_exists('getDynamicPageTitle')) {
+    function getDynamicPageTitle($currentRouteName)
+    {
+        return view()->shared('title', $currentRouteName) ?: null;
+    }
+}
+

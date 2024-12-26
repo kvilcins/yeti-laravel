@@ -3,6 +3,8 @@
 @section('title', 'Вход')
 
 @section('content')
+    <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
+    
     <form class="form container {{ $errors->any() ? 'form--invalid' : '' }}" action="{{ route('login') }}" method="post">
         @csrf
         <h2>Вход</h2>

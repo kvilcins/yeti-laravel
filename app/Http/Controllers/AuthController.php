@@ -12,12 +12,25 @@ use App\Http\Controllers\DataController;
 
 class AuthController extends Controller
 {
+    protected $dataController;
+    protected $breadcrumbsController;
+    
+    public function __construct(DataController $dataController, BreadcrumbsController $breadcrumbsController)
+    {
+        $this->dataController = $dataController;
+        $this->breadcrumbsController = $breadcrumbsController;
+    }
+    
     // Показать форму регистрации
     public function create()
     {
         $dataController = new DataController();
         $commonData = $dataController->getCommonData();
-        return view('pages.sign-up', $commonData);
+    
+        // Генерация хлебных крошек
+        $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
+        
+        return view('pages.sign-up', array_merge($commonData, ['breadcrumbs' => $breadcrumbs]));
     }
     
     // Сохранение данных регистрации
@@ -49,7 +62,11 @@ class AuthController extends Controller
     {
         $dataController = new DataController();
         $commonData = $dataController->getCommonData();
-        return view('pages.login', $commonData);
+        
+        // Генерация хлебных крошек
+        $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
+        
+        return view('pages.login', array_merge($commonData, ['breadcrumbs' => $breadcrumbs]));
     }
     
     // Обработка данных логина

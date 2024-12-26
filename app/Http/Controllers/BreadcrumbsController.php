@@ -4,20 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Category;
-use App\Http\Controllers\DataController;
 
 class BreadcrumbsController extends Controller
 {
     public function generateBreadcrumbs(Request $request)
     {
         $breadcrumbs = [];
+        $currentRouteName = Route::currentRouteName();
+        $routeParameters = $request->route()->parameters();
         
         // Добавляет главную страницу
         $breadcrumbs[] = ['title' => 'Главная', 'url' => route('home')];
-        
-        $currentRouteName = Route::currentRouteName();
-        $routeParameters = $request->route()->parameters();
         
         // Логика для категорий
         if (str_contains($currentRouteName, 'category') && isset($routeParameters['categoryId'])) {
@@ -37,7 +34,7 @@ class BreadcrumbsController extends Controller
         
         // Логика для других страниц (регистрации, авторизации и тд)
         else {
-            $pageTitle = $this->getDynamicPageTitle($currentRouteName);
+            $pageTitle = getDynamicPageTitle($currentRouteName);
             if ($pageTitle) {
                 $breadcrumbs[] = ['title' => $pageTitle, 'url' => url()->current()];
             }
