@@ -47,9 +47,12 @@ function time_to_midnight() {
 }
 
 if (!function_exists('getDynamicPageTitle')) {
-    function getDynamicPageTitle($currentRouteName)
+    function getDynamicPageTitle($slug)
     {
-        return view()->shared('title', $currentRouteName) ?: null;
+        // Логика для получения title
+        $page = \App\Models\Page::where('slug', $slug)->first();
+        return $page ? $page->title : null; // Возвращаем title для страницы
     }
 }
+
 

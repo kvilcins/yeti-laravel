@@ -3,6 +3,8 @@
 @section('title', 'Регистрация')
 
 @section('content')
+    <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
+    
     <form class="form container" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <h2>Регистрация нового аккаунта</h2>

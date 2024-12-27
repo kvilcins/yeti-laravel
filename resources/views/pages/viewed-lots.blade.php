@@ -3,6 +3,8 @@
 @section('title', 'История просмотров')
 
 @section('content')
+    <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
+    
     <section class="lots container">
         <div class="lots__header">
             <h2>История просмотров</h2>

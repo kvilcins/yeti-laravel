@@ -2,30 +2,31 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Page;
 use Illuminate\Database\Seeder;
+use App\Models\Page;
+use Illuminate\Support\Str;
 
 class PagesTableSeeder extends Seeder
 {
     public function run()
     {
         Page::truncate(); // Очищаем таблицу перед заполнением
-        
+
         $pages = [
-            ['route' => 'home', 'name' => 'Главная'],
-            ['route' => 'lot.create', 'name' => 'Добавление лота'],
-            ['route' => 'lot.show', 'name' => 'Просмотр лота'],
-            ['route' => 'viewed.lots', 'name' => 'Просмотренные лоты'],
-            ['route' => 'register', 'name' => 'Регистрация'],
-            ['route' => 'login', 'name' => 'Авторизация'],
-            ['route' => 'search', 'name' => 'Поиск'],
-            ['route' => 'search.suggestions', 'name' => 'Поисковые подсказки'],
-            ['route' => 'category.show', 'name' => 'Категория'],
+            // Динамические страницы (категории и лоты)
+            // Для категорий
+            ['route' => 'category.show', 'name' => 'Категория', 'type' => 'category', 'slug' => Str::slug('Категория'), 'title' => 'Категория'],
+
+            // Для лотов
+            ['route' => 'lot.show', 'name' => 'Лот', 'type' => 'item', 'slug' => Str::slug('Лот'), 'title' => 'Лот'],
         ];
-        
+
         foreach ($pages as $page) {
-            Page::create($page);
+            // Обновляем или создаем страницу
+            Page::updateOrCreate(
+                ['route' => $page['route']], // Уникальность по маршруту
+                $page // Данные страницы для вставки или обновления
+            );
         }
     }
 }

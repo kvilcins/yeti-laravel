@@ -5,6 +5,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\LotController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ViewedLotsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CategoryController;
@@ -63,3 +64,6 @@ Route::get('/search-suggestions', [SearchController::class, 'suggestions'])->nam
 
 // Страницы категорий
 Route::get('/category/{categoryId}', [CategoryController::class, 'show'])->name('category.show');
+
+// Страницы (в том числе статичные)
+Route::get('/page/{slug}', [PageController::class, 'show'])->name('page.show');

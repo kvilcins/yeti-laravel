@@ -5,51 +5,64 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Item;
 use App\Models\Category;
+use App\Models\User;
+use App\Models\Page;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Hash;
 
 class RestoreDataSeeder extends Seeder
 {
     public function run()
     {
-        // Загружаем данные из конфигурации для категорий
-        $categories = Config::get('categories', []); // Получаем данные о категориях из конфигурационного файла
+        // Восстанавливаем страницы
+        $pages = Config::get('pages', []);
         
-        // Проверяем, что данные о категориях существуют
+        foreach ($pages as $page) {
+            $existingPage = Page::find($page['id']);
+            if (!$existingPage) {
+                Page::create($page);
+                echo "Страница {$page['name']} успешно восстановлена.\n";
+            } else {
+                $existingPage->update($page);
+                echo "Страница с id {$page['id']} обновлена.\n";
+            }
+        }
+        
+        // Загружаем данные из конфигурации для категорий
+        $categories = Config::get('categories', []);
+        
         if (empty($categories)) {
             echo "Данные о категориях не найдены в конфиге!\n";
         } else {
             // Восстанавливаем категории в таблицу
             foreach ($categories as $category) {
-                // Проверяем, существует ли категория с таким же классом
                 $existingCategory = Category::where('class', $category['class'])->first();
                 if (!$existingCategory) {
-                    // Если категории с таким классом нет, создаем её
                     Category::create([
                         'name' => $category['name'],
                         'class' => $category['class'],
                     ]);
                     echo "Категория {$category['name']} успешно восстановлена.\n";
+                } else {
+                    echo "Категория с классом {$category['class']} уже существует, пропускаем.\n";
                 }
             }
         }
         
         // Загружаем данные из конфигурации для товаров
-        $items = Config::get('items', []); // Получаем данные о товарах из конфигурационного файла
+        $items = Config::get('items', []);
         
-        // Проверяем, что данные о товарах существуют
         if (empty($items)) {
             echo "Данные о товарах не найдены в конфиге!\n";
         } else {
             // Восстанавливаем товары в таблицу
             foreach ($items as $item) {
-                // Проверяем, существует ли товар с таким же названием
                 $existingItem = Item::where('title', $item['title'])->first();
                 if (!$existingItem) {
-                    // Находим категорию по классу
-                    $category = Category::where('class', $item['category'])->first(); // Ищем категорию по классу
+                    // Находим категорию по id категории
+                    $category = Category::find($item['category_id']); // Используем category_id для поиска
                     
                     if ($category) {
-                        // Если категория найдена, добавляем товар
                         Item::create([
                             'title' => $item['title'],
                             'description' => $item['description'],
@@ -60,11 +73,28 @@ class RestoreDataSeeder extends Seeder
                         ]);
                         echo "Товар {$item['title']} успешно восстановлен.\n";
                     } else {
-                        echo "Категория с классом {$item['category']} не найдена для товара {$item['title']}.\n";
+                        echo "Категория с id {$item['category_id']} не найдена для товара {$item['title']}.\n";
                     }
                 } else {
                     echo "Товар с названием {$item['title']} уже существует, пропускаем.\n";
                 }
+            }
+        }
+        
+        // Восстанавливаем пользователей
+        $users = Config::get('userdata', []);
+        
+        foreach ($users as $user) {
+            $existingUser = User::where('email', $user['email'])->first(); // Проверка по email для уникальности
+            if (!$existingUser) {
+                User::create([
+                    'email' => $user['email'],
+                    'name' => $user['name'],
+                    'password' => $user['password'], // Сохраняем хеш пароля
+                ]);
+                echo "Пользователь {$user['name']} успешно восстановлен.\n";
+            } else {
+                echo "Пользователь с email {$user['email']} уже существует, пропускаем.\n";
             }
         }
     }

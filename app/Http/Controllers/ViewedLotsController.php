@@ -9,10 +9,12 @@ use App\Http\Controllers\DataController;
 class ViewedLotsController extends Controller
 {
     protected $dataController;
+    protected $breadcrumbsController;
     
-    public function __construct(DataController $dataController)
+    public function __construct(DataController $dataController, BreadcrumbsController $breadcrumbsController)
     {
         $this->dataController = $dataController;
+        $this->breadcrumbsController = $breadcrumbsController;
     }
     
     // Показать страницу просмотренных лотов
@@ -20,6 +22,9 @@ class ViewedLotsController extends Controller
     {
         // Получаем общие данные
         $commonData = $this->dataController->getCommonData();
+    
+        // Генерация хлебных крошек
+        $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
         
         // Получаем данные о просмотренных лотах из cookies
         $viewedLots = json_decode(request()->cookie('viewed_lots', '[]'), true);
@@ -38,6 +43,7 @@ class ViewedLotsController extends Controller
         // Передача данных в представление
         return view('pages.viewed-lots', array_merge($commonData, [
             'viewedLotsData' => $viewedLotsData,
+            'breadcrumbs' => $breadcrumbs,
         ]));
     }
 }
