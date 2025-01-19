@@ -9,15 +9,20 @@ class PageController extends Controller
 {
     public function show($slug)
     {
-        // Ищем страницу по slug
+        // Ищем страницу в БД
         $page = Page::where('slug', $slug)->first();
         
-        if ($page) {
-            // Передаем страницу в представление, независимо от типа страницы
-            return view('page', compact('page')); // Важно, что это один шаблон для всех страниц
-        } else {
-            abort(404); // Если страница не найдена, вызываем ошибку 404
+        // Если страница не найдена, возвращаем 404
+        if (!$page) {
+            abort(404, 'Page not found.');
         }
+        
+        // Возвращаем стандартный шаблон для всех статичных страниц
+        return view('page', [
+            'title' => $page->title,
+            'content' => $page->content,
+            'breadcrumbs' => $page->breadcrumbs,
+        ]);
     }
     
 }

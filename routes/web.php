@@ -65,5 +65,5 @@ Route::get('/search-suggestions', [SearchController::class, 'suggestions'])->nam
 // Страницы категорий
 Route::get('/category/{categoryId}', [CategoryController::class, 'show'])->name('category.show');
 
-// Страницы (в том числе статичные)
-Route::get('/page/{slug}', [PageController::class, 'show'])->name('page.show');
+//// Страницы (статичные)
+//Route::get('/{slug}', [PageController::class, 'show'])->name('page.show');
