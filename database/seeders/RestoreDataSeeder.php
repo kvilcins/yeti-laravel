@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\User;
 use App\Models\Page;
 use Illuminate\Support\Facades\Config;
+use App\Models\Bid;
 use Illuminate\Support\Facades\Hash;
 
 class RestoreDataSeeder extends Seeder
@@ -95,6 +96,30 @@ class RestoreDataSeeder extends Seeder
                 echo "Пользователь {$user['name']} успешно восстановлен.\n";
             } else {
                 echo "Пользователь с email {$user['email']} уже существует, пропускаем.\n";
+            }
+        }
+    
+        // Восстанавливаем ставки
+        $bids = Config::get('bids', []);
+    
+        if (empty($bids)) {
+            echo "Данные о ставках не найдены в конфиге!\n";
+        } else {
+            foreach ($bids as $bid) {
+                // Проверяем, существует ли ставка с таким ID
+                $existingBid = Bid::find($bid['id']);
+                if (!$existingBid) {
+                    Bid::create([
+                        'id' => $bid['id'],
+                        'lot_id' => $bid['lot_id'],
+                        'user_id' => $bid['user_id'],
+                        'bid_amount' => $bid['bid_amount'],
+                        'bid_time' => $bid['bid_time'],
+                    ]);
+                    echo "Ставка с ID {$bid['id']} успешно восстановлена.\n";
+                } else {
+                    echo "Ставка с ID {$bid['id']} уже существует, пропускаем.\n";
+                }
             }
         }
     }

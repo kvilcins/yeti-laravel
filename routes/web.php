@@ -29,6 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/add', [LotController::class, 'create'])->name('lot.create');
     Route::post('/add', [LotController::class, 'store'])->name('lot.store');
     
+    // Ставки
+    Route::post('/lots/{id}/bid', [LotController::class, 'placeBid'])->name('bids.store');
+    
     // Пока закомментирую на будущее роуты для редактирования, удаления и обновления лотов
     
     // Route::get('/lot/{id}/edit', [LotController::class, 'edit'])->name('lot.edit');
@@ -38,9 +41,6 @@ Route::middleware('auth')->group(function () {
 
 // Страницы лотов
 Route::get('/lot/{id}', [LotController::class, 'show'])->name('lot.show');
-
-// Ставки (в разработке)
-Route::post('/lot/{id}/bid', [BidController::class, 'store'])->name('bids.store');
 
 // Просмотренные лоты
 Route::get('/viewed-lots', [ViewedLotsController::class, 'index'])->name('viewed.lots');

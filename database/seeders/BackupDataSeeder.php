@@ -6,7 +6,8 @@ use Illuminate\Database\Seeder;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\User;
-use App\Models\Page; // Добавляем модель Page
+use App\Models\Page;
+use App\Models\Bid;
 use Illuminate\Support\Facades\Config;
 
 class BackupDataSeeder extends Seeder
@@ -19,7 +20,7 @@ class BackupDataSeeder extends Seeder
         // Преобразуем товары в нужный формат
         $formattedItems = array_map(function($item) {
             return [
-                'id' => $item['id'], // Добавляем id в формат
+                'id' => $item['id'],
                 'title' => $item['title'],
                 'description' => $item['description'],
                 'price' => $item['price'],
@@ -48,7 +49,7 @@ class BackupDataSeeder extends Seeder
         // Преобразуем категории в нужный формат
         $formattedCategories = array_map(function($category) {
             return [
-                'id' => $category['id'], // Добавляем id в формат
+                'id' => $category['id'],
                 'name' => $category['name'],
                 'class' => $category['class'],
             ];
@@ -133,6 +134,36 @@ class BackupDataSeeder extends Seeder
         
         // Сохраняем страницы в файл конфигурации
         file_put_contents(config_path('pages.php'), '<?php return ' . var_export($mergedPages, true) . ';');
+    
+        // Обрабатываем таблицу bids
+        $bids = Bid::all()->toArray(); // Получаем все ставки из таблицы
+    
+        // Форматируем ставки для сохранения
+        $formattedBids = array_map(function ($bid) {
+            return [
+                'id' => $bid['id'],
+                'lot_id' => $bid['lot_id'],
+                'user_id' => $bid['user_id'],
+                'bid_amount' => $bid['bid_amount'],
+                'bid_time' => $bid['bid_time'],
+                'created_at' => $bid['created_at'] ?? null,
+                'updated_at' => $bid['updated_at'] ?? null,
+            ];
+        }, $bids);
+    
+        // Получаем текущие данные конфигурации для bids
+        $existingBids = Config::get('bids', []);
+    
+        // Объединяем новые и старые данные, убираем дубли
+        $mergedBids = array_merge($existingBids, $formattedBids);
+        $mergedBids = $this->removeDuplicates($mergedBids, 'id');
+    
+        // Сохраняем данные ставок в конфиг
+        Config::set('bids', $mergedBids);
+    
+        // Сохраняем ставки в файл конфигурации bids.php
+        file_put_contents(config_path('bids.php'), '<?php return ' . var_export($mergedBids, true) . ';');
+    
     }
     
     // Функция для удаления дублей

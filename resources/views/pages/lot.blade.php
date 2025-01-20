@@ -29,14 +29,31 @@
                             Мин. ставка <span>{{ formatPrice($lot->min_bid) }}</span>
                         </div>
                     </div>
-                    <form class="lot-item__form" action="{{ route('bids.store', $lot->id) }}" method="post">
-                        @csrf
-                        <p class="lot-item__form-item">
-                            <label for="cost">Ваша ставка</label>
-                            <input id="cost" type="number" name="cost" placeholder="12 000">
-                        </p>
-                        <button type="submit" class="button">Сделать ставку</button>
-                    </form>
+                    @if($is_auth)
+                        <form class="lot-item__form" action="{{ route('bids.store', $lot->id) }}" method="post">
+                            @csrf
+                            <p class="lot-item__form-item">
+                                <label for="cost">Ваша ставка</label>
+                                <input id="cost" type="number" name="cost" placeholder="12 000" min="{{ max($lot->min_bid, $lot->bids->max('bid_amount') ?? 0) + 1 }}" required>
+                            </p>
+                            <button type="submit" class="button">Сделать ставку</button>
+                        </form>
+                    @endif
+                </div>
+    
+                <div class="history">
+                    <h3>История ставок (<span>{{ $bids->count() }}</span>)</h3>
+                    <table class="history__list">
+                        <tbody>
+                        @foreach($bids as $bid)
+                            <tr class="history__item">
+                                <td class="history__name">{{ $bid->user->name }}</td>
+                                <td class="history__price">{{ number_format($bid->bid_amount, 0, '', ' ') }} ₽</td>
+                                <td class="history__time">{{ $bid->bid_time->diffForHumans() }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

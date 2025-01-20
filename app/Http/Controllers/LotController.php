@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Bid;
 use App\Http\Requests\Lot\StoreRequest;
 use App\Http\Controllers\DataController;
+use Carbon\Carbon;
 
 class LotController extends Controller
 {
@@ -76,21 +78,73 @@ class LotController extends Controller
         return redirect()->route('home')->with('success', 'Лот успешно добавлен!');
     }
     
+    public function placeBid(Request $request, $id)
+    {
+        $request->validate([
+            'cost' => 'required|integer|min:1', // Проверка, что ставка введена и положительна
+        ]);
+        
+        $lot = Item::findOrFail($id);
+        
+        // Проверяем, что ставка превышает минимально допустимую
+        $maxBid = $lot->bids()->max('bid_amount'); // Получаем текущую максимальную ставку
+        $minBid = $lot->min_bid;
+        
+        if ($request->cost <= max($maxBid, $minBid)) {
+            return redirect()->back()->withErrors(['cost' => 'Ставка должна быть выше текущей максимальной ставки.']);
+        }
+        
+        // Создаем новую ставку
+        Bid::create([
+            'lot_id' => $id,
+            'user_id' => auth()->id(), // Текущий пользователь
+            'bid_amount' => $request->cost,
+            'bid_time' => now(),
+        ]);
+        
+        return redirect()->back()->with('success', 'Ставка успешно сделана!');
+    }
+    
     // Метод для отображения страницы конкретного лота
     public function show($id)
     {
         $commonData = $this->dataController->getCommonData();
+        
+        // Находим лот с его категорией
         $lot = Item::with('category')->find($id);
         
         if (!$lot) {
             abort(404, 'Лот не найден');
         }
-    
+        
+        // Получаем все ставки для данного лота, включая информацию о пользователях
+        $bids = $lot->bids()->with('user')->latest()->get();
+        
+        // Добавляем форматирование времени для каждой ставки
+        foreach ($bids as $bid) {
+            $bidTime = Carbon::parse($bid->bid_time);
+            $now = Carbon::now();
+            
+            if ($bidTime->diffInMinutes($now) < 60) {
+                $bid->formatted_time = $bidTime->diffInMinutes($now) . ' минут назад';
+            } elseif ($bidTime->isToday()) {
+                $bid->formatted_time = $bidTime->diffInHours($now) . ' часов назад';
+            } else {
+                $bid->formatted_time = $bidTime->format('d.m.Y в H:i');
+            }
+        }
+        
         // Генерация хлебных крошек
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
-    
-        return view('pages.lot', array_merge($commonData, ['lot' => $lot, 'breadcrumbs' => $breadcrumbs]));
+        
+        // Передаем данные в шаблон
+        return view('pages.lot', array_merge($commonData, [
+            'lot' => $lot,
+            'bids' => $bids,
+            'breadcrumbs' => $breadcrumbs,
+        ]));
     }
+    
     
     // Методы для редактирования, удаления и обновления лотов (закомментированы на будущее)
     
