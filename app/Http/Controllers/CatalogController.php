@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\DataController;
+use App\Http\Controllers\BreadcrumbsController;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Item;
-use App\Http\Controllers\DataController;
-use App\Http\Controllers\BreadcrumbsController;
 
-class CategoryController extends Controller
+class CatalogController extends Controller
 {
     protected $dataController;
     protected $breadcrumbsController;
@@ -19,15 +19,16 @@ class CategoryController extends Controller
         $this->breadcrumbsController = $breadcrumbsController;
     }
     
-    public function show($slug)
+    // Показать главную страницу с лотами
+    public function show()
     {
         // Получаем общие данные с фильтрацией по категории
-        $commonData = $this->dataController->getCommonData($slug);
+        $commonData = $this->dataController->getCommonData();
         
         // Генерация хлебных крошек
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
         
         // Передача данных и хлебных крошек в представление
-        return view('pages.categories', array_merge($commonData, ['breadcrumbs' => $breadcrumbs]));
+        return view('pages.catalog', array_merge($commonData, ['breadcrumbs' => $breadcrumbs]));
     }
 }

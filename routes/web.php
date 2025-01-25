@@ -9,6 +9,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ViewedLotsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CatalogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +41,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Страницы лотов
-Route::get('/lot/{id}', [LotController::class, 'show'])->name('lot.show');
+Route::get('/catalog/{category_slug}/{slug}', [LotController::class, 'show'])->name('lot.show');
 
 // Просмотренные лоты
 Route::get('/viewed-lots', [ViewedLotsController::class, 'index'])->name('viewed.lots');
@@ -63,7 +64,10 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/search-suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');
 
 // Страницы категорий
-Route::get('/category/{categoryId}', [CategoryController::class, 'show'])->name('category.show');
+Route::get('/catalog/{slug}', [CategoryController::class, 'show'])->name('category.show');
+
+// Страница каталога
+Route::get('/catalog', [CatalogController::class, 'show'])->name('catalog');
 
 //// Страницы (статичные)
 //Route::get('/{slug}', [PageController::class, 'show'])->name('page.show');

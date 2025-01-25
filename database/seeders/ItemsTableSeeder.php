@@ -6,12 +6,13 @@ use Illuminate\Database\Seeder;
 use App\Models\Item;
 use Illuminate\Support\Facades\DB;
 use App\Services\ItemSyncService;
+use Cocur\Slugify\Slugify;
+use Illuminate\Support\Str;
 
 class ItemsTableSeeder extends Seeder
 {
     protected $itemSyncService;
     
-    // Конструктор для внедрения сервиса
     public function __construct(ItemSyncService $itemSyncService)
     {
         $this->itemSyncService = $itemSyncService;
@@ -19,26 +20,25 @@ class ItemsTableSeeder extends Seeder
     
     public function run()
     {
-        // Обновляем конфиг данными из базы данных
         $this->itemSyncService->updateConfigFromDb();
-        
-        // Получаем данные из конфигурационного файла (когда конфиг обновлен)
         $items = config('items');
-        
+        $slugify = new Slugify();
+    
         foreach ($items as $item) {
-            // Найти категорию по имени и получить ее ID
             $category = DB::table('categories')->where('name', $item['category'])->first();
-            
-            // Если категория найдена, вставляем элемент
+        
             if ($category) {
+                $item['slug'] = $item['slug'] ?? Str::slug($item['title']);
+            
                 Item::updateOrCreate(
-                    ['title' => $item['title']], // Условие обновления
+                    ['title' => $item['title']],
                     [
                         'description' => $item['description'],
                         'price' => $item['price'],
                         'min_bid' => $item['min_bid'],
                         'img' => $item['img'],
                         'category_id' => $category->id,
+                        'slug' => $item['slug'],
                     ]
                 );
             }

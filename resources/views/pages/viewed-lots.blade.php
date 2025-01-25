@@ -22,7 +22,7 @@
                         <div class="lot__info">
                             <span class="lot__category">{{ $ad->category->name }}</span>
                             <h4 class="lot__title">
-                                <a href="{{ route('lot.show', $ad->id) }}" class="text-link">{{ $ad->title }}</a>
+                                <a href="{{ route('lot.show', ['category_slug' => $ad->category->slug, 'slug' => $ad->slug]) }}">{{ $ad->title }}</a>
                             </h4>
                             <div class="lot__state">
                                 <div class="lot__rate">

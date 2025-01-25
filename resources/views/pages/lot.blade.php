@@ -1,6 +1,6 @@
 @extends('layouts.page')
 
-@section('title', 'Страница лота')
+@section('title', $lot->title)
 
 @section('content')
     <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />

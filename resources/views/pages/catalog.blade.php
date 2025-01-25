@@ -1,16 +1,17 @@
 @extends('layouts.page')
 
-@section('title', 'Категория: ' . $category_name)
+@section('title', 'Каталог лотов')
 
 @section('content')
     <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
     
     <main class="container">
         <section class="lots">
-            <h2>Все лоты в категории <span>«{{ $category_name ?? 'Все категории' }}»</span></h2>
-    
+            <div class="lots__header">
+                <h2>Открытые лоты</h2>
+            </div>
             <ul class="lots__list">
-                @forelse ($ads as $ad)
+                @foreach ($ads as $ad)
                     <li class="lots__item lot">
                         <div class="lot__image">
                             <img src="{{ asset($ad->img) }}" width="350" height="260" alt="Сноуборд">
@@ -31,17 +32,14 @@
                             </div>
                         </div>
                     </li>
-                @empty
-                    <li class="lots__item lot">
-                        <p>Нет лотов в этой категории.</p>
-                    </li>
-                @endforelse
+                @endforeach
             </ul>
             
             @if ($ads->hasPages())
                 <x-partials.pagination :paginator="$ads" />
             @endif
-
+        
         </section>
     </main>
 @endsection
+

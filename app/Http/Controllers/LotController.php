@@ -105,14 +105,20 @@ class LotController extends Controller
         return redirect()->back()->with('success', 'Ставка успешно сделана!');
     }
     
-    // Метод для отображения страницы конкретного лота
-    public function show($id)
+    public function show($category_slug, $slug)
     {
         $commonData = $this->dataController->getCommonData();
         
-        // Находим лот с его категорией
-        $lot = Item::with('category')->find($id);
+        // Находим категорию по slug
+        $category = Category::where('slug', $category_slug)->firstOrFail();
         
+        // Находим лот по slug категории и slug лота
+        $lot = Item::where('slug', $slug)
+                   ->where('category_id', $category->id)
+                   ->with('category')
+                   ->firstOrFail();
+        
+        // Если лот не найден, возвращаем 404
         if (!$lot) {
             abort(404, 'Лот не найден');
         }

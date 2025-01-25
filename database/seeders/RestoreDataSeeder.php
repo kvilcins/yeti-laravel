@@ -37,11 +37,15 @@ class RestoreDataSeeder extends Seeder
         } else {
             // Восстанавливаем категории в таблицу
             foreach ($categories as $category) {
+                // Если slug не задан, генерируем его
+                $category['slug'] = $category['slug'] ?? Str::slug($category['name']);
+        
                 $existingCategory = Category::where('class', $category['class'])->first();
                 if (!$existingCategory) {
                     Category::create([
                         'name' => $category['name'],
                         'class' => $category['class'],
+                        'slug' => $category['slug'],
                     ]);
                     echo "Категория {$category['name']} успешно восстановлена.\n";
                 } else {
@@ -58,19 +62,23 @@ class RestoreDataSeeder extends Seeder
         } else {
             // Восстанавливаем товары в таблицу
             foreach ($items as $item) {
+                // Если slug не задан, генерируем его
+                $item['slug'] = $item['slug'] ?? Str::slug($item['title']);
+        
                 $existingItem = Item::where('title', $item['title'])->first();
                 if (!$existingItem) {
                     // Находим категорию по id категории
                     $category = Category::find($item['category_id']); // Используем category_id для поиска
-                    
+            
                     if ($category) {
                         Item::create([
                             'title' => $item['title'],
+                            'slug' => $item['slug'],
                             'description' => $item['description'],
                             'price' => $item['price'],
                             'min_bid' => $item['min_bid'],
                             'img' => $item['img'],
-                            'category_id' => $category->id, // Присваиваем ID категории
+                            'category_id' => $category->id,
                         ]);
                         echo "Товар {$item['title']} успешно восстановлен.\n";
                     } else {

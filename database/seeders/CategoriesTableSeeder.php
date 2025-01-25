@@ -4,19 +4,23 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 class CategoriesTableSeeder extends Seeder
 {
     public function run()
     {
-        // Получаем категории из конфигурации
         $categories = config('categories');
         
         foreach ($categories as $category) {
-            // Используем updateOrCreate для предотвращения дублирования
+            $category['slug'] = $category['slug'] ?? Str::slug($category['name']);
+            
             Category::updateOrCreate(
-                ['name' => $category['name']], // Уникальный идентификатор - 'name'
-                ['class' => $category['class']] // Обновляем только поле 'class'
+                ['name' => $category['name']],
+                [
+                    'class' => $category['class'],
+                    'slug' => $category['slug'],
+                ]
             );
         }
     }

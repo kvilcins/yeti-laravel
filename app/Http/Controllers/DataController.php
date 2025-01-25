@@ -9,7 +9,7 @@ use App\Models\Item;
 class DataController extends Controller
 {
     // Метод для получения общих данных
-    public function getCommonData($categoryId = null)
+    public function getCommonData($slug = null)
     {
         $isAuth = Auth::check(); // Проверка аутентификации
         
@@ -28,21 +28,18 @@ class DataController extends Controller
         // Инициализируем переменные для лотов и имени категории
         $ads = [];
         $categoryName = null;
+    
+        if ($slug) {
+            $category = Category::where('slug', $slug)->first();
         
-        // Если передан $categoryId, ищем категорию и лоты по этой категории
-        if ($categoryId) {
-            $category = Category::find($categoryId);
             if ($category) {
                 $categoryName = $category->name;
-                // Получаем лоты по категории с пагинацией
-                $ads = Item::where('category_id', $categoryId)->with('category')->paginate(9);
+                $ads = Item::where('category_id', $category->id)->with('category')->paginate(9);
             }
         } else {
-            // Если категория не указана, получаем все лоты с пагинацией
             $ads = Item::with('category')->paginate(9);
         }
-        
-        // Возвращаем данные в виде массива
+    
         return [
             'is_auth' => $isAuth,
             'user_name' => $userName,

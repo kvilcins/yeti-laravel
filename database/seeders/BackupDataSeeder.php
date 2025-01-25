@@ -22,6 +22,7 @@ class BackupDataSeeder extends Seeder
             return [
                 'id' => $item['id'],
                 'title' => $item['title'],
+                'slug' => $item['slug'],
                 'description' => $item['description'],
                 'price' => $item['price'],
                 'min_bid' => $item['min_bid'],
@@ -52,6 +53,7 @@ class BackupDataSeeder extends Seeder
                 'id' => $category['id'],
                 'name' => $category['name'],
                 'class' => $category['class'],
+                'slug' => $category['slug'],
             ];
         }, $categories);
         

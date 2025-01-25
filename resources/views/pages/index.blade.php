@@ -10,7 +10,7 @@
             <ul class="promo__list">
                 @foreach ($categories as $category)
                     <li class="promo__item promo__item--{{ $category->class }}">
-                        <a class="promo__link" href="{{ route('category.show', ['categoryId' => $category->id]) }}">{{ $category->name }}</a>
+                        <a class="promo__link" href="{{ route('category.show', ['slug' => $category->slug]) }}">{{ $category->name }}</a>
                     </li>
                 @endforeach
             </ul>
@@ -29,7 +29,7 @@
                         <div class="lot__info">
                             <span class="lot__category">{{ $ad->category->name }}</span>
                             <h3 class="lot__title">
-                                <a class="text-link" href="{{ url('lot', ['id' => $ad->id]) }}">{{ $ad->title }}</a>
+                                <a class="text-link" href="{{ route('lot.show', ['category_slug' => $ad->category->slug, 'slug' => $ad->slug]) }}">{{ $ad->title }}</a>
                             </h3>
                             <div class="lot__state">
                                 <div class="lot__rate">

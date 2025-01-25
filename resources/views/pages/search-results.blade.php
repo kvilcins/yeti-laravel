@@ -12,7 +12,7 @@
             <ul>
                 @foreach($results as $lot)
                     <li>
-                        <a href="{{ route('lot.show', $lot->id) }}">{{ $lot->title }}</a>
+                        <a href="{{ route('lot.show', ['category_slug' => $lot->category->slug, 'slug' => $lot->slug]) }}">{{ $lot->title }}</a>
                         <p>{{ $lot->description }}</p>
                     </li>
                 @endforeach
