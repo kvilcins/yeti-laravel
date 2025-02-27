@@ -31,7 +31,7 @@ class BreadcrumbsController extends Controller
     private function addRouteBreadcrumbs($routeName, $routeParameters, &$breadcrumbs)
     {
         // Если это не статичная страница, добавляем "Каталог"
-        if ($routeName !== 'catalog.all' && !in_array($routeName, ['register', 'login', 'search', 'search.suggestions', 'viewed-lots'])) {
+        if ($routeName !== 'catalog.all' && !in_array($routeName, ['register', 'login', 'search', 'search.suggestions', 'viewed.lots', 'lot.create'])) {
             $breadcrumbs[] = [
                 'title' => 'Каталог',
                 'url' => route('catalog'),

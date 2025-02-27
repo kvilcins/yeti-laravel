@@ -89,4 +89,14 @@
     'type' => 'default_value',
     'route' => 'default_value',
   ),
+  9 => 
+  array (
+    'id' => 10,
+    'slug' => 'profile',
+    'name' => 'Профиль',
+    'title' => 'Личный кабинет',
+    'content' => NULL,
+    'type' => 'default_value',
+    'route' => 'default_value',
+  ),
 );

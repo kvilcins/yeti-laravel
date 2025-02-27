@@ -6,6 +6,7 @@ use App\Http\Controllers\LotController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ViewedLotsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CategoryController;
@@ -68,6 +69,9 @@ Route::get('/catalog/{slug}', [CategoryController::class, 'show'])->name('catego
 
 // Страница каталога
 Route::get('/catalog', [CatalogController::class, 'show'])->name('catalog');
+
+// Страница личного кабинета
+Route::get('/{slug}', [ProfileController::class, 'show'])->name('profile');
 
 //// Страницы (статичные)
 //Route::get('/{slug}', [PageController::class, 'show'])->name('page.show');
