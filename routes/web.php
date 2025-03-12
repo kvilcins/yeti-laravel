@@ -30,12 +30,12 @@ Route::get('/', [MainController::class, 'index'])->name('home');
 Route::middleware('auth')->group(function () {
     Route::get('/add', [LotController::class, 'create'])->name('lot.create');
     Route::post('/add', [LotController::class, 'store'])->name('lot.store');
-    
+
     // Ставки
     Route::post('/lots/{id}/bid', [LotController::class, 'placeBid'])->name('bids.store');
-    
+
     // Пока закомментирую на будущее роуты для редактирования, удаления и обновления лотов
-    
+
     // Route::get('/lot/{id}/edit', [LotController::class, 'edit'])->name('lot.edit');
     // Route::put('/lot/{id}', [LotController::class, 'update'])->name('lot.update');
     // Route::delete('/lot/{id}', [LotController::class, 'destroy'])->name('lot.destroy');
@@ -72,6 +72,15 @@ Route::get('/catalog', [CatalogController::class, 'show'])->name('catalog');
 
 // Страница личного кабинета
 Route::get('/{slug}', [ProfileController::class, 'show'])->name('profile');
+
+// Форма редактирования профиля
+Route::get('/{slug}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+// Обновление профиля
+Route::post('/{slug}/update', [ProfileController::class, 'update'])->name('profile.update');
+
+// Удаление аватара (если нужно)
+Route::post('/{slug}/avatar/delete', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
 
 //// Страницы (статичные)
 //Route::get('/{slug}', [PageController::class, 'show'])->name('page.show');
