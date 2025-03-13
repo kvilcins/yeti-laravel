@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Page;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -19,71 +19,88 @@ class ProfileController extends Controller
         $this->breadcrumbsController = $breadcrumbsController;
     }
 
-    public function show($slug)
+    public function show()
     {
-        $commonData = $this->dataController->getCommonData($slug);
-
-        // Генерация хлебных крошек
-        $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
-
-        return view('pages.profile', array_merge($commonData, ['breadcrumbs' => $breadcrumbs]));
-    }
-
-    public function edit($slug)
-    {
-        $user = User::where('slug', $slug)->firstOrFail();
-
-        if (Auth::id() !== $user->id) {
-            abort(403);
-        }
+        $user = Auth::user(); // Получаем текущего авторизованного пользователя
+        $slug = $user->slug;
 
         $commonData = $this->dataController->getCommonData($slug);
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
-        return view('pages.profile_edit', array_merge($commonData, ['user' => $user, 'breadcrumbs' => $breadcrumbs]));
+        return view('pages.profile', array_merge($commonData, [
+            'breadcrumbs' => $breadcrumbs,
+            'user' => $user, // Передаем данные пользователя
+        ]));
     }
 
-    public function update(Request $request, $slug)
+    public function edit()
     {
-        $user = User::where('slug', $slug)->firstOrFail();
+        $user = Auth::user(); // Получаем текущего авторизованного пользователя
 
+        // Проверяем, авторизован ли пользователь для редактирования
         if (Auth::id() !== $user->id) {
             abort(403);
         }
 
+        $slug = $user->slug;
+        $commonData = $this->dataController->getCommonData($slug);
+        $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
+
+        return view('pages.profile_edit', array_merge($commonData, [
+            'user' => $user,
+            'breadcrumbs' => $breadcrumbs
+        ]));
+    }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user(); // Получаем текущего авторизованного пользователя
+
+        // Валидация данных формы
         $request->validate([
             'name' => 'required|string|max:255',
             'password' => 'nullable|min:6|confirmed',
             'avatar' => 'nullable|image|max:2048',
         ]);
 
+        // Обновление имени пользователя
         $user->name = $request->name;
 
+        // Обработка пароля, если он был передан
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
 
+        // Обработка аватара, если файл был передан
         if ($request->hasFile('avatar')) {
+            // Удаляем старый аватар, если он существует
+            if ($user->avatar) {
+                Storage::delete('public/' . $user->avatar);
+            }
+
+            // Сохраняем новый аватар
             $path = $request->file('avatar')->store('avatars', 'public');
             $user->avatar = $path;
         }
 
+        // Сохраняем изменения
         $user->save();
 
+        // Перенаправляем с сообщением об успешном обновлении
         return redirect()->route('profile', ['slug' => $user->slug])
             ->with('success', 'Профиль успешно обновлен!');
     }
 
-    public function deleteAvatar($slug)
+    public function deleteAvatar()
     {
-        $user = User::where('slug', $slug)->firstOrFail();
+        $user = Auth::user(); // Получаем текущего авторизованного пользователя
 
-        if (Auth::id() !== $user->id) {
-            abort(403);
+        // Проверяем, есть ли аватар, и если есть - удаляем его
+        if ($user->avatar) {
+            Storage::delete('public/' . $user->avatar);
+            $user->avatar = null;
+            $user->save();
         }
-
-        $user->avatar = null;
-        $user->save();
 
         return redirect()->back()->with('success', 'Аватар удален.');
     }

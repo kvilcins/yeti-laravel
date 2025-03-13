@@ -3,11 +3,13 @@
 @section('title', 'Страница аккаунта')
 
 @section('content')
+
+    @if($is_auth)
     <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
     <form class="form container" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
+        @method('PUT') <!-- Указываем, что форма должна быть отправлена с методом PUT -->
         <h2>Редактирование профиля</h2>
 
         <div class="form__item">
@@ -47,6 +49,7 @@
         <button type="submit" class="button">Сохранить изменения</button>
     </form>
 
+    @if(auth()->user()->bids && auth()->user()->bids->isNotEmpty())
     <h2>Мои ставки</h2>
     <ul class="bids-list">
         @foreach(auth()->user()->bids as $bid)
@@ -55,4 +58,8 @@
             </li>
         @endforeach
     </ul>
+    @else
+        <p>У вас нет ставок.</p>
+    @endif
+    @endif
 @endsection

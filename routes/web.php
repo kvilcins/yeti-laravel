@@ -74,13 +74,13 @@ Route::get('/catalog', [CatalogController::class, 'show'])->name('catalog');
 Route::get('/{slug}', [ProfileController::class, 'show'])->name('profile');
 
 // Форма редактирования профиля
-Route::get('/{slug}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::get('/account/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
 // Обновление профиля
-Route::post('/{slug}/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::put('/account/update', [ProfileController::class, 'update'])->name('profile.update');
 
 // Удаление аватара (если нужно)
-Route::post('/{slug}/avatar/delete', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
+Route::put('/account/avatar/delete', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
 
 //// Страницы (статичные)
 //Route::get('/{slug}', [PageController::class, 'show'])->name('page.show');
