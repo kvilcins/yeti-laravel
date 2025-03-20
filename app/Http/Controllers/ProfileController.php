@@ -22,9 +22,7 @@ class ProfileController extends Controller
     public function show()
     {
         $user = Auth::user(); // Получаем текущего авторизованного пользователя
-        $slug = $user->slug;
-
-        $commonData = $this->dataController->getCommonData($slug);
+        $commonData = $this->dataController->getCommonData();
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
         return view('pages.profile', array_merge($commonData, [
@@ -37,13 +35,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user(); // Получаем текущего авторизованного пользователя
 
-        // Проверяем, авторизован ли пользователь для редактирования
-        if (Auth::id() !== $user->id) {
-            abort(403);
-        }
-
-        $slug = $user->slug;
-        $commonData = $this->dataController->getCommonData($slug);
+        $commonData = $this->dataController->getCommonData();
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
         return view('pages.profile_edit', array_merge($commonData, [
@@ -87,7 +79,7 @@ class ProfileController extends Controller
         $user->save();
 
         // Перенаправляем с сообщением об успешном обновлении
-        return redirect()->route('profile', ['slug' => $user->slug])
+        return redirect()->route('profile')
             ->with('success', 'Профиль успешно обновлен!');
     }
 

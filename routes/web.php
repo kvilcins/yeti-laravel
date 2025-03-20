@@ -71,7 +71,7 @@ Route::get('/catalog/{slug}', [CategoryController::class, 'show'])->name('catego
 Route::get('/catalog', [CatalogController::class, 'show'])->name('catalog');
 
 // Страница личного кабинета
-Route::get('/{slug}', [ProfileController::class, 'show'])->name('profile');
+Route::get('/account', [ProfileController::class, 'show'])->name('profile');
 
 // Форма редактирования профиля
 Route::get('/account/edit', [ProfileController::class, 'edit'])->name('profile.edit');
