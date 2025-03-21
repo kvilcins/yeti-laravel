@@ -1171,6 +1171,10 @@ input:invalid .form__error {
   color: #727b7f;
 }
 
+.profile-avatar {
+  max-width: 300px;
+}
+
 .search-suggestions {
   display: block;
   background-color: #fff;
