@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Bid;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -25,9 +26,14 @@ class ProfileController extends Controller
         $commonData = $this->dataController->getCommonData();
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
+        // Получаем все ставки текущего пользователя
+        $userBids = Bid::where('user_id', $user->id)->get();
+
+        // Передаем данные в представление
         return view('pages.profile', array_merge($commonData, [
             'breadcrumbs' => $breadcrumbs,
-            'user' => $user, // Передаем данные пользователя
+            'user' => $user,
+            'userBids' => $userBids, // Передаем ставки пользователя
         ]));
     }
 

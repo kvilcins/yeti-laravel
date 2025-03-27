@@ -34,6 +34,21 @@ Route::middleware('auth')->group(function () {
     // Ставки
     Route::post('/lots/{id}/bid', [LotController::class, 'placeBid'])->name('bids.store');
 
+    // Страница личного кабинета
+    Route::get('/account', [ProfileController::class, 'show'])->name('profile');
+
+    // Форма редактирования профиля
+    Route::get('/account/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    // Обновление профиля
+    Route::put('/account/update', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Удаление аватара
+    Route::put('/account/avatar/delete', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
+
+    // Просмотренные лоты
+    Route::get('/viewed-lots', [ViewedLotsController::class, 'index'])->name('viewed.lots');
+
     // Пока закомментирую на будущее роуты для редактирования, удаления и обновления лотов
 
     // Route::get('/lot/{id}/edit', [LotController::class, 'edit'])->name('lot.edit');
@@ -43,9 +58,6 @@ Route::middleware('auth')->group(function () {
 
 // Страницы лотов
 Route::get('/catalog/{category_slug}/{slug}', [LotController::class, 'show'])->name('lot.show');
-
-// Просмотренные лоты
-Route::get('/viewed-lots', [ViewedLotsController::class, 'index'])->name('viewed.lots');
 
 // Показать форму регистрации и входа
 Route::get('/register', [AuthController::class, 'create'])->name('register');
@@ -69,18 +81,6 @@ Route::get('/catalog/{slug}', [CategoryController::class, 'show'])->name('catego
 
 // Страница каталога
 Route::get('/catalog', [CatalogController::class, 'show'])->name('catalog');
-
-// Страница личного кабинета
-Route::get('/account', [ProfileController::class, 'show'])->name('profile');
-
-// Форма редактирования профиля
-Route::get('/account/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-
-// Обновление профиля
-Route::put('/account/update', [ProfileController::class, 'update'])->name('profile.update');
-
-// Удаление аватара (если нужно)
-Route::put('/account/avatar/delete', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
 
 //// Страницы (статичные)
 //Route::get('/{slug}', [PageController::class, 'show'])->name('page.show');

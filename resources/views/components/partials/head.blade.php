@@ -7,7 +7,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Подключение скомпилированных JavaScript файлов -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    @isset($id)
-        <meta name="lot-id" content="{{ $id }}">
+    @isset($lot)
+        <meta name="lot-id" content="{{ $lot->id }}">
     @endisset
 </head>

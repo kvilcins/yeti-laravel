@@ -10,23 +10,23 @@ class BidController extends Controller
     {
         // Валидация данных формы
         $validatedData = $request->validate([
-            'cost' => 'required|numeric|min:1', // минимальная ставка
+            'cost' => 'required|numeric|min:1',
         ]);
-        
+
         // Поиск лота
         $item = Item::find($lot);
-        
+
         if (!$item) {
             return redirect()->back()->withErrors(['lot' => 'Лот не найден.']);
         }
-        
+
         // Логика добавления ставки
         Bid::create([
             'lot_id' => $item->id,
-            'user_id' => auth()->user()->id, // замените на нужного пользователя
+            'user_id' => auth()->user()->id,
             'price' => $validatedData['cost'],
         ]);
-        
+
         return redirect()->route('lot.show', $item->id)->with('success', 'Ставка успешно сделана!');
     }
 }
