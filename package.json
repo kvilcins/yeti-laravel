@@ -1,13 +1,14 @@
 {
   "private": true,
   "type": "module",
-  "scripts": {
-    "start": "set NODE_ENV=development&&webpack serve --open",
-    "dev": "set NODE_ENV=development&&webpack",
-    "build": "set NODE_ENV=development&&webpack",
-    "clear": "rd /s /q public/js && rd /s /q public/css"
-  },
-  "devDependencies": {
+    "scripts": {
+        "start": "set NODE_ENV=development&&webpack serve --open",
+        "dev": "set NODE_ENV=development&&php artisan cache:clear && php artisan config:clear && php artisan view:clear && vite",
+        "dev:watch": "set NODE_ENV=development&&php artisan cache:clear && php artisan config:clear && php artisan view:clear && vite",
+        "build": "set NODE_ENV=development&&webpack",
+        "clear": "rd /s /q public/js && rd /s /q public/css"
+    },
+    "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
     "axios": "^1.6.4",

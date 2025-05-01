@@ -16,13 +16,22 @@
                 <div class="user-menu__image">
                     <img src="{{ asset('storage/' . auth()->user()->avatar) }}" width="40" height="40" alt="Пользователь">
                 </div>
+                <div class="user-menu__dropdown hidden">
+                    <ul>
+                        <li>
+                            <a href="{{ route('profile') }}">Редактировать профиль</a>
+                        </li>
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="button">Выйти</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
                 <div class="user-menu__logged">
                     <p>{{ $user_name }}</p>
                 </div>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="button">Выйти</button>
-                </form>
             @else
                 <!-- Если пользователь не авторизован -->
                 <ul class="user-menu__list">

@@ -2,11 +2,11 @@
     <meta charset="UTF-8">
     <title>@yield('title')</title>
     <!-- Подключение Normalize CSS -->
-    <link href="{{ asset('css/normalize.min.css') }}" rel="stylesheet">
+    @vite('resources/css/normalize.min.scss') <!-- Подключение normalize -->
     <!-- Подключение скомпилированных стилей -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @vite('resources/css/app.scss') <!-- Подключение app.scss -->
     <!-- Подключение скомпилированных JavaScript файлов -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    @vite('resources/js/app.js') <!-- Подключение app.js -->
     @isset($lot)
         <meta name="lot-id" content="{{ $lot->id }}">
     @endisset
