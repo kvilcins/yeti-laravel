@@ -4,12 +4,12 @@
 
 @section('content')
     <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
-    
+
     <section class="lots container">
         <div class="lots__header">
             <h2>История просмотров</h2>
         </div>
-        
+
         @if ($viewedLotsData->isEmpty())
             <p>Просмотренные лоты отсутствуют.</p>
         @else
@@ -30,7 +30,7 @@
                                     <span class="lot__cost">{{ formatPrice($ad->price) }}</span>
                                 </div>
                                 <div class="lot__timer timer">
-                                    {{ time_to_midnight() }}
+                                    {{ lot_time_left($ad->timer) }}
                                 </div>
                             </div>
                         </div>

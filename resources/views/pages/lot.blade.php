@@ -4,7 +4,7 @@
 
 @section('content')
     <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
-    
+
     <section class="lot-item container">
         <h2>{{ $lot->title }}</h2>
         <div class="lot-item__content">
@@ -18,7 +18,7 @@
             <div class="lot-item__right">
                 <div class="lot-item__state">
                     <div class="lot-item__timer timer">
-                        {{ time_to_midnight() }}
+                        {{ lot_time_left($lot->timer) }}
                     </div>
                     <div class="lot-item__cost-state">
                         <div class="lot-item__rate">
@@ -40,7 +40,7 @@
                         </form>
                     @endif
                 </div>
-    
+
                 <div class="history">
                     <h3>История ставок (<span>{{ $bids->count() }}</span>)</h3>
                     <table class="history__list">

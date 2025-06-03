@@ -4,7 +4,7 @@
 
 @section('content')
     <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
-    
+
     <form class="form form--add-lot container {{ $errors->any() ? 'form--invalid' : '' }}" action="{{ route('lot.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <h2>Добавление лота</h2>
@@ -53,10 +53,10 @@
                 <input id="lot-step" type="number" name="lot-step" placeholder="0" value="{{ old('lot-step') }}" required>
                 <span class="form__error">{{ $errors->first('lot-step') }}</span>
             </div>
-            <div class="form__item {{ $errors->has('lot-date') ? 'form__item--invalid' : '' }}">
-                <label for="lot-date">Дата окончания торгов</label>
-                <input class="form__input-date" id="lot-date" type="date" name="lot-date" value="{{ old('lot-date') }}" required>
-                <span class="form__error">{{ $errors->first('lot-date') }}</span>
+            <div class="form__item {{ $errors->has('timer') ? 'form__item--invalid' : '' }}">
+                <label for="timer">Дата окончания торгов</label>
+                <input class="form__input-date" id="timer" type="date" name="timer" value="{{ old('timer') }}" required>
+                <span class="form__error">{{ $errors->first('timer') }}</span>
             </div>
         </div>
         <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>

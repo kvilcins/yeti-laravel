@@ -4,11 +4,11 @@
 
 @section('content')
     <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
-    
+
     <main class="container">
         <section class="lots">
             <h2>Все лоты в категории <span>«{{ $category_name ?? 'Все категории' }}»</span></h2>
-    
+
             <ul class="lots__list">
                 @forelse ($ads as $ad)
                     <li class="lots__item lot">
@@ -26,7 +26,7 @@
                                     <span class="lot__cost">{{ formatPrice($ad->price) }}</span>
                                 </div>
                                 <div class="lot__timer timer">
-                                    {{ time_to_midnight() }}
+                                    {{ lot_time_left($ad->timer) }}
                                 </div>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                     </li>
                 @endforelse
             </ul>
-            
+
             @if ($ads->hasPages())
                 <x-partials.pagination :paginator="$ads" />
             @endif
