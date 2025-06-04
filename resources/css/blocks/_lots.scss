@@ -2,7 +2,7 @@
   padding-top: 50px;
 }
 
-.lots__header {
+.lots__title {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -51,11 +51,9 @@
   list-style: none;
 }
 
-.lots__item {
-  width: 350px;
-}
-
 .lot {
+    width: 350px;
+
   margin-bottom: 30px;
   background-color: #ffffff;
 }

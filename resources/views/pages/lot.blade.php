@@ -3,9 +3,10 @@
 @section('title', $lot->title)
 
 @section('content')
-    <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
+    <main class="container">
+        <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
-    <section class="lot-item container">
+        <section class="lot-item container">
         <h2>{{ $lot->title }}</h2>
         <div class="lot-item__content">
             <div class="lot-item__left">
@@ -58,4 +59,5 @@
             </div>
         </div>
     </section>
+    </main>
 @endsection

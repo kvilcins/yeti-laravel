@@ -3,9 +3,9 @@
 @section('title', 'Поиск по сайту')
 
 @section('content')
-    <section class="container">
+    <main class="container">
         <h1>Результаты поиска для "{{ $searchTerm }}"</h1>
-        
+
         @if($results->isEmpty())
             <p>Ничего не найдено по вашему запросу</p>
         @else
@@ -18,5 +18,5 @@
                 @endforeach
             </ul>
         @endif
-    </section>
+    </main>
 @endsection

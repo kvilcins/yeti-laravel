@@ -6,30 +6,35 @@
     <main class="container">
         <section class="promo">
             <h2 class="promo__title">Нужен стафф для катки?</h2>
-            <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
+            <p class="promo__text">
+                На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.
+            </p>
             <ul class="promo__list">
                 @foreach ($categories as $category)
                     <li class="promo__item promo__item--{{ $category->class }}">
-                        <a class="promo__link" href="{{ route('category.show', ['slug' => $category->slug]) }}">{{ $category->name }}</a>
+                        <a class="promo__link" href="{{ route('category.show', ['slug' => $category->slug]) }}">
+                            {{ $category->name }}
+                        </a>
                     </li>
                 @endforeach
             </ul>
         </section>
 
         <section class="lots">
-            <div class="lots__header">
-                <h2>Открытые лоты</h2>
-            </div>
+            <h2 class="lots__title">Открытые лоты</h2>
+
             <ul class="lots__list">
                 @foreach ($ads as $ad)
-                    <li class="lots__item lot">
+                    <li class="lot">
                         <div class="lot__image">
                             <img src="{{ asset($ad->img) }}" width="350" height="260" alt="Сноуборд">
                         </div>
                         <div class="lot__info">
                             <span class="lot__category">{{ $ad->category->name }}</span>
                             <h3 class="lot__title">
-                                <a class="text-link" href="{{ route('lot.show', ['category_slug' => $ad->category->slug, 'slug' => $ad->slug]) }}">{{ $ad->title }}</a>
+                                <a class="lot__link text-link" href="{{ route('lot.show', ['category_slug' => $ad->category->slug, 'slug' => $ad->slug]) }}">
+                                    {{ $ad->title }}
+                                </a>
                             </h3>
                             <div class="lot__state">
                                 <div class="lot__rate">
@@ -48,7 +53,6 @@
             @if ($ads->hasPages())
                 <x-partials.pagination :paginator="$ads" />
             @endif
-
         </section>
     </main>
 @endsection

@@ -20,6 +20,7 @@
                     <ul>
                         <li>
                             <a href="{{ route('profile') }}">Редактировать профиль</a>
+                            <a href="{{ route('viewed.lots') }}">Просмотренные лоты</a>
                         </li>
                         <li>
                             <form action="{{ route('logout') }}" method="POST">

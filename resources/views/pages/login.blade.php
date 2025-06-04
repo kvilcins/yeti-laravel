@@ -3,9 +3,10 @@
 @section('title', 'Вход')
 
 @section('content')
-    <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
-    
-    <form class="form container {{ $errors->any() ? 'form--invalid' : '' }}" action="{{ route('login') }}" method="post">
+    <main class="container">
+        <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
+
+        <form class="form container {{ $errors->any() ? 'form--invalid' : '' }}" action="{{ route('login') }}" method="post">
         @csrf
         <h2>Вход</h2>
         <div class="form__item {{ $errors->has('email') ? 'form__item--invalid' : '' }}">
@@ -28,4 +29,5 @@
         </div>
         <button type="submit" class="button">Войти</button>
     </form>
+    </main>
 @endsection
