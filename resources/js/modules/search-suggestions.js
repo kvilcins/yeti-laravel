@@ -1,51 +1,65 @@
-// Обработчик ввода в поле поиска
-document.getElementById('search-input').addEventListener('input', (event) => {
-    const query = event.target.value;
-    
-    // Если запрос больше 2 символов, запрашиваем подсказки
-    if (query.length > 2) {
-        fetch(`/search-suggestions?query=${query}`)
-            .then(response => response.json())
-            .then(data => {
-                // Создаем список подсказок и добавляем его в DOM
-                const suggestions = data.map(item =>
-                    `<li class="suggestion-item">${item.title}</li>`
-                ).join('');
-                const suggestionsContainer = document.getElementById('search-suggestions');
-                suggestionsContainer.innerHTML = suggestions;
-                
-                // Добавляем обработчик кликов на подсказки
-                document.querySelectorAll('.suggestion-item').forEach(item => {
-                    item.addEventListener('click', () => {
-                        document.getElementById('search-input').value = item.innerText;
-                        performSearch(item.innerText);
-                    });
+const initSearchSuggestions = () => {
+    const searchInput = document.getElementById('search-input');
+    const suggestionsContainer = document.getElementById('search-suggestions');
+    const searchButton = document.getElementById('search-button');
+
+    if (!searchInput || !suggestionsContainer || !searchButton) return;
+
+    const performSearch = (query) => {
+        if (query.length > 0) {
+            window.location.href = `/search?search=${encodeURIComponent(query)}`;
+        }
+    };
+
+    const hideSuggestions = () => {
+        suggestionsContainer.innerHTML = '';
+        suggestionsContainer.classList.remove('active');
+    };
+
+    searchInput.addEventListener('input', (event) => {
+        const query = event.target.value.trim();
+
+        if (query.length > 2) {
+            fetch(`/search-suggestions?query=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        const suggestions = data.map(item =>
+                            `<li class="suggestion-item">${item.title}</li>`
+                        ).join('');
+                        suggestionsContainer.innerHTML = suggestions;
+                        suggestionsContainer.classList.add('active');
+
+                        document.querySelectorAll('.suggestion-item').forEach(item => {
+                            item.addEventListener('click', () => {
+                                searchInput.value = item.innerText;
+                                performSearch(item.innerText);
+                            });
+                        });
+                    } else {
+                        hideSuggestions();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching suggestions:', error);
+                    hideSuggestions();
                 });
-            })
-            .catch(error => console.error('Error fetching suggestions:', error));
-    } else {
-        // Очищаем список подсказок, если запрос меньше 3 символов
-        document.getElementById('search-suggestions').innerHTML = '';
-    }
-});
+        } else {
+            hideSuggestions();
+        }
+    });
 
-// Обработчик изменения поля поиска
-document.getElementById('search-input').addEventListener('change', () => {
-    const enteredValue = document.getElementById('search-input').value;
-    if (enteredValue.length > 0) {
-        performSearch(enteredValue);
-    }
-});
+    searchButton.addEventListener('click', () => {
+        const query = searchInput.value.trim();
+        performSearch(query);
+    });
 
-// Обработчик клика на кнопку поиска
-document.getElementById('search-button').addEventListener('click', () => {
-    const query = document.getElementById('search-input').value;
-    performSearch(query);
-});
-
-// Функция для выполнения поиска
-const performSearch = (query) => {
-    if (query.length > 0) {
-        window.location.href = `/search?search=${encodeURIComponent(query)}`;
-    }
+    document.addEventListener('click', (event) => {
+        if (!searchInput.contains(event.target) && !suggestionsContainer.contains(event.target)) {
+            hideSuggestions();
+        }
+    });
 };
+
+// Вызов функции
+initSearchSuggestions();

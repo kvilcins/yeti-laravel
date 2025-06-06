@@ -1,4 +1,17 @@
 .search-suggestions {
-  display: block;
+  display: none;
+    position: absolute;
+    width: 100%;
+    max-width: 500px;
+    z-index: 11;
+
   background-color: #fff;
+    margin: 0;
+
+    list-style: none;
+    padding: 8px 19px;
+
+    &.active {
+        display: block;
+    }
 }

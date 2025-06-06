@@ -1,5 +1,5 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
+    <ul class="breadcrumbs">
         @foreach ($breadcrumbs as $breadcrumb)
             @if (!$loop->last)
                 <li class="breadcrumb-item">
@@ -9,5 +9,5 @@
                 <li class="breadcrumb-item active" aria-current="page">{{ $breadcrumb['title'] }}</li>
             @endif
         @endforeach
-    </ol>
+    </ul>
 </nav>

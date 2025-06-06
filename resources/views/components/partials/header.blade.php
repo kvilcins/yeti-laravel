@@ -1,6 +1,5 @@
 <header>
     <div class="main-header__container container">
-        <h1 class="visually-hidden">YetiCave</h1>
         <a class="main-header__logo" href="{{ route('home') }}">
             <img src="{{ asset('img/logo.svg') }}" width="160" height="39" alt="Логотип компании YetiCave">
         </a>
@@ -20,6 +19,8 @@
                     <ul>
                         <li>
                             <a href="{{ route('profile') }}">Редактировать профиль</a>
+                        </li>
+                        <li>
                             <a href="{{ route('viewed.lots') }}">Просмотренные лоты</a>
                         </li>
                         <li>

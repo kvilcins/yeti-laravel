@@ -1,0 +1,33 @@
+.breadcrumbs {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+
+    &:not(:first-child)::before {
+        content: "›";
+        color: #aaa;
+    }
+
+    a {
+        color: #45abde;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &.active {
+        color: #6c757d;
+        pointer-events: none;
+        cursor: default;
+    }
+}

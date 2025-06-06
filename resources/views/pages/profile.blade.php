@@ -1,4 +1,4 @@
-@extends('layouts.page')
+@extends('layouts.internal')
 
 @section('title', 'Страница аккаунта')
 
@@ -8,7 +8,7 @@
         @if($is_auth)
             <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
-            <form class="form container" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+            <form class="form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <h2>Редактирование профиля</h2>

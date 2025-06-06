@@ -5,7 +5,7 @@
 @section('content')
     <main class="container">
         <section class="promo">
-            <h2 class="promo__title">Нужен стафф для катки?</h2>
+            <h1 class="promo__title">Нужен стафф для катки?</h1>
             <p class="promo__text">
                 На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.
             </p>
@@ -27,7 +27,7 @@
                 @foreach ($ads as $ad)
                     <li class="lot">
                         <div class="lot__image">
-                            <img src="{{ asset($ad->img) }}" width="350" height="260" alt="Сноуборд">
+                            <img src="{{ asset($ad->img) }}" alt="">
                         </div>
                         <div class="lot__info">
                             <span class="lot__category">{{ $ad->category->name }}</span>

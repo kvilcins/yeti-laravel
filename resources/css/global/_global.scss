@@ -1,5 +1,4 @@
 body {
-  min-width: 1140px;
   background-color: #dbe6e9;
   font-family: "PT Sans", sans-serif;
   font-weight: 400;
@@ -12,12 +11,26 @@ a {
   text-decoration: none;
 }
 
+h1 {
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+    font-size: 48px;
+    line-height: 53px;
+    font-weight: 700;
+}
+
 h2 {
   margin: 0;
   font-family: "Open Sans", sans-serif;
   font-size: 28px;
   line-height: 35px;
   font-weight: 700;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .text-link {
@@ -85,4 +98,19 @@ h2 {
   font-size: 0;
   vertical-align: baseline;
   background: url("../img/rub.svg") 0 0 no-repeat;
+}
+
+@media screen and (max-width: 1369px) {
+
+    .container {
+        max-width: 994px;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+
+    .container {
+        max-width: 738px;
+    }
 }

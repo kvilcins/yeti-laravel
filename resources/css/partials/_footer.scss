@@ -5,16 +5,17 @@
 }
 
 .main-footer__bottom {
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  padding: 25px 0;
+    padding: 15px;
+}
+
+.main-footer__logo {
+    display: flex;
+    background-color: #dbe6e9;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .main-footer__copyright {
