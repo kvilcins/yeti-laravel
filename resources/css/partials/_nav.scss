@@ -46,3 +46,12 @@
     background-color: #45abde;
   }
 }
+
+@media screen and (max-width: 768px) {
+
+    .nav__list {
+        justify-content: flex-start;
+        gap: 10px;
+        flex-direction: row;
+    }
+}

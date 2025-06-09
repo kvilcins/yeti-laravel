@@ -101,3 +101,15 @@
   z-index: 2;
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.03);
 }
+
+@media screen and (max-width: 768px) {
+
+    .promo__list {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .promo__link {
+        width: 100%;
+    }
+}

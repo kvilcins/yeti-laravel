@@ -81,3 +81,13 @@
 .logo-academy:active path {
   fill: #2590c6;
 }
+
+@media screen and (max-width: 768px) {
+
+    .main-footer__bottom {
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+    }
+}

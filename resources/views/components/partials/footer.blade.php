@@ -3,7 +3,7 @@
 
     <div class="main-footer__bottom container">
         <div class="main-footer__copyright">
-            <p>© 2018, YetiCave</p>
+            <p>© {!! date('Y') !!}, YetiCave</p>
             <p>Интернет-аукцион сноубордического и горнолыжного снаряжения</p>
         </div>
         <div class="main-footer__social social">
@@ -25,9 +25,8 @@
             </a>
         </div>
 
-        <div class="main-footer__developed-by">
-            <span class="visually-hidden">Разработано:</span>
-            <a class="main-footer__logo" href="{{ route('home') }}">
+        <div class="main-footer__logo">
+            <a class="main-footer__link" href="{{ route('home') }}">
                 <img src="{{ asset('img/logo.svg') }}" width="160" height="39" alt="Логотип компании YetiCave">
             </a>
         </div>
