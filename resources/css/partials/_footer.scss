@@ -82,12 +82,23 @@
   fill: #2590c6;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
+
+    .main-footer {
+        padding: 0 15px;
+        width: 100%;
+
+        .container {
+            padding: 0;
+            margin: 0;
+        }
+    }
 
     .main-footer__bottom {
         justify-content: flex-start;
         align-items: center;
         flex-direction: column;
         gap: 10px;
+        padding: 0;
     }
 }
