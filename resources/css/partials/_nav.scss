@@ -49,6 +49,10 @@
 
 @media screen and (max-width: 767px) {
 
+    .nav__categories {
+        display: none;
+    }
+
     .nav__list {
         justify-content: flex-start;
         gap: 10px;

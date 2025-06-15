@@ -1,67 +1,154 @@
-.main-header {
-  padding: 30px 0 29px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.main-header__container {
-  display: flex;
+.main-header__wrapper {
+    display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 30px;
-
     padding-top: 30px;
     padding-bottom: 30px;
 }
 
 .main-header__logo {
-  display: block;
+    display: block;
 }
 
-.main-header__search {
-  position: relative;
-  width: 540px;
+.search-form {
+    position: relative;
+    width: 540px;
 }
 
-.main-header__search input[type="search"] {
-  width: 100%;
-  padding: 8px 19px 9px 19px;
-  border: 1px solid #ffffff;
+.search-form__input {
+    width: 100%;
+    padding: 8px 19px 9px 19px;
+    border: 1px solid #ffffff;
 }
 
-.main-header__search input[type="search"]:focus {
-  border-color: #45abde;
+.search-form__input:focus {
+    border-color: #45abde;
 }
 
-.main-header__search-btn {
-  content: "";
-  position: absolute;
-  top: 3px;
-  right: 3px;
-  width: 20px;
-  height: 20px;
-  padding: 20px;
-  background: url("../img/search.svg") center no-repeat;
-  opacity: 0.3;
-  border: 0;
-  font-size: 0;
+.search-form__button {
+    content: "";
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 20px;
+    height: 20px;
+    padding: 20px;
+    background: url("../img/search.svg") center no-repeat;
+    opacity: 0.3;
+    border: 0;
+    font-size: 0;
 }
 
-.main-header__search-btn:hover {
-  opacity: 0.4;
+.search-form__button:hover {
+    opacity: 0.4;
 }
 
-.main-header__search input[type="search"]:hover + .main-header__search-btn {
-  opacity: 0.4;
+.search-form__input:hover + .search-form__button {
+    opacity: 0.4;
 }
 
-.main-header__add-lot {
-  max-width: 160px;
-  margin-right: 30px;
+.main-header__burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 30px;
+    height: 25px;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.burger__line {
+    width: 100%;
+    height: 3px;
+    background-color: #333;
+    border-radius: 2px;
+}
+
+.main-header__mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
+    z-index: 1000;
+
+    .nav {
+
+        .container {
+            padding: 0;
+        }
+
+        .nav__list {
+            flex-direction: column;
+        }
+    }
+}
+
+.main-header__mobile-menu.open {
+    transform: translateX(0);
+    z-index: 1111;
+}
+
+.mobile-menu__close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    color: #333;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.mobile-menu__close:hover {
+    color: #000;
+}
+
+.mobile-menu__form {
+
+    .mobile-menu__link {
+        background-color: transparent;
+        border: none;
+    }
+}
+
+.mobile-menu__link {
+    display: block;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+}
+
+.mobile-menu__link:hover {
+    background-color: #f5f5f5;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    white-space: nowrap !important;
 }
 
 @media screen and (max-width: 1369px) {
 
-    .main-header__search {
+    .search-form {
         width: 100%;
         max-width: 400px;
     }
@@ -69,7 +156,22 @@
 
 @media screen and (max-width: 767px) {
 
-    .main-header__search {
+    .mobile-menu {
+
+        .nav__categories {
+            display: block;
+        }
+    }
+
+    .search-form {
+        display: none;
+    }
+
+    .main-header__burger {
+        display: flex;
+    }
+
+    .user-menu {
         display: none;
     }
 }

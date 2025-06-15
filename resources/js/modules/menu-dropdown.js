@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const userImage = document.querySelector('.user-menu__image');
+    const userImage = document.querySelector('.user-menu__avatar');
     const dropdown = document.querySelector('.user-menu__dropdown');
 
     userImage.addEventListener('click', function (e) {

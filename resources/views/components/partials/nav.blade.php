@@ -1,4 +1,4 @@
-<nav class="nav">
+<nav class="nav nav__categories">
     <div class="container">
         <ul class="nav__list">
             @foreach ($categories as $category)

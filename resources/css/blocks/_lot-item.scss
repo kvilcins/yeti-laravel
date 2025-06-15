@@ -10,8 +10,6 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
 }
 
@@ -37,8 +35,6 @@
   left: 50%;
   top: 50%;
   display: block;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 
@@ -62,10 +58,8 @@
 }
 
 .lot-item__timer {
-  -webkit-align-self: flex-end;
-  -ms-flex-item-align: end;
   align-self: flex-end;
-  width: 80px;
+  width: fit-content;
   margin-bottom: 19px;
   box-sizing: border-box;
 }
@@ -74,8 +68,6 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
 }
 
@@ -93,8 +85,6 @@
 }
 
 .lot-item__min-cost {
-  -webkit-align-self: flex-end;
-  -ms-flex-item-align: end;
   align-self: flex-end;
 }
 
@@ -102,8 +92,6 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
   margin-top: 17px;
 }
@@ -133,9 +121,22 @@
 }
 
 .lot-item__form .button {
-  -webkit-align-self: flex-end;
-  -ms-flex-item-align: end;
   align-self: flex-end;
   padding: 6px 20px 7px;
   height: 38px;
+}
+
+@media screen and (max-width: 1369px) {
+
+    .lot-item__content {
+        gap: 20px;
+    }
+
+    .lot-item__left {
+        width: 100%;
+    }
+
+    .lot-item__image {
+        width: 100%;
+    }
 }
