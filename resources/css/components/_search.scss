@@ -1,15 +1,15 @@
 .search-suggestions {
-  display: none;
-    position: absolute;
     width: 100%;
     max-width: 500px;
-    z-index: 11;
 
-  background-color: #fff;
+    padding: 8px 19px;
     margin: 0;
 
+    display: none;
+    position: absolute;
+    z-index: 11;
+    background-color: $bg-1;
     list-style: none;
-    padding: 8px 19px;
 
     &.active {
         display: block;

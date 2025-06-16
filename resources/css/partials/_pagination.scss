@@ -1,52 +1,54 @@
 .pagination-list {
-  display: flex;
-  margin: 0;
-  margin-bottom: 120px;
-  padding: 22px 20px;
-  list-style: none;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 700;
-  background-color: #ffffff;
+    @include font($PTSans-700);
+    font-size: 16px;
 
-    margin-top: 30px;
+    display: flex;
+
+    margin: 30px 0 120px 0;
+    padding: 22px 20px;
+
+    list-style: none;
+    text-align: center;
+    background-color: $bg-1;
 }
 
 .pagination-item {
-  margin-right: 5px;
-}
+    margin-right: 5px;
 
-.pagination-item a {
-  color: #879296;
-  padding: 5px 10px;
-}
+    & a {
+        color: $text-4;
+        padding: 5px 10px;
 
-.pagination-item a:hover {
-  color: #45abde;
-}
+        &:hover {
+            color: $text-2;
+        }
 
-.pagination-item a:active {
-  color: #2590c6;
-}
+        &:active {
+            color: $text-3;
+        }
+    }
 
-.pagination-item-prev {
-  margin-right: auto;
-}
+    &-prev {
+        margin-right: auto;
+    }
 
-.pagination-item-next {
-  margin-left: auto;
-  margin-right: 0;
-}
+    &-next {
+        margin-left: auto;
+        margin-right: 0;
+    }
 
-.pagination-item-active a {
-  color: #25434e;
-  background-color: rgba(135, 146, 150, 0.1);
-}
+    &-active {
+        & a {
+            color: $text-1;
+            background-color: rgba(135, 146, 150, 0.1);
 
-.pagination-item-active a:hover {
-  color: #25434e;
-}
+            &:hover {
+                color: $text-1;
+            }
 
-.pagination-item-active a:active {
-  color: #25434e;
+            &:active {
+                color: $text-1;
+            }
+        }
+    }
 }

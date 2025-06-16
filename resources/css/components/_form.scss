@@ -3,31 +3,37 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
 
-.form--invalid .form__item--invalid input,
-.form--invalid .form__item--invalid textarea,
-.form--invalid .form__item--invalid select {
-    border-color: #f84646;
-    background: #ffffff url("../img/error.svg") right 10px center no-repeat;
-}
+    &--invalid {
 
-.form--invalid .form__item--invalid .form__error {
-    display: block;
+        .form__item--invalid {
+            input,
+            textarea,
+            select {
+                border-color: $border-red;
+                background: $bg-1 url("../img/error.svg") right 10px center no-repeat;
+            }
+
+            .form__error {
+                display: block;
+            }
+        }
+    }
 }
 
 .form__item {
-    font-size: 13px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+
+    font-size: 13px;
 
     &--invalid {
         input,
         textarea,
         select {
-            border-color: #f84646;
-            background: #ffffff url("../img/error.svg") right 10px center no-repeat;
+            border-color: $border-red;
+            background: $bg-1 url("../img/error.svg") right 10px center no-repeat;
         }
 
         .form__error {
@@ -36,32 +42,34 @@
     }
 
     &--img {
-
         .form__label {
             display: flex;
             flex-direction: column;
             gap: 10px;
+
             max-width: fit-content;
         }
     }
 }
 
 .form__label {
-    font-weight: 500;
+    @include font($PTSans-500);
 }
 
 .form__input {
     display: block;
     width: 100%;
     padding: 5px 10px;
-    border: 1px solid #ccc;
+
+    border: 1px solid $border-gray;
     border-radius: 4px;
     box-sizing: border-box;
-    background: #ffffff;
+
+    background: $bg-1;
     font-size: 14px;
 
     &:focus {
-        border-color: #45abde;
+        border-color: $border;
         outline: none;
     }
 }
@@ -72,14 +80,14 @@ textarea.form__input {
 }
 
 select.form__input {
-    background: #ffffff url("../img/dropdown.svg") right 10px center no-repeat;
+    background: $bg-1 url("../img/dropdown.svg") right 10px center no-repeat;
     appearance: none;
 }
 
 .form__error {
     display: none;
     font-size: 11px;
-    color: #f84646;
+    color: $red;
 
     &--visible {
         display: block;
@@ -87,7 +95,7 @@ select.form__input {
 
     &--global {
         font-size: 14px;
-        color: #f84646;
+        color: $red;
         margin-top: -10px;
     }
 }
@@ -95,15 +103,17 @@ select.form__input {
 .form__submit {
     align-self: flex-start;
     padding: 10px 20px;
+
+    color: $text-white;
     font-size: 14px;
-    background-color: #45abde;
-    color: #fff;
+
+    background-color: $bg-3;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 
     &:hover {
-        background-color: #379fd1;
+        background-color: $bg-7;
     }
 }
 
@@ -128,20 +138,23 @@ select.form__input {
 }
 
 .form__file-label {
+    @include font($PTSans-700);
     display: inline-block;
+
     width: 120px;
     height: 110px;
-    background-color: #cad5d8;
-    color: #ffffff;
+    padding: 40px 0;
+
+    background-color: $bg-8;
+    color: $text-white;
     font-size: 16px;
     text-align: center;
-    font-weight: 700;
-    padding: 40px 0;
+
     box-sizing: border-box;
-    border: 1px solid #cad5d8;
+    border: 1px solid $border-light;
     cursor: pointer;
 
     &:hover {
-        border-color: #45abde;
+        border-color: $border;
     }
 }

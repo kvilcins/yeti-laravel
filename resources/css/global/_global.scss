@@ -9,34 +9,44 @@ html {
 }
 
 body {
-  background-color: #dbe6e9;
-  font-family: "PT Sans", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 26px;
-  color: #25434e;
+    @include font($PTSans-400);
+    background-color: $bg-2;
+    font-size: 16px;
+    line-height: 26px;
+    color: $text-1;
 
     overflow-x: hidden;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 h1, .h1 {
-    font-family: "Open Sans", sans-serif;
+    @include font($OpenSans-700);
     font-size: 48px;
     line-height: 53px;
-    font-weight: 700;
+    color: $text-black;
+
     margin: 0 0 30px 0;
 }
 
 h2, .h2 {
-  font-family: "Open Sans", sans-serif;
-  font-size: 28px;
-  line-height: 35px;
-  font-weight: 700;
+    @include font($OpenSans-700);
+    font-size: 28px;
+    line-height: 35px;
+    color: $text-black;
+
     margin: 0 0 30px 0;
+}
+
+h3, .h3 {
+    @include font($OpenSans-700);
+    font-size: 16px;
+    line-height: 25px;
+    color: $text-black;
+
+    margin: 0 0 13px 0;
 }
 
 ul {
@@ -48,73 +58,109 @@ ul {
 p {
     margin: 0;
     padding: 0;
+
+    font-size: 13px;
+    line-height: 19px;
 }
 
 .text-link {
-  font-weight: 700;
-  color: #45abde;
-}
+    @include font($PTSans-700);
+    color: $link-color;
 
-.text-link:hover {
-  text-decoration: underline;
-}
+    &:hover {
+        text-decoration: underline;
+    }
 
-.text-link:active {
-  color: #2590c6;
+    &:active {
+        color: $link-active;
+    }
 }
 
 .visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-  clip: rect(0, 0, 0, 0);
-  clip-path: inset(100%);
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    margin: -1px;
+    padding: 0;
+
+    overflow: hidden;
+
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(100%);
 }
 
 .container {
-  max-width: 1110px;
+    max-width: 1110px;
     width: 100%;
-  margin: 0 auto;
-  padding: 0 15px;
+
+    margin: 0 auto;
+    padding: 0 15px;
 }
 
 .button {
-  display: block;
-  padding: 9px 32px;
-  background-color: #45abde;
-  color: #ffffff;
-  text-align: center;
-  font-weight: 700;
-  border: none;
-  border-radius: 3px;
-}
+    @include font($PTSans-700);
+    color: $text-white;
+    text-align: center;
 
-.button:hover,
-.button:focus {
-  background-color: #61c3f4;
-}
+    display: block;
+    padding: 9px 32px;
 
-.button:active {
-  background-color: #2590c6;
-}
+    background-color: $button-color;
 
-.button:disabled {
-  background-color: #45abde;
-  opacity: 0.2;
+    border: none;
+    border-radius: 3px;
+
+    &:hover {
+        background-color: $button-color-hover;
+    }
+
+    &:focus {
+        background-color: $button-color-hover;
+    }
+
+    &:active {
+        background-color: $button-color-active;
+    }
+
+    &:disabled {
+        background-color: $button-color-disabled;
+        opacity: 0.2;
+    }
+
+    &--big {
+        padding: 12px 40px;
+        font-size: 18px;
+    }
+
+    &--outlined {
+        background-color: transparent;
+        border: 2px solid $border;
+        color: $text-2;
+
+        &:hover {
+            background-color: $button-color-outlined;
+        }
+    }
 }
 
 .rub {
-  display: inline-block;
-  width: 12px;
-  height: 13px;
-  margin-left: 4px;
-  font-size: 0;
-  vertical-align: baseline;
-  background: url("../img/rub.svg") 0 0 no-repeat;
+    display: inline-block;
+
+    width: 12px;
+    height: 13px;
+
+    margin-left: 4px;
+
+    font-size: 0;
+    vertical-align: baseline;
+    background: url("../img/rub.svg") 0 0 no-repeat;
+}
+
+.hidden {
+    display: none;
 }
 
 @media screen and (max-width: 1369px) {
@@ -122,10 +168,6 @@ p {
     .container {
         max-width: 994px;
     }
-}
-
-.hidden {
-    display: none;
 }
 
 @media screen and (max-width: 1023px) {

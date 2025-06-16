@@ -1,87 +1,95 @@
 .lots {
-  padding-top: 50px;
+    padding-top: 50px;
 }
 
 .lots__select {
-  align-self: flex-start;
-  width: 179px;
-  font-size: 13px;
-  color: #879296;
-  padding: 8px 18px 5px;
-  border: 1px solid #ffffff;
-  box-sizing: border-box;
-  border-radius: 0;
-  appearance: none;
-  background: #ffffff url("../img/dropdown.svg") 157px 18px no-repeat;
-}
+    width: 179px;
+    padding: 8px 18px 5px;
+    border: 1px solid $border-white;
+    border-radius: 0;
+    box-sizing: border-box;
 
-.lots__select:focus {
-  border-color: #45abde;
+    font-size: 13px;
+    color: $text-4;
+
+    align-self: flex-start;
+    appearance: none;
+    background: $bg-1 url("../img/dropdown.svg") 157px 18px no-repeat;
+
+    &:focus {
+        border-color: $border;
+    }
 }
 
 .lots__list {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
     gap: 15px;
-  justify-content: flex-start;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+    justify-content: flex-start;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
 }
 
 .lot {
     width: 350px;
-  background-color: #ffffff;
+
+    background-color: $bg-1;
 }
 
 .lot__image {
     width: 350px;
     height: 260px;
-    overflow: hidden;
-  border-bottom: 1px solid #e1e6e7;
-}
 
-.lot__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    overflow: hidden;
+    border-bottom: 1px solid $border-light-gray;
+
+    & img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        display: block;
+    }
 }
 
 .lot__info {
-  padding: 22px 30px 30px;
+    padding: 22px 30px 30px;
 }
 
 .lot__category {
-  font-size: 13px;
-  color: #879296;
+    font-size: 13px;
+    color: $text-4;
 }
 
 .lot__title {
-  min-height: 48px;
-  margin-bottom: 15px;
-  font-family: "Open Sans", sans-serif;
-  font-size: 18px;
-  line-height: 24px;
-  font-weight: 700;
+    @include font($OpenSans-700);
+
+    font-size: 18px;
+    line-height: 24px;
+
+    min-height: 48px;
+    margin-bottom: 15px;
 }
 
 .lot__state {
-  display: flex;
+    display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
 .lot__amount {
-  font-size: 13px;
+    font-size: 13px;
 }
 
 .lot__cost {
-  display: block;
-  font-family: "Open Sans", sans-serif;
-  font-size: 28px;
-  line-height: 28px;
-  font-weight: 700;
+    @include font($OpenSans-700);
+    font-size: 28px;
+    line-height: 28px;
+
+    display: block;
 }
 
 @media screen and (max-width: 1369px) {

@@ -1,101 +1,118 @@
 .promo {
-  padding: 58px 0 35px;
-  background: url("../img/promo-bg.png") 3px 17px no-repeat;
+    padding: 58px 0 35px;
+    background: url("../img/promo-bg.png") 3px 17px no-repeat;
 }
 
 .promo__title {
-  margin: 0;
-  margin-bottom: 18px;
-  font-family: "Open Sans", sans-serif;
-  font-size: 48px;
-  line-height: 53px;
-  font-weight: 700;
+    @include font($OpenSans-700);
+    font-size: 48px;
+    line-height: 53px;
 }
 
 .promo__text {
-  max-width: 570px;
-  margin: 0;
-  margin-bottom: 43px;
-  font-family: "Open Sans", sans-serif;
-  font-size: 18px;
-  line-height: 28px;
-  font-weight: 400;
+    @include font($OpenSans-400);
+    font-size: 18px;
+    line-height: 28px;
+
+    max-width: 570px;
+    margin-bottom: 43px;
 }
 
 .promo__list {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  width: 542px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
+    display: flex;
+    flex-wrap: wrap;
 
-.promo__link:nth-child(1),
-.promo__link:nth-child(2),
-.promo__link:nth-child(3) {
-  border-bottom: 1px solid #dbe6e9;
-}
+    width: 542px;
+    padding: 0;
+    margin: 0;
 
-.promo__link:nth-child(1),
-.promo__link:nth-child(2),
-.promo__link:nth-child(4),
-.promo__link:nth-child(5) {
-  border-right: 1px solid #dbe6e9;
+    list-style: none;
+    position: relative;
 }
 
 .promo__link {
-  position: relative;
-  display: block;
-  width: 180px;
-  height: 70px;
-  padding: 12px 20px;
-  background-color: #ffffff;
-  color: #45abde;
-  font-weight: 700;
-  box-sizing: border-box;
-  background-repeat: no-repeat;
+    @include font($PTSans-700);
+
+    width: 180px;
+    height: 70px;
+    padding: 12px 20px;
+
+    color: $link-color;
+
+    position: relative;
+    display: block;
+    background-color: $bg-1;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+        border-bottom: 1px solid $border-light-blue;
+    }
+
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(4),
+    &:nth-child(5) {
+        border-right: 1px solid $border-light-blue;
+    }
+
+    &:hover,
+    &:focus {
+        transform: scale(1.05);
+        border: none;
+        z-index: 2;
+        box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.03);
+    }
 }
 
-.promo__item--boards .promo__link {
-  background-image: url("../img/category-1.jpg");
-  background-position: 146px 8px;
+.promo__item--boards {
+
+    .promo__link {
+        background-image: url("../img/category-1.jpg");
+        background-position: 146px 8px;
+    }
 }
 
-.promo__item--attachment .promo__link {
-  background-image: url("../img/category-2.jpg");
-  background-position: 133px 12px;
+.promo__item--attachment {
+
+    .promo__link {
+        background-image: url("../img/category-2.jpg");
+        background-position: 133px 12px;
+    }
 }
 
-.promo__item--boots .promo__link {
-  background-image: url("../img/category-3.jpg");
-  background-position: 144px 14px;
+.promo__item--boots {
+
+    .promo__link {
+        background-image: url("../img/category-3.jpg");
+        background-position: 144px 14px;
+    }
 }
 
-.promo__item--clothing .promo__link {
-  background-image: url("../img/category-4.jpg");
-  background-position: 127px 12px;
+.promo__item--clothing {
+
+    .promo__link {
+        background-image: url("../img/category-4.jpg");
+        background-position: 127px 12px;
+    }
 }
 
-.promo__item--tools .promo__link {
-  background-image: url("../img/category-5.jpg");
-  background-position: 123px 13px;
+.promo__item--tools {
+
+    .promo__link {
+        background-image: url("../img/category-5.jpg");
+        background-position: 123px 13px;
+    }
 }
 
-.promo__item--other .promo__link {
-  background-image: url("../img/category-6.jpg");
-  background-position: 132px 2px;
-}
+.promo__item--other {
 
-.promo__link:hover,
-.promo__link:focus {
-  -webkit-transform: scale(1.05);
-  -ms-transform: scale(1.05);
-  transform: scale(1.05);
-  border: none;
-  z-index: 2;
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.03);
+    .promo__link {
+        background-image: url("../img/category-6.jpg");
+        background-position: 132px 2px;
+    }
 }
 
 @media screen and (max-width: 1369px) {
