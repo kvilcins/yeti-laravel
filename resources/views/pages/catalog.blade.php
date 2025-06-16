@@ -3,43 +3,13 @@
 @section('title', 'Каталог лотов')
 
 @section('content')
-    <main class="container">
-        <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
+    <main>
+        <div class="container">
+            <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
-        <section class="lots">
-            <div class="lots__header">
-                <h2>Открытые лоты</h2>
-            </div>
-            <ul class="lots__list">
-                @foreach ($ads as $ad)
-                    <li class="lots__item lot">
-                        <div class="lot__image">
-                            <img src="{{ asset($ad->img) }}" width="350" height="260" alt="{{ $ad->title }}">
-                        </div>
-                        <div class="lot__info">
-                            <span class="lot__category">{{ $ad->category->name }}</span>
-                            <h3 class="lot__title">
-                                <a class="lot__link text-link" href="{{ route('lot.show', ['category_slug' => $ad->category->slug, 'slug' => $ad->slug]) }}">
-                                    {{ $ad->title }}
-                                </a>
-                            </h3>
-                            <div class="lot__state">
-                                <div class="lot__rate">
-                                    <span class="lot__amount">Стартовая цена</span>
-                                    <span class="lot__cost">{{ formatPrice($ad->price) }}</span>
-                                </div>
-                                <div class="lot__timer timer">
-                                    {{ lot_time_left($ad->timer) }}
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                @endforeach
-            </ul>
-
-            @if ($ads->hasPages())
-                <x-partials.pagination :paginator="$ads" />
-            @endif
-        </section>
+            @include('components.lots', [
+                'lots__title' => 'Открытые лоты'
+            ])
+        </div>
     </main>
 @endsection

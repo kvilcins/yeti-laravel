@@ -8,7 +8,7 @@
 .user-menu__list {
     display: flex;
     justify-content: space-between;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: nowrap;
     gap: 10px;
     margin: 0;
@@ -58,6 +58,10 @@
     z-index: 111;
 
     width: 100%;
+
+    .user-menu__list {
+        flex-direction: column;
+    }
 }
 
 .user-menu__dropdown.hidden {
@@ -101,5 +105,9 @@
 @media screen and (max-width: 767px) {
     .user-menu {
         display: none;
+    }
+
+    .user-menu__list {
+        flex-direction: column;
     }
 }

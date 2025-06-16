@@ -1,0 +1,147 @@
+.form {
+    padding-top: 51px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form--invalid .form__item--invalid input,
+.form--invalid .form__item--invalid textarea,
+.form--invalid .form__item--invalid select {
+    border-color: #f84646;
+    background: #ffffff url("../img/error.svg") right 10px center no-repeat;
+}
+
+.form--invalid .form__item--invalid .form__error {
+    display: block;
+}
+
+.form__item {
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    &--invalid {
+        input,
+        textarea,
+        select {
+            border-color: #f84646;
+            background: #ffffff url("../img/error.svg") right 10px center no-repeat;
+        }
+
+        .form__error {
+            display: block;
+        }
+    }
+
+    &--img {
+
+        .form__label {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: fit-content;
+        }
+    }
+}
+
+.form__label {
+    font-weight: 500;
+}
+
+.form__input {
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: #ffffff;
+    font-size: 14px;
+
+    &:focus {
+        border-color: #45abde;
+        outline: none;
+    }
+}
+
+textarea.form__input {
+    min-height: 184px;
+    resize: vertical;
+}
+
+select.form__input {
+    background: #ffffff url("../img/dropdown.svg") right 10px center no-repeat;
+    appearance: none;
+}
+
+.form__error {
+    display: none;
+    font-size: 11px;
+    color: #f84646;
+
+    &--visible {
+        display: block;
+    }
+
+    &--global {
+        font-size: 14px;
+        color: #f84646;
+        margin-top: -10px;
+    }
+}
+
+.form__submit {
+    align-self: flex-start;
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #45abde;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #379fd1;
+    }
+}
+
+.form__preview {
+    margin-top: 10px;
+    display: none;
+
+    &--visible {
+        display: block;
+    }
+}
+
+.form__preview-img {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    border-radius: 4px;
+}
+
+.form__input-file {
+    display: none;
+}
+
+.form__file-label {
+    display: inline-block;
+    width: 120px;
+    height: 110px;
+    background-color: #cad5d8;
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 700;
+    padding: 40px 0;
+    box-sizing: border-box;
+    border: 1px solid #cad5d8;
+    cursor: pointer;
+
+    &:hover {
+        border-color: #45abde;
+    }
+}

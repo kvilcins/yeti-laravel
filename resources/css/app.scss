@@ -7,12 +7,13 @@
 @import 'partials/pagination';
 @import 'partials/breadcrumbs';
 
-@import 'blocks/promo';
-@import 'blocks/lots';
-@import 'blocks/timer';
-@import 'blocks/form';
-@import 'blocks/lot-item';
-@import 'blocks/history';
-@import 'blocks/rates';
-@import 'blocks/user-menu';
-@import 'blocks/search';
+@import 'components/promo';
+@import 'components/lots';
+@import 'components/timer';
+@import 'components/form';
+@import 'components/lot-item';
+@import 'components/history';
+@import 'components/rates';
+@import 'components/user-menu';
+@import 'components/search';
+@import 'components/bids';

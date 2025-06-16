@@ -12,7 +12,7 @@
                 <div class="lot-item__content">
                     <div class="lot-item__left">
                         <div class="lot-item__image">
-                            <img src="{{ asset($lot->img) }}" width="730" height="548" alt="{{ $lot->title }}">
+                            <img src="{{ asset($lot->img) }}" alt="{{ $lot->title }}">
                         </div>
                         <p class="lot-item__category">Категория: <span>{{ $lot->category->name }}</span></p>
                         <p class="lot-item__description">{{ $lot->description }}</p>
@@ -36,14 +36,14 @@
                                     @csrf
                                     <p class="lot-item__form-item">
                                         <label for="cost">Ваша ставка</label>
-                                        <input id="cost" type="number" name="cost" placeholder="12 000" min="{{ max($lot->min_bid, $lot->bids->max('bid_amount') ?? 0) + 1 }}" required>
+                                        <input id="cost" type="number" name="cost" placeholder="{{ max($lot->min_bid, $lot->bids->max('bid_amount') ?? 0) + 1 }}" min="{{ max($lot->min_bid, $lot->bids->max('bid_amount') ?? 0) + 1 }}" required>
                                     </p>
                                     <button type="submit" class="button">Сделать ставку</button>
                                 </form>
                             @endif
                         </div>
 
-                        <div class="history">
+                        <div class="lot-item__history history">
                             <h3>История ставок (<span>{{ $bids->count() }}</span>)</h3>
                             <table class="history__list">
                                 <tbody>

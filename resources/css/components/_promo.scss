@@ -24,11 +24,7 @@
 
 .promo__list {
   position: relative;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 542px;
   padding: 0;
@@ -102,6 +98,20 @@
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.03);
 }
 
+@media screen and (max-width: 1369px) {
+
+    .promo {
+        background-position: -114px 17px;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+
+    .promo {
+        background-position: -385px 17px;
+    }
+}
+
 @media screen and (max-width: 767px) {
 
     .promo__list {
@@ -109,7 +119,11 @@
         width: 100%;
     }
 
-    .promo__link {
-        width: 100%;
+    .promo__item {
+
+        .promo__link {
+            width: 100%;
+            background-position: 90%;
+        }
     }
 }
