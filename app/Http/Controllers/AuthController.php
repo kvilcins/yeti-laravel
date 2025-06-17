@@ -21,19 +21,16 @@ class AuthController extends Controller
         $this->breadcrumbsController = $breadcrumbsController;
     }
 
-    // Показать форму регистрации
     public function create()
     {
         $dataController = new DataController();
         $commonData = $dataController->getCommonData();
 
-        // Генерация хлебных крошек
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
         return view('pages.sign-up', array_merge($commonData, ['breadcrumbs' => $breadcrumbs]));
     }
 
-    // Сохранение данных регистрации
     public function store(RegisterRequest $request)
     {
         $validatedData = $request->validated();
@@ -57,19 +54,16 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'Аккаунт успешно зарегистрирован!');
     }
 
-    // Показать форму входа
     public function showLogin()
     {
         $dataController = new DataController();
         $commonData = $dataController->getCommonData();
 
-        // Генерация хлебных крошек
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
         return view('pages.login', array_merge($commonData, ['breadcrumbs' => $breadcrumbs]));
     }
 
-    // Обработка данных логина
     public function login(LoginRequest $request)
     {
         $validatedData = $request->validated();
@@ -86,7 +80,6 @@ class AuthController extends Controller
         }
     }
 
-    // Разлогирование
     public function logout(Request $request)
     {
         Auth::logout();

@@ -63,17 +63,14 @@ function include_template($template_name, $data, $template_path = 'templates/') 
     $template_name = $template_path . $template_name;
     $result = '';
 
-    // Проверка существования файла
     if (!file_exists($template_name)) {
         return $result;
     }
 
-    // Использование буферизации вывода для захвата содержимого шаблона
     ob_start();
     extract($data);
     require $template_name;
 
-    // Возвращение итогового содержимого шаблона
     $result = ob_get_clean();
 
     return $result;

@@ -12,22 +12,19 @@ class CategoryController extends Controller
 {
     protected $dataController;
     protected $breadcrumbsController;
-    
+
     public function __construct(DataController $dataController, BreadcrumbsController $breadcrumbsController)
     {
         $this->dataController = $dataController;
         $this->breadcrumbsController = $breadcrumbsController;
     }
-    
+
     public function show($slug)
     {
-        // Получаем общие данные с фильтрацией по категории
         $commonData = $this->dataController->getCommonData($slug);
-        
-        // Генерация хлебных крошек
+
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
-        
-        // Передача данных и хлебных крошек в представление
+
         return view('pages.categories', array_merge($commonData, ['breadcrumbs' => $breadcrumbs]));
     }
 }

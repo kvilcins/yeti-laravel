@@ -32,6 +32,10 @@
                     </a>
                 </div>
             </div>
+
+            <button id="scroll-to-top" class="scroll-to-top" aria-label="Наверх">
+                ↑
+            </button>
         </div>
     </div>
 </footer>

@@ -8,7 +8,7 @@
             <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
             <section class="lot-item">
-                <h2>{{ $lot->title }}</h2>
+                <h1>{{ $lot->title }}</h1>
                 <div class="lot-item__content">
                     <div class="lot-item__left">
                         <div class="lot-item__image">
@@ -43,20 +43,7 @@
                             @endif
                         </div>
 
-                        <div class="lot-item__history history">
-                            <h3>История ставок (<span>{{ $bids->count() }}</span>)</h3>
-                            <table class="history__list">
-                                <tbody>
-                                @foreach($bids as $bid)
-                                    <tr class="history__item">
-                                        <td class="history__name">{{ $bid->user->name }}</td>
-                                        <td class="history__price">{{ number_format($bid->bid_amount, 0, '', ' ') }} ₽</td>
-                                        <td class="history__time">{{ $bid->bid_time->diffForHumans() }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        @include('components.history')
                     </div>
                 </div>
             </section>

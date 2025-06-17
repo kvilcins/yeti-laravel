@@ -9,7 +9,7 @@ class StoreRequest extends FormRequest
 {
     public function authorize()
     {
-        return true; // Разрешает все запросы
+        return true;
     }
 
     public function rules()

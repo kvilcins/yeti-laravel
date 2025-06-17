@@ -8,19 +8,16 @@ class BidController extends Controller
 {
     public function store(Request $request, $lot)
     {
-        // Валидация данных формы
         $validatedData = $request->validate([
             'cost' => 'required|numeric|min:1',
         ]);
 
-        // Поиск лота
         $item = Item::find($lot);
 
         if (!$item) {
             return redirect()->back()->withErrors(['lot' => 'Лот не найден.']);
         }
 
-        // Логика добавления ставки
         Bid::create([
             'lot_id' => $item->id,
             'user_id' => auth()->user()->id,

@@ -1,26 +1,48 @@
+.history {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.history__wrapper {
+    min-width: 300px;
+}
+
 .history__item {
-    @include font($PTSans-400);
+    @include font($OpenSans-400);
     font-size: 13px;
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    gap: 10px;
 
-    padding: 6px 20px;
-    min-width: 310px;
-
+    padding: 10px 20px;
     background-color: $bg-1;
     border-bottom: 1px solid $border-light-blue;
-
-    td {
-        display: block;
-        width: 33%;
-    }
 
     &:last-child {
         border-bottom: none;
     }
+
+    > div {
+        width: auto;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
 .history__name {
-    @include font($PTSans-700);
+    @include font($OpenSans-600);
+}
+
+.history__price {
+    @include font($OpenSans-600);
+    color: $text-1;
+    text-align: right;
+}
+
+.history__time {
+    color: $text-5;
+    text-align: right;
 }

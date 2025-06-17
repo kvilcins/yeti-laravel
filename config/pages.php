@@ -97,6 +97,6 @@
     'title' => 'Личный кабинет',
     'content' => NULL,
     'type' => 'default_value',
-    'route' => 'default_value',
+    'route' => 'profile',
   ),
 );

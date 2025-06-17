@@ -21,8 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'contact_details', // Добавлено
-        'avatar', // Добавлено
+        'contact_details',
+        'avatar',
     ];
 
     /**

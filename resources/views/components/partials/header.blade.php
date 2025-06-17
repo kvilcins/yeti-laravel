@@ -73,7 +73,7 @@
                     <a href="{{ route('viewed.lots') }}" class="mobile-menu__link">Просмотренные лоты</a>
                     <form class="mobile-menu__form" action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="mobile-menu__link">Выйти</button>
+                        <button type="submit" class="button">Выйти</button>
                     </form>
                 @else
                     <a href="{{ route('login') }}" class="mobile-menu__link">Войти</a>

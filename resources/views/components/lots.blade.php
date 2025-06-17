@@ -10,7 +10,7 @@
         @forelse ($ads as $ad)
             @include('components.lot')
         @empty
-            <li class="lots__item lot">
+            <li class="lots__item">
                 <p>{!! $empty ?? 'Нет лотов в этой категории.' !!}</p>
             </li>
         @endforelse

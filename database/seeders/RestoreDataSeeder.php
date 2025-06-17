@@ -97,7 +97,7 @@ class RestoreDataSeeder extends Seeder
                         'id' => $user['id'],
                         'email' => $user['email'],
                         'name' => $user['name'],
-                        'password' => $user['password'], // Password is already hashed in backup
+                        'password' => $user['password'],
                         'remember_token' => $user['remember_token'] ?? null,
                         'email_verified_at' => $user['email_verified_at'] ?? null,
                         'created_at' => $user['created_at'] ?? null,

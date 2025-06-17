@@ -33,3 +33,10 @@
         cursor: default;
     }
 }
+
+@media screen and (max-width: 767px) {
+
+    .breadcrumb-item {
+        line-height: 16px;
+    }
+}

@@ -12,7 +12,6 @@ use Carbon\Carbon;
 
 class LotController extends Controller
 {
-    // Используем DataController для получения общих данных
     protected $dataController;
     protected $breadcrumbsController;
 
@@ -22,49 +21,41 @@ class LotController extends Controller
         $this->breadcrumbsController = $breadcrumbsController;
     }
 
-    // Метод для отображения страницы со всеми лотами
     public function index()
     {
         $commonData = $this->dataController->getCommonData();
         $lots = Item::all();
 
-        // Генерация хлебных крошек
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
         return view('pages.index', array_merge($commonData, ['lots' => $lots, 'breadcrumbs' => $breadcrumbs]));
     }
 
-    // Метод для отображения формы создания лота
     public function create()
     {
         $commonData = $this->dataController->getCommonData();
 
-        // Генерация хлебных крошек
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
         return view('pages.add', array_merge($commonData, ['breadcrumbs' => $breadcrumbs]));
     }
 
-    // Метод для сохранения данных формы создания лота
     public function store(StoreRequest $request)
     {
         $validatedData = $request->validated();
 
-        // Поиск категории
         $category = Category::where('name', $request->input('category'))->first();
 
         if (!$category) {
             return redirect()->back()->withErrors(['category' => 'Категория не найдена'])->withInput();
         }
 
-        // Обработка изображения
         $imageName = null;
         if ($request->hasFile('lot-img')) {
             $imageName = uniqid() . '.' . $request->file('lot-img')->extension();
             $request->file('lot-img')->move(public_path('img'), $imageName);
         }
 
-        // Сохранение данных в таблицу `items`
         Item::create([
             'title' => $validatedData['lot-name'],
             'description' => $validatedData['message'],
@@ -81,23 +72,21 @@ class LotController extends Controller
     public function placeBid(Request $request, $id)
     {
         $request->validate([
-            'cost' => 'required|integer|min:1', // Проверка, что ставка введена и положительна
+            'cost' => 'required|integer|min:1',
         ]);
 
         $lot = Item::findOrFail($id);
 
-        // Проверяем, что ставка превышает минимально допустимую
-        $maxBid = $lot->bids()->max('bid_amount'); // Получаем текущую максимальную ставку
+        $maxBid = $lot->bids()->max('bid_amount');
         $minBid = $lot->min_bid;
 
         if ($request->cost <= max($maxBid, $minBid)) {
             return redirect()->back()->withErrors(['cost' => 'Ставка должна быть выше текущей максимальной ставки.']);
         }
 
-        // Создаем новую ставку
         Bid::create([
             'lot_id' => $id,
-            'user_id' => auth()->id(), // Текущий пользователь
+            'user_id' => auth()->id(),
             'bid_amount' => $request->cost,
             'bid_time' => now(),
         ]);
@@ -109,24 +98,19 @@ class LotController extends Controller
     {
         $commonData = $this->dataController->getCommonData();
 
-        // Находим категорию по slug
         $category = Category::where('slug', $category_slug)->firstOrFail();
 
-        // Находим лот по slug категории и slug лота
         $lot = Item::where('slug', $slug)
                    ->where('category_id', $category->id)
                    ->with('category')
                    ->firstOrFail();
 
-        // Если лот не найден, возвращаем 404
         if (!$lot) {
             abort(404, 'Лот не найден');
         }
 
-        // Получаем все ставки для данного лота, включая информацию о пользователях
         $bids = $lot->bids()->with('user')->latest()->get();
 
-        // Добавляем форматирование времени для каждой ставки
         foreach ($bids as $bid) {
             $bidTime = Carbon::parse($bid->bid_time);
             $now = Carbon::now();
@@ -140,10 +124,8 @@ class LotController extends Controller
             }
         }
 
-        // Генерация хлебных крошек
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
-        // Передаем данные в шаблон
         return view('pages.lot', array_merge($commonData, [
             'lot' => $lot,
             'bids' => $bids,

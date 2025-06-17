@@ -86,6 +86,37 @@
     }
 }
 
+.scroll-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    z-index: 999;
+
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    background-color: $bg-10;
+    color: $text-white;
+    font-size: 20px;
+
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+        background-color: darken($bg-10, 10%);
+    }
+
+    &.visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+}
+
 @media screen and (max-width: 767px) {
 
     .footer__wrapper {
@@ -118,5 +149,10 @@
             margin-bottom: 0;
             text-align: center;
         }
+    }
+
+    .scroll-to-top {
+        bottom: 20px;
+        right: 15px;
     }
 }

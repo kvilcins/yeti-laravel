@@ -3,3 +3,5 @@ import './modules/viewed_lots.js';
 import './modules/search-suggestions.js';
 import './modules/menu-dropdown.js';
 import './modules/mobile-menu.js';
+import './modules/fixed-scroll.js';
+import './modules/scroll-to-top.js';
