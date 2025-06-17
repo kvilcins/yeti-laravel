@@ -36,8 +36,8 @@
                 </div>
 
                 <div class="form__item {{ $errors->has('message') ? 'form__item--invalid' : '' }}">
-                    <label class="form__label" for="message">Контактные данные*</label>
-                    <textarea class="form__input" id="message" name="message" placeholder="Напишите как с вами связаться" required>{{ old('message') }}</textarea>
+                    <label class="form__label" for="message">Контактные данные</label>
+                    <textarea class="form__input" id="message" name="message" placeholder="Напишите как с вами связаться">{{ old('message') }}</textarea>
                     @error('message')
                     <span class="form__error">{{ $message }}</span>
                     @enderror
@@ -48,7 +48,7 @@
                         Аватар
                         <span class="form__file-label">Загрузить</span>
                     </label>
-                    <input class="form__input-file" type="file" name="lot-img" id="lot-img" required>
+                    <input class="form__input-file" type="file" name="lot-img" id="lot-img">
                     <div class="form__preview">
                         <img src="" alt="Предпросмотр изображения" class="form__preview-img">
                     </div>

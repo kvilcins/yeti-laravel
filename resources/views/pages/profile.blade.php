@@ -3,12 +3,24 @@
 @section('title', 'Страница аккаунта')
 
 @section('content')
+
+@php
+    $avatar = auth()->user()->avatar;
+
+    if ($avatar) {
+        $isPublic = str_starts_with($avatar, 'img/');
+        $avatarUrl = $isPublic ? asset($avatar) : asset('storage/' . $avatar);
+    } else {
+        $avatarUrl = asset('img/default-avatar.jpg');
+    }
+@endphp
+
     <main>
         <div class="container">
             @if($is_auth)
                 <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
-                <form class="form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                <form class="form form--profile" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <h1 class="form__title h1">Редактирование профиля</h1>
@@ -41,13 +53,12 @@
                         </label>
                         <input class="form__input-file" type="file" name="avatar" id="avatar" accept="image/*" required>
 
-                        <div class="form__preview {{ auth()->user()->avatar ? 'form__preview--visible' : '' }}">
+                        <div class="form__preview form__preview--visible">
                             <img
-                                src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : '' }}"
+                                src="{{ $avatarUrl }}"
                                 alt="Предпросмотр изображения"
                                 class="form__preview-img"
                                 id="avatarPreview"
-                                style="{{ auth()->user()->avatar ? '' : 'display: none;' }}"
                             >
                         </div>
 
@@ -57,24 +68,7 @@
                     <button type="submit" class="form__submit button">Сохранить изменения</button>
                 </form>
 
-                @if($userBids && $userBids->isNotEmpty())
-                    <div class="bids">
-                        <div class="bids__title h2">Мои ставки</div>
-                        <ul class="bids__list">
-                            @foreach($userBids as $bid)
-                                @if($bid->lot)
-                                    <li>
-                                        <a href="{{ route('lot.show', ['category_slug' => $bid->lot->category->slug, 'slug' => $bid->lot->slug]) }}">{{ $bid->lot->title }}</a> - Ставка: {{ $bid->bid_amount }}
-                                    </li>
-                                @else
-                                    <li>Этот лот больше не доступен.</li>
-                                @endif
-                            @endforeach
-                        </ul>
-                    </div>
-                @else
-                    <p>У вас нет ставок.</p>
-                @endif
+                @include('components.bids')
             @endif
         </div>
     </main>

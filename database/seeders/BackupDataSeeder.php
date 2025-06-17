@@ -14,10 +14,26 @@ class BackupDataSeeder extends Seeder
 {
     public function run()
     {
-        // Получаем все товары из базы данных
+        $categories = Category::all()->toArray();
+
+        $formattedCategories = array_map(function($category) {
+            return [
+                'id' => $category['id'],
+                'name' => $category['name'],
+                'class' => $category['class'],
+                'slug' => $category['slug'],
+            ];
+        }, $categories);
+
+        $existingCategories = Config::get('categories', []);
+        $mergedCategories = array_merge($existingCategories, $formattedCategories);
+        $mergedCategories = $this->removeDuplicates($mergedCategories, 'id');
+
+        Config::set('categories', $mergedCategories);
+        file_put_contents(config_path('categories.php'), '<?php return ' . var_export($mergedCategories, true) . ';');
+
         $items = Item::all()->toArray();
-        
-        // Преобразуем товары в нужный формат
+
         $formattedItems = array_map(function($item) {
             return [
                 'id' => $item['id'],
@@ -30,117 +46,41 @@ class BackupDataSeeder extends Seeder
                 'category_id' => $item['category_id'],
             ];
         }, $items);
-        
-        // Получаем текущие данные конфигурации для товаров
+
         $existingItems = Config::get('items', []);
-        
-        // Убираем дубли из существующих данных и новых данных
         $mergedItems = array_merge($existingItems, $formattedItems);
         $mergedItems = $this->removeDuplicates($mergedItems, 'id');
-        
-        // Сохраняем обновленные товары в конфиг
+
         Config::set('items', $mergedItems);
-        
-        // Сохраняем товары в файл конфигурации
         file_put_contents(config_path('items.php'), '<?php return ' . var_export($mergedItems, true) . ';');
-        
-        // Получаем все категории из базы данных
-        $categories = Category::all()->toArray();
-        
-        // Преобразуем категории в нужный формат
-        $formattedCategories = array_map(function($category) {
-            return [
-                'id' => $category['id'],
-                'name' => $category['name'],
-                'class' => $category['class'],
-                'slug' => $category['slug'],
-            ];
-        }, $categories);
-        
-        // Получаем текущие данные конфигурации для категорий
-        $existingCategories = Config::get('categories', []);
-        
-        // Объединяем старые и новые данные, убираем дубли
-        $mergedCategories = array_merge($existingCategories, $formattedCategories);
-        $mergedCategories = $this->removeDuplicates($mergedCategories, 'id');
-        
-        // Сохраняем обновленные категории в конфиг
-        Config::set('categories', $mergedCategories);
-        
-        // Сохраняем категории в файл конфигурации
-        file_put_contents(config_path('categories.php'), '<?php return ' . var_export($mergedCategories, true) . ';');
-    
-        // Получаем все пользователи из базы данных
+
         $users = User::all();
-    
-        // Получаем текущие данные конфигурации для пользователей
+
         $existingUsers = Config::get('userdata', []);
-    
-        // Преобразуем данные пользователей, чтобы все пустые поля были null
+
         $formattedUsers = $users->map(function($user) {
             return [
                 'id' => $user->id,
                 'email' => $user->email,
                 'name' => $user->name,
-                'password' => $user->password ?? null, // Если password не существует, ставим null
+                'password' => $user->password ?? null,
                 'remember_token' => $user->remember_token ?? null,
                 'email_verified_at' => $user->email_verified_at ?? null,
-                'created_at' => $user->created_at ? $user->created_at->toISOString() : null, // Преобразуем в строку
-                'updated_at' => $user->updated_at ? $user->updated_at->toISOString() : null, // Преобразуем в строку
+                'created_at' => $user->created_at ? $user->created_at->toISOString() : null,
+                'updated_at' => $user->updated_at ? $user->updated_at->toISOString() : null,
                 'contact_details' => $user->contact_details ?? null,
-                'avatar' => $user->avatar ?? null,
+                'avatar' => $user->avatar ?? null, // Avatar field included
             ];
         })->toArray();
-    
-        // Объединяем старые и новые данные, убираем дубли
+
         $mergedUsers = array_merge($existingUsers, $formattedUsers);
         $mergedUsers = $this->removeDuplicates($mergedUsers, 'id');
-    
-        // Сохраняем обновленные данные пользователей в конфиг
+
         Config::set('userdata', $mergedUsers);
-    
-        // Сохраняем данные пользователей в файл конфигурации
         file_put_contents(config_path('userdata.php'), '<?php return ' . var_export($mergedUsers, true) . ';');
-    
-        // Получаем все страницы из базы данных
-        $pages = Page::all()->toArray();
-        
-        // Преобразуем страницы в нужный формат
-        $formattedPages = array_map(function($page) {
-            return [
-                'id' => $page['id'],
-                'slug' => $page['slug'],
-                'name' => $page['name'],
-                'title' => $page['title'] ?? null,
-                'content' => $page['content'] ?? null,
-                'type' => $page['type'] ?? 'default_value',
-                'route' => $page['route'] ?? 'default_value',
-            ];
-        }, $pages);
-    
-    
-        // Получаем текущие данные конфигурации для страниц
-        $existingPages = Config::get('pages', []);
-        
-        // Убедимся, что $existingPages - это массив
-        if (!is_array($existingPages)) {
-            $existingPages = []; // Если это не массив, то инициализируем как пустой массив
-        }
-        
-        // Объединяем старые и новые данные, убираем дубли
-        $mergedPages = array_merge($existingPages, $formattedPages);
-        $mergedPages = $this->removeDuplicates($mergedPages, 'id');
-        
-        // Сохраняем обновленные страницы в конфиг
-        Config::set('pages', $mergedPages);
-        
-        // Сохраняем страницы в файл конфигурации
-        file_put_contents(config_path('pages.php'), '<?php return ' . var_export($mergedPages, true) . ';');
-    
-        // Обрабатываем таблицу bids
-        $bids = Bid::all()->toArray(); // Получаем все ставки из таблицы
-    
-        // Форматируем ставки для сохранения
+
+        $bids = Bid::all()->toArray();
+
         $formattedBids = array_map(function ($bid) {
             return [
                 'id' => $bid['id'],
@@ -152,28 +92,46 @@ class BackupDataSeeder extends Seeder
                 'updated_at' => $bid['updated_at'] ?? null,
             ];
         }, $bids);
-    
-        // Получаем текущие данные конфигурации для bids
+
         $existingBids = Config::get('bids', []);
-    
-        // Объединяем новые и старые данные, убираем дубли
+
         $mergedBids = array_merge($existingBids, $formattedBids);
         $mergedBids = $this->removeDuplicates($mergedBids, 'id');
-    
-        // Сохраняем данные ставок в конфиг
+
         Config::set('bids', $mergedBids);
-    
-        // Сохраняем ставки в файл конфигурации bids.php
         file_put_contents(config_path('bids.php'), '<?php return ' . var_export($mergedBids, true) . ';');
-    
+
+        $pages = Page::all()->toArray();
+
+        $formattedPages = array_map(function($page) {
+            return [
+                'id' => $page['id'],
+                'slug' => $page['slug'],
+                'name' => $page['name'],
+                'title' => $page['title'] ?? null,
+                'content' => $page['content'] ?? null,
+                'type' => $page['type'] ?? 'default_value',
+                'route' => $page['route'] ?? 'default_value',
+            ];
+        }, $pages);
+
+        $existingPages = Config::get('pages', []);
+
+        if (!is_array($existingPages)) {
+            $existingPages = [];
+        }
+
+        $mergedPages = array_merge($existingPages, $formattedPages);
+        $mergedPages = $this->removeDuplicates($mergedPages, 'id');
+
+        Config::set('pages', $mergedPages);
+        file_put_contents(config_path('pages.php'), '<?php return ' . var_export($mergedPages, true) . ';');
     }
-    
-    // Функция для удаления дублей
+
     private function removeDuplicates($array, $key)
     {
         $unique = [];
         foreach ($array as $item) {
-            // Проверяем наличие ключа перед добавлением
             if (isset($item[$key])) {
                 $unique[$item[$key]] = $item;
             }

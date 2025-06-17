@@ -15,7 +15,7 @@ class RegisterRequest extends FormRequest
     {
         return true;
     }
-    
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -31,7 +31,7 @@ class RegisterRequest extends FormRequest
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         ];
     }
-    
+
     /**
      * Customize the error messages for validation.
      *
