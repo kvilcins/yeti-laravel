@@ -61,5 +61,4 @@ const initSearchSuggestions = () => {
     });
 };
 
-// Вызов функции
 initSearchSuggestions();

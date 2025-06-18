@@ -31,7 +31,7 @@
                                     Мин. ставка <span>{{ formatPrice($lot->min_bid) }}</span>
                                 </div>
                             </div>
-                            @if($is_auth)
+                            @if($is_auth && $isLotActive)
                                 <form class="lot-item__form" action="{{ route('bids.store', $lot->id) }}" method="post">
                                     @csrf
                                     <p class="lot-item__form-item">
@@ -40,6 +40,8 @@
                                     </p>
                                     <button type="submit" class="button">Сделать ставку</button>
                                 </form>
+                            @elseif(!$isLotActive)
+                                <p class="lot-item__expired-message">Прием ставок окончен</p>
                             @endif
                         </div>
 

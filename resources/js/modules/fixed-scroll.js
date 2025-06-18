@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('header');
     let lastScroll = 0;
 
-    window.addEventListener('scroll', function () {
+    window.addEventListener('scroll', () => {
         const currentScroll = window.scrollY;
 
         if (currentScroll > 100 && currentScroll > lastScroll) {

@@ -18,8 +18,7 @@
                            type="email"
                            name="email"
                            placeholder="Введите e-mail"
-                           value="{{ old('email') }}"
-                           required>
+                           value="{{ old('email') }}">
                     <span class="form__error">
                         @if($errors->has('email'))
                             {{ $errors->first('email') }}
@@ -35,8 +34,7 @@
                            id="password"
                            type="password"
                            name="password"
-                           placeholder="Введите пароль"
-                           required>
+                           placeholder="Введите пароль">
                     <span class="form__error">
                         @if($errors->has('password'))
                             {{ $errors->first('password') }}

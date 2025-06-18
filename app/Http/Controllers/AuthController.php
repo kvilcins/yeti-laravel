@@ -40,7 +40,7 @@ class AuthController extends Controller
             $request->file('avatar')->move(public_path('img'), $avatarName);
             $validatedData['avatar'] = 'img/' . $avatarName;
         } else {
-            $validatedData['avatar'] = 'img/default-avatar.jpg';
+            $validatedData['avatar'] = null;
         }
 
         User::create([

@@ -1,6 +1,6 @@
 @extends('layouts.internal')
 
-@section('title', 'Добавление лота')
+@section('title', 'Add Lot')
 
 @section('content')
     <main>
@@ -10,20 +10,21 @@
             <form class="form form--add-lot {{ $errors->any() ? 'form--invalid' : '' }}"
                   action="{{ route('lot.store') }}"
                   method="POST"
-                  enctype="multipart/form-data">
+                  enctype="multipart/form-data"
+                  novalidate>
                 @csrf
-                <h1 class="form__title h1">Добавление лота</h1>
+                <h1 class="form__title h1">Add Lot</h1>
 
-                <div class="form__item {{ $errors->has('lot-name') ? 'form__item--invalid' : '' }}">
-                    <label class="form__label" for="lot-name">Наименование</label>
-                    <input class="form__input" id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value="{{ old('lot-name') }}" required>
-                    <span class="form__error">{{ $errors->first('lot-name') }}</span>
+                <div class="form__item {{ $errors->has('lot_name') ? 'form__item--invalid' : '' }}">
+                    <label class="form__label" for="lot_name">Name</label>
+                    <input class="form__input" id="lot_name" type="text" name="lot_name" placeholder="Enter lot name" value="{{ old('lot_name') }}">
+                    <span class="form__error">{{ $errors->first('lot_name') }}</span>
                 </div>
 
                 <div class="form__item {{ $errors->has('category') ? 'form__item--invalid' : '' }}">
-                    <label class="form__label" for="category">Категория</label>
-                    <select class="form__input" id="category" name="category" required>
-                        <option value="">Выберите категорию</option>
+                    <label class="form__label" for="category">Category</label>
+                    <select class="form__input" id="category" name="category">
+                        <option value="">Select category</option>
                         @foreach ($categories as $category)
                             <option value="{{ $category['name'] }}" {{ old('category') == $category['name'] ? 'selected' : '' }}>
                                 {{ $category['name'] }}
@@ -34,46 +35,46 @@
                 </div>
 
                 <div class="form__item {{ $errors->has('message') ? 'form__item--invalid' : '' }}">
-                    <label class="form__label" for="message">Описание</label>
-                    <textarea class="form__input" id="message" name="message" placeholder="Напишите описание лота" required>{{ old('message') }}</textarea>
+                    <label class="form__label" for="message">Description</label>
+                    <textarea class="form__input" id="message" name="message" placeholder="Write lot description">{{ old('message') }}</textarea>
                     <span class="form__error">{{ $errors->first('message') }}</span>
                 </div>
 
-                <div class="form__item form__item--img {{ $errors->has('lot-img') ? 'form__item--invalid' : '' }}">
-                    <label class="form__label" for="lot-img">
-                        Изображение
-                        <span class="form__file-label">Загрузить</span>
+                <div class="form__item form__item--img {{ $errors->has('lot_img') ? 'form__item--invalid' : '' }}">
+                    <label class="form__label" for="lot_img">
+                        Image
+                        <span class="form__file-label">Upload</span>
                     </label>
-                    <input class="form__input-file" type="file" name="lot-img" id="lot-img" required>
+                    <input class="form__input-file" type="file" name="lot_img" id="lot_img">
                     <div class="form__preview">
-                        <img src="" alt="Предпросмотр изображения" class="form__preview-img">
+                        <img src="" alt="Image preview" class="form__preview-img">
                     </div>
-                    <span class="form__error">{{ $errors->first('lot-img') }}</span>
+                    <span class="form__error">{{ $errors->first('lot_img') }}</span>
                 </div>
 
-                <div class="form__item {{ $errors->has('lot-rate') ? 'form__item--invalid' : '' }}">
-                    <label class="form__label" for="lot-rate">Начальная цена</label>
-                    <input class="form__input" id="lot-rate" type="number" name="lot-rate" placeholder="0" value="{{ old('lot-rate') }}" required>
-                    <span class="form__error">{{ $errors->first('lot-rate') }}</span>
+                <div class="form__item {{ $errors->has('lot_rate') ? 'form__item--invalid' : '' }}">
+                    <label class="form__label" for="lot_rate">Starting Price</label>
+                    <input class="form__input" id="lot_rate" type="number" name="lot_rate" placeholder="0" value="{{ old('lot_rate') }}">
+                    <span class="form__error">{{ $errors->first('lot_rate') }}</span>
                 </div>
 
-                <div class="form__item {{ $errors->has('lot-step') ? 'form__item--invalid' : '' }}">
-                    <label class="form__label" for="lot-step">Шаг ставки</label>
-                    <input class="form__input" id="lot-step" type="number" name="lot-step" placeholder="0" value="{{ old('lot-step') }}" required>
-                    <span class="form__error">{{ $errors->first('lot-step') }}</span>
+                <div class="form__item {{ $errors->has('lot_step') ? 'form__item--invalid' : '' }}">
+                    <label class="form__label" for="lot_step">Bid Step</label>
+                    <input class="form__input" id="lot_step" type="number" name="lot_step" placeholder="0" value="{{ old('lot_step') }}">
+                    <span class="form__error">{{ $errors->first('lot_step') }}</span>
                 </div>
 
                 <div class="form__item {{ $errors->has('timer') ? 'form__item--invalid' : '' }}">
-                    <label class="form__label" for="timer">Дата окончания торгов</label>
-                    <input class="form__input form__input--date" id="timer" type="date" name="timer" value="{{ old('timer') }}" required>
+                    <label class="form__label" for="timer">Auction End Date</label>
+                    <input class="form__input form__input--date" id="timer" type="date" name="timer" value="{{ old('timer') }}">
                     <span class="form__error">{{ $errors->first('timer') }}</span>
                 </div>
 
                 @if ($errors->any())
-                    <span class="form__error form__error--global">Пожалуйста, исправьте ошибки в форме.</span>
+                    <span class="form__error form__error--global">Please correct the errors in the form.</span>
                 @endif
 
-                <button type="submit" class="form__submit button">Добавить лот</button>
+                <button type="submit" class="form__submit button">Add Lot</button>
             </form>
         </div>
     </main>

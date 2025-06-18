@@ -47,26 +47,26 @@ class LotController extends Controller
         $category = Category::where('name', $request->input('category'))->first();
 
         if (!$category) {
-            return redirect()->back()->withErrors(['category' => 'Категория не найдена'])->withInput();
+            return redirect()->back()->withErrors(['category' => 'Category not found'])->withInput();
         }
 
         $imageName = null;
-        if ($request->hasFile('lot-img')) {
-            $imageName = uniqid() . '.' . $request->file('lot-img')->extension();
-            $request->file('lot-img')->move(public_path('img'), $imageName);
+        if ($request->hasFile('lot_img')) {
+            $imageName = uniqid() . '.' . $request->file('lot_img')->extension();
+            $request->file('lot_img')->move(public_path('img'), $imageName);
         }
 
         Item::create([
-            'title' => $validatedData['lot-name'],
+            'title' => $validatedData['lot_name'],
             'description' => $validatedData['message'],
-            'price' => $validatedData['lot-rate'],
-            'min_bid' => $validatedData['lot-step'],
+            'price' => $validatedData['lot_rate'],
+            'min_bid' => $validatedData['lot_step'],
             'img' => $imageName ? 'img/' . $imageName : null,
             'category_id' => $category->id,
             'timer' => $validatedData['timer'],
         ]);
 
-        return redirect()->route('home')->with('success', 'Лот успешно добавлен!');
+        return redirect()->route('home')->with('success', 'Lot successfully added!');
     }
 
     public function placeBid(Request $request, $id)
@@ -81,7 +81,7 @@ class LotController extends Controller
         $minBid = $lot->min_bid;
 
         if ($request->cost <= max($maxBid, $minBid)) {
-            return redirect()->back()->withErrors(['cost' => 'Ставка должна быть выше текущей максимальной ставки.']);
+            return redirect()->back()->withErrors(['cost' => 'The bid must be higher than the current highest bid.']);
         }
 
         Bid::create([
@@ -91,7 +91,7 @@ class LotController extends Controller
             'bid_time' => now(),
         ]);
 
-        return redirect()->back()->with('success', 'Ставка успешно сделана!');
+        return redirect()->back()->with('success', 'Bid placed successfully!');
     }
 
     public function show($category_slug, $slug)
@@ -101,12 +101,12 @@ class LotController extends Controller
         $category = Category::where('slug', $category_slug)->firstOrFail();
 
         $lot = Item::where('slug', $slug)
-                   ->where('category_id', $category->id)
-                   ->with('category')
-                   ->firstOrFail();
+            ->where('category_id', $category->id)
+            ->with('category')
+            ->firstOrFail();
 
         if (!$lot) {
-            abort(404, 'Лот не найден');
+            abort(404, 'Lot not found');
         }
 
         $bids = $lot->bids()->with('user')->latest()->get();
@@ -116,75 +116,24 @@ class LotController extends Controller
             $now = Carbon::now();
 
             if ($bidTime->diffInMinutes($now) < 60) {
-                $bid->formatted_time = $bidTime->diffInMinutes($now) . ' минут назад';
+                $bid->formatted_time = $bidTime->diffInMinutes($now) . ' minutes ago';
             } elseif ($bidTime->isToday()) {
-                $bid->formatted_time = $bidTime->diffInHours($now) . ' часов назад';
+                $bid->formatted_time = $bidTime->diffInHours($now) . ' hours ago';
             } else {
-                $bid->formatted_time = $bidTime->format('d.m.Y в H:i');
+                $bid->formatted_time = $bidTime->format('d.m.Y at H:i');
             }
         }
 
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
+        // Check if the lot is active
+        $isLotActive = Carbon::parse($lot->timer)->isFuture();
+
         return view('pages.lot', array_merge($commonData, [
             'lot' => $lot,
             'bids' => $bids,
             'breadcrumbs' => $breadcrumbs,
+            'isLotActive' => $isLotActive,
         ]));
     }
-
-
-    // Методы для редактирования, удаления и обновления лотов (закомментированы на будущее)
-
-    // public function edit($id)
-    // {
-    //     $commonData = $this->dataController->getCommonData();
-    //     $lot = Item::find($id);
-    //
-    //     if (!$lot) {
-    //         abort(404, 'Лот не найден');
-    //     }
-    //
-    //     return view('pages.edit', array_merge($commonData, ['lot' => $lot]));
-    // }
-
-    // public function update(StoreRequest $request, $id)
-    // {
-    //     $validatedData = $request->validated();
-    //
-    //     $lot = Item::find($id);
-    //
-    //     if (!$lot) {
-    //         abort(404, 'Лот не найден');
-    //     }
-    //
-    //     $lot->title = $validatedData['lot-name'];
-    //     $lot->description = $validatedData['message'];
-    //     $lot->price = $validatedData['lot-rate'];
-    //     $lot->min_bid = $validatedData['lot-step'];
-    //     $lot->timer = $validatedData['timer'];
-    //
-    //     if ($request->hasFile('lot-img')) {
-    //         $imageName = uniqid() . '.' . $request->file('lot-img')->extension();
-    //         $request->file('lot-img')->move(public_path('img'), $imageName);
-    //         $lot->img = 'img/' . $imageName;
-    //     }
-    //
-    //     $lot->save();
-    //
-    //     return redirect()->route('lots.show', $id)->with('success', 'Лот успешно обновлен!');
-    // }
-
-    // public function destroy($id)
-    // {
-    //     $lot = Item::find($id);
-    //
-    //     if (!$lot) {
-    //         abort(404, 'Лот не найден');
-    //     }
-    //
-    //     $lot->delete();
-    //
-    //     return redirect()->route('lots.index')->with('success', 'Лот успешно удален!');
-    // }
 }

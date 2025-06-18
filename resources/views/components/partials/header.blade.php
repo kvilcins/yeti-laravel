@@ -17,7 +17,11 @@
                     <a class="user-menu__add-lot button button--primary" href="{{ route('lot.create') }}">Добавить лот</a>
 
                     <div class="user-menu__avatar">
-                        <img src="{{ asset('storage/' . auth()->user()->avatar) }}" width="40" height="40" alt="Пользователь">
+                        <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('img/default-avatar.jpg') }}"
+                             width="40"
+                             height="40"
+                             alt="Пользователь"
+                        >
                     </div>
 
                     <div class="user-menu__dropdown hidden" id="user-dropdown">

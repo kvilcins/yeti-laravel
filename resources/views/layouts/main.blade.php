@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 @include('components.partials.head')
 
@@ -12,7 +12,7 @@
     ])
 
     @yield('content')
-    
+
     @include('components.partials.footer')
 
 </body>

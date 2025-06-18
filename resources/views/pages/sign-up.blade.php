@@ -7,13 +7,13 @@
         <div class="container">
             <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
-            <form class="form" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
+            <form class="form" action="{{ route('register') }}" method="POST" enctype="multipart/form-data" novalidate>
                 @csrf
                 <h1 class="form__title h1">Регистрация нового аккаунта</h1>
 
                 <div class="form__item {{ $errors->has('email') ? 'form__item--invalid' : '' }}">
                     <label class="form__label" for="email">E-mail*</label>
-                    <input class="form__input" id="email" type="text" name="email" value="{{ old('email') }}" placeholder="Введите e-mail" required>
+                    <input class="form__input" id="email" type="text" name="email" value="{{ old('email') }}" placeholder="Введите e-mail">
                     @error('email')
                     <span class="form__error">{{ $message }}</span>
                     @enderror
@@ -21,7 +21,7 @@
 
                 <div class="form__item {{ $errors->has('password') ? 'form__item--invalid' : '' }}">
                     <label class="form__label" for="password">Пароль*</label>
-                    <input class="form__input" id="password" type="password" name="password" placeholder="Введите пароль" required>
+                    <input class="form__input" id="password" type="password" name="password" placeholder="Введите пароль">
                     @error('password')
                     <span class="form__error">{{ $message }}</span>
                     @enderror
@@ -29,7 +29,7 @@
 
                 <div class="form__item {{ $errors->has('name') ? 'form__item--invalid' : '' }}">
                     <label class="form__label" for="name">Имя*</label>
-                    <input class="form__input" id="name" type="text" name="name" value="{{ old('name') }}" placeholder="Введите имя" required>
+                    <input class="form__input" id="name" type="text" name="name" value="{{ old('name') }}" placeholder="Введите имя">
                     @error('name')
                     <span class="form__error">{{ $message }}</span>
                     @enderror

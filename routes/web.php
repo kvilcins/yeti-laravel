@@ -48,12 +48,6 @@ Route::middleware('auth')->group(function () {
 
     // Просмотренные лоты
     Route::get('/viewed-lots', [ViewedLotsController::class, 'index'])->name('viewed.lots');
-
-    // Пока закомментирую на будущее роуты для редактирования, удаления и обновления лотов
-
-    // Route::get('/lot/{id}/edit', [LotController::class, 'edit'])->name('lot.edit');
-    // Route::put('/lot/{id}', [LotController::class, 'update'])->name('lot.update');
-    // Route::delete('/lot/{id}', [LotController::class, 'destroy'])->name('lot.destroy');
 });
 
 // Страницы лотов
@@ -81,6 +75,3 @@ Route::get('/catalog/{slug}', [CategoryController::class, 'show'])->name('catego
 
 // Страница каталога
 Route::get('/catalog', [CatalogController::class, 'show'])->name('catalog');
-
-//// Страницы (статичные)
-//Route::get('/{slug}', [PageController::class, 'show'])->name('page.show');

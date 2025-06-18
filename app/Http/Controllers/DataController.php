@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Item;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Request;
+use Carbon\Carbon;
 
 class DataController extends Controller
 {
@@ -22,8 +25,7 @@ class DataController extends Controller
         }
 
         $categories = Category::all();
-
-        $ads = [];
+        $ads = collect();
         $categoryName = null;
 
         if ($slug) {
@@ -31,18 +33,38 @@ class DataController extends Controller
 
             if ($category) {
                 $categoryName = $category->name;
-                $ads = Item::where('category_id', $category->id)->with('category')->paginate(9);
+                $ads = Item::where('category_id', $category->id)->with('category')->get();
             }
         } else {
-            $ads = Item::with('category')->paginate(9);
+            $ads = Item::with('category')->get();
         }
+
+        $now = Carbon::now();
+        $ads = $ads->sortBy(function ($lot) use ($now) {
+            return [
+                Carbon::parse($lot->timer)->isPast() ? 1 : 0,
+                Carbon::parse($lot->timer)->timestamp,
+            ];
+        })->values();
+
+        $perPage = 12;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = $ads->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $paginatedAds = new LengthAwarePaginator(
+            $currentItems,
+            $ads->count(),
+            $perPage,
+            $currentPage,
+            ['path' => Request::url(), 'query' => Request::query()]
+        );
 
         return [
             'is_auth' => $isAuth,
             'user_name' => $userName,
             'user_avatar' => $userAvatar,
             'categories' => $categories,
-            'ads' => $ads,
+            'ads' => $paginatedAds,
             'category_name' => $categoryName,
         ];
     }

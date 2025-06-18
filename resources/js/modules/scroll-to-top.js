@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     const scrollBtn = document.getElementById('scroll-to-top');
 
     window.addEventListener('scroll', () => {

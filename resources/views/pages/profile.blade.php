@@ -20,14 +20,14 @@
             @if($is_auth)
                 <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
-                <form class="form form--profile" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                <form class="form form--profile" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" novalidate>
                     @csrf
                     @method('PUT')
                     <h1 class="form__title h1">Редактирование профиля</h1>
 
                     <div class="form__item {{ $errors->has('name') ? 'form__item--invalid' : '' }}">
                         <label class="form__label" for="name">Имя*</label>
-                        <input class="form__input" id="name" type="text" name="name" value="{{ old('name', auth()->user()->name) }}" required>
+                        <input class="form__input" id="name" type="text" name="name" value="{{ old('name', auth()->user()->name) }}">
                         @error('name')
                             <span class="form__error">{{ $message }}</span>
                         @enderror
@@ -51,7 +51,8 @@
                             Аватар
                             <span class="form__file-label">Загрузить</span>
                         </label>
-                        <input class="form__input-file" type="file" name="avatar" id="avatar" accept="image/*" required>
+
+                        <input class="form__input-file" type="file" name="avatar" id="avatar" accept="image/*">
 
                         <div class="form__preview form__preview--visible">
                             <img

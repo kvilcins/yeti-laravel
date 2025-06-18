@@ -40,17 +40,17 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => 'Введите адрес электронной почты.',
-            'email.email' => 'Введите корректный адрес электронной почты.',
-            'email.unique' => 'Этот адрес электронной почты уже зарегистрирован.',
-            'password.required' => 'Введите пароль.',
-            'password.min' => 'Пароль должен содержать не менее 6 символов.',
-            'name.required' => 'Введите ваше имя.',
-            'name.max' => 'Имя не может превышать 255 символов.',
-            'message.required' => 'Введите ваши контактные данные.',
-            'avatar.image' => 'Файл аватара должен быть изображением.',
-            'avatar.mimes' => 'Аватар должен быть в формате jpeg, png, jpg, gif или svg.',
-            'avatar.max' => 'Максимальный размер аватара 2 МБ.',
+            'email.required' => 'Please enter your email address.',
+            'email.email' => 'Please enter a valid email address.',
+            'email.unique' => 'This email address is already registered.',
+            'password.required' => 'Please enter a password.',
+            'password.min' => 'The password must be at least 6 characters.',
+            'name.required' => 'Please enter your name.',
+            'name.max' => 'The name may not be greater than 255 characters.',
+            'message.required' => 'Please enter your contact information.',
+            'avatar.image' => 'The avatar must be an image.',
+            'avatar.mimes' => 'The avatar must be a file of type: jpeg, png, jpg, gif, svg.',
+            'avatar.max' => 'The avatar may not be greater than 2 MB.',
         ];
     }
 }

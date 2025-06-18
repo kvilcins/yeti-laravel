@@ -19,7 +19,7 @@ class BidSeeder extends Seeder
 
         foreach ($bidsConfig as $bidData) {
             $user = User::where('name', $bidData['name'])->first();
-            $lot = Item::find($bidData['lot_id']); // Идентификатор лота
+            $lot = Item::find($bidData['lot_id']);
 
             if ($user && $lot) {
                 $bidTime = Carbon::parse($bidData['time']);
