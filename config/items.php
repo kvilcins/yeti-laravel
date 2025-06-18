@@ -332,4 +332,15 @@
     'img' => 'img/684ffc9078641.jpg',
     'category_id' => 1,
   ),
+  20 => 
+  array (
+    'id' => 27,
+    'title' => 'Балаклава Airhole Balaclava Full Hinge',
+    'slug' => 'balaklava-airhole-balaclava-full-hinge',
+    'description' => 'Удобная балаклава Airhole с фирменным отверстием для дыхания предназначена для занятий зимними видами спорта. Модель надежно защищает лицо от снега и встречного ветра.',
+    'price' => 4699,
+    'min_bid' => 500,
+    'img' => 'img/68527c37e6425.jpg',
+    'category_id' => 4,
+  ),
 );
