@@ -10,15 +10,15 @@ class CategoriesTableSeeder extends Seeder
 {
     public function run()
     {
-        $categories = config('categories');
-        
+        $categories = config('categories', []);
+
         foreach ($categories as $category) {
             $category['slug'] = $category['slug'] ?? Str::slug($category['name']);
-            
+
             Category::updateOrCreate(
-                ['name' => $category['name']],
+                ['class' => $category['class']],
                 [
-                    'class' => $category['class'],
+                    'name' => $category['name'],
                     'slug' => $category['slug'],
                 ]
             );

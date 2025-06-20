@@ -10,36 +10,25 @@ use App\Models\User;
 
 class BidSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $bidsConfig = config('bids.history');
+        $bidsConfig = config('bids.history', []);
 
         foreach ($bidsConfig as $bidData) {
             $user = User::where('name', $bidData['name'])->first();
             $lot = Item::find($bidData['lot_id']);
 
             if ($user && $lot) {
-                $bidTime = Carbon::parse($bidData['time']);
-                $now = Carbon::now();
-
-                if ($bidTime->diffInMinutes($now) < 60) {
-                    $formattedTime = $bidTime->diffInMinutes($now) . ' минут назад';
-                } elseif ($bidTime->isToday()) {
-                    $formattedTime = $bidTime->diffInHours($now) . ' часов назад';
-                } else {
-                    $formattedTime = $bidTime->format('d.m.Y в H:i');
-                }
-
-                Bid::create([
-                    'lot_id' => $lot->id,
-                    'user_id' => $user->id,
-                    'bid_amount' => $bidData['price'],
-                    'bid_time' => $bidTime,
-                    'formatted_time' => $formattedTime,
-                ]);
+                Bid::updateOrCreate(
+                    [
+                        'lot_id' => $lot->id,
+                        'user_id' => $user->id,
+                        'bid_time' => Carbon::parse($bidData['time'])
+                    ],
+                    [
+                        'bid_amount' => $bidData['price'],
+                    ]
+                );
             }
         }
     }
