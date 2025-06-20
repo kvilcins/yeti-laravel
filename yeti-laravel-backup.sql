@@ -2,10 +2,10 @@
 -- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
--- Хост: mysql
--- Время создания: Июн 17 2025 г., 14:26
--- Версия сервера: 8.0.41
--- Версия PHP: 8.2.27
+-- Host: mysql
+-- Generation Time: Jun 20, 2025 at 07:50 PM
+-- Server version: 8.0.41
+-- PHP Version: 8.2.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,379 +18,88 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `yeti-laravel`
---
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `bids`
---
-
-CREATE TABLE `bids` (
-  `id` bigint UNSIGNED NOT NULL,
-  `lot_id` bigint UNSIGNED NOT NULL,
-  `user_id` bigint UNSIGNED NOT NULL,
-  `bid_amount` decimal(10,2) NOT NULL,
-  `bid_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `bids`
---
-
-INSERT INTO `bids` (`id`, `lot_id`, `user_id`, `bid_amount`, `bid_time`, `created_at`, `updated_at`) VALUES
-(1, 1, 4, 12001.00, '2025-01-20 12:07:19', '2025-06-17 13:26:36', '2025-06-17 13:26:36'),
-(2, 1, 4, 12002.00, '2025-01-20 12:08:44', '2025-06-17 13:26:36', '2025-06-17 13:26:36'),
-(3, 26, 4, 1200.00, '2025-06-16 11:15:01', '2025-06-16 11:15:01', '2025-06-16 11:15:01');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `categories`
---
-
-CREATE TABLE `categories` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `class` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `categories`
---
-
-INSERT INTO `categories` (`id`, `name`, `slug`, `class`, `created_at`, `updated_at`) VALUES
-(1, 'Доски и лыжи', 'boards', 'boards', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(2, 'Крепления', 'attachment', 'attachment', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(3, 'Ботинки', 'boots', 'boots', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(4, 'Одежда', 'clothing', 'clothing', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(5, 'Инструменты', 'tools', 'tools', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(6, 'Разное', 'other', 'other', '2025-06-17 14:25:38', '2025-06-17 14:25:38');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `failed_jobs`
---
-
-CREATE TABLE `failed_jobs` (
-  `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `items`
---
-
-CREATE TABLE `items` (
-  `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `price` int UNSIGNED NOT NULL,
-  `min_bid` int UNSIGNED NOT NULL,
-  `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `timer` timestamp NULL DEFAULT NULL,
-  `category_id` bigint UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `items`
---
-
-INSERT INTO `items` (`id`, `title`, `slug`, `description`, `price`, `min_bid`, `img`, `timer`, `category_id`, `created_at`, `updated_at`) VALUES
-(1, '2014 Rossignol District Snowboard', '2014-rossignol-district-snowboard', 'Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив снег мощным щелчком и четкими дугами.\n                          Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот снаряд отличной гибкостью и отзывчивостью, а симметричная геометрия\n                          в сочетании с классическим прогибом кэмбер позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,\n                          просто посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла равнодушным.', 10999, 12000, '../img/lot-1.jpg', NULL, 1, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(2, 'DC Ply Mens 2016/2017 Snowboard', 'dc-ply-mens-2016-2017-snowboard', 'Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив снег мощным щелчком и четкими дугами.\n                          Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот снаряд отличной гибкостью и отзывчивостью, а симметричная геометрия\n                          в сочетании с классическим прогибом кэмбер позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,\n                          просто посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла равнодушным.', 159999, 12000, '../img/lot-2.jpg', NULL, 1, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(3, 'Крепления Union Contact Pro 2015 года размер L/XL', 'union-contact-pro-2015', 'Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив снег мощным щелчком и четкими дугами.\n                          Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот снаряд отличной гибкостью и отзывчивостью, а симметричная геометрия\n                          в сочетании с классическим прогибом кэмбер позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,\n                          просто посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла равнодушным.', 8000, 12000, '../img/lot-3.jpg', NULL, 2, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(4, 'Ботинки для сноуборда DC Mutiny Charocal', 'dc-mutiny-charocal', 'Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив снег мощным щелчком и четкими дугами.\n                          Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот снаряд отличной гибкостью и отзывчивостью, а симметричная геометрия\n                          в сочетании с классическим прогибом кэмбер позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,\n                          просто посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла равнодушным.', 10999, 12000, '../img/lot-4.jpg', NULL, 3, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(5, 'Куртка для сноуборда DC Mutiny Charocal', 'dc-mutiny-charocal-jacket', 'Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив снег мощным щелчком и четкими дугами.\n                          Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот снаряд отличной гибкостью и отзывчивостью, а симметричная геометрия\n                          в сочетании с классическим прогибом кэмбер позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,\n                          просто посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла равнодушным.', 7500, 12000, '../img/lot-5.jpg', NULL, 4, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(6, 'Маска Oakley Canopy', 'oakley-canopy', 'Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив снег мощным щелчком и четкими дугами.\n                          Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот снаряд отличной гибкостью и отзывчивостью, а симметричная геометрия\n                          в сочетании с классическим прогибом кэмбер позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,\n                          просто посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла равнодушным.', 5400, 12000, '../img/lot-6.jpg', NULL, 6, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(7, 'Сноуборд PRIME Surf', 'prime-surf', 'Особенности:\nМужской сноуборд\nЖесткость: средняя\nНазначение: All-mountain, подготовленные трассы\nУровень райдера: новичок, продвинутый\nГеометрия Twin-Tip: симметричная геометрия и жесткость делает доску максимально сбалансированной и универсальной и дает максимальную мобильность для фристайла\nПрогиб Camber: классический прогиб доски обладает высокой стабильностью на скоростях и отлично держит кант при закладывании дуг, а так же имеет взрывной щелчок\nКонструкция сноуборда: CAP\nСердечник Light Woodcore: облегченный сердечник из древесины тополя обладает прочностью и дает единую гибкость доски по всей длине\nСтекловолокно Triaxial Fiberglass: укладывается в трёх направлениях, обеспеяивая высокую жесткость, отзывчивость и стабильность\nБоковые стенки Polyurethane ABS Sidewall: высокопрочные бесшовные боковые стенки из полиуретана отлично демпфируют и равномерно распределяют ударную нагрузку\nЭкструдированный скользяк Extruded 4400: прочный и простой в обслуживании\nЗакладные Tank Armour Inserts (16 шт.): прочные закладные из нержавеющей стали марки 304\nВерхний слой ABS TOPSHEET with UV-Protection: высококачественный прочный верхний слой с защитой от царапин и ультрафиолетовых лучей \nСтальной кант\nСистема креплений 2x4', 17780, 100, 'img/678d26e85dde6.jpg', NULL, 1, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(8, 'Куртка утепленная мужская Termit', 'termit-jacket', 'Конструктивные особенности\nПокрой	\nПрямой\nДлина	\nСредняя\nКапюшон	\nНе отстегивается\nЗастежка	\nМолния​\nКоличество карманов	\n2\nСнегозащитная юбка	\nНе отстегивается\nФункциональные особенности\nВодоотталкивающая пропитка	\nДа\nЗащита от ветра	\nДа\nУтеплитель	\nСинтетический\nОбщие характеристики\nВид спорта	\nСноубординг\nПол	\nМужчины\nГарантия подлинности товара	\nДа\nСостав\nМатериал верха	\n100% полиэстер\nМатериал утеплителя	\n100% полиэстер\nМатериал подкладки	\n100% полиэстер\nДополнительные характеристики\nВес утеплителя на м2	\n100\nКод производителя	\n124847\nСтрана производства	\nКитай\nСезон	\nЗима\nУход за товаром\nРекомендации по уходу	\nЩадящая стирка 30 °C. Не отбеливать. Сушка в машине запрещена. Глажение запрещено. Химчистка запрещена.\nДополнительная информация	\nСтирать специальным средством. Не замачивать.', 1999, 100, 'img/678d27bc0229e.jpg', NULL, 4, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(9, 'Куртка утепленная женская Termit', 'termit-jacket-women', 'ВОДОНЕПРОНИЦАЕМАЯ МЕМБРАНА\nМембрана Dry\'vex защищает от промокания и отводит от тела излишки тепла и влаги. Показатели водонепроницаемости и паропроницаемости: 5000 мм / 5000 г/м2/24 ч.', 3799, 150, 'img/678d28009e8a9.jpg', NULL, 4, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(10, 'Крепления сноубордические Union Flite Pro', 'union-flite-pro', 'Union Flite Pro — чемпионы по легкости среди сноубордических креплений. Эта модель для фристайла идеально подойдет начинающим и прогрессирующим сноубордистам. Универсальные диски совместимы с системой закладных 4x4, 4x2, Channel, 3D.\n\nНАДЕЖНАЯ ФИКСАЦИЯ\nВерхний стреп Forma обеспечивает хорошую передачу усилия и стабильность при управлении доской. Носочный стреп TS 4.0 надежно фиксирует ботинок. Алюминиевые бакли отличаются мягким ходом.\nПРОЧНОСТЬ\nПяточная дуга изготовлена из прочного экструдированного алюминия Extruded 3D Aluminum не деформируется под воздействием нагрузок. Она обеспечивает оптимальную поддержку пятки и минимизирует сопротивление.\nТОЧНАЯ ПЕРЕДАЧА ЭНЕРГИИ\nЛегкая и жесткая база из суперпрочного материала Duraflex гарантирует высокую производительность в широком диапазоне минусовых температур. Уменьшенная площадь контакта с доской обеспечивает еще большую степень отзывчивости.\nАМОРТИЗАЦИЯ\nБаза частично выполнена из пены ЭВА и превосходно компенсирует ударные нагрузки при приземлениях.', 17599, 200, 'img/678d2843dc7d4.jpg', NULL, 2, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(11, 'Сноубордические ботинки Terror Fastec', 'terror-fastec', 'Сноубордические ботинки Terror с фиксатором шнуровки на язычке. Прочный непромокаемый материал выдержит трение о крепления и обеспечит тепло и сухость ног во время катания.\n\nКОМФОРТ\nТермоформуемый внутренник с анатомическими вкладышами и поддержкой голеностопа. 3D-язычок для дополнительного комфорта.\nБЫСТРАЯ ФИКСАЦИЯ\nПредусмотрена система быстрой фиксации ботинка. Обувание не займет много времени!\nАМОРТИЗАЦИЯ\nСтелька из пеноматериала ЭВА и облегченная резиновая подошва для амортизации.\nУСТОЙЧИВОСТЬ К ИЗНОСУ\nВнешний ботинок выполнен из прочного материала. Благодаря этому модель прослужит не один сезон.', 18719, 200, 'img/678d28d18c57d.jpg', NULL, 3, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(12, 'Маска Uvex Pyrit FM', 'uvex-pyrit-fm', 'Базовая маска от Uvex. Безрамочная конструкция и зеркальная линза обеспечивают стильный внешний вид и функциональность модели. Световой фильтр S2 (база зеленая, внешнее покрытие зеркальное синее).\n\nЗАЩИТА ОТ УЛЬТРАФИОЛЕТА\nВстроенные фильтры от UVA-, UVB- и UVC-излучения обеспечивают надежную защиту ваших глаз.\nЗАЩИТА ОТ ЗАПОТЕВАНИЯ\nПокрытие Supravision предотвращает образование конденсата на линзе.\nСОВМЕСТИМОСТЬ С ОЧКАМИ\nМаску можно надевать поверх очков, корректирующих зрение.\nКОМФОРТ\nУплотнитель из велюра, вентилируемая оправа и стреп с силиконовым покрытием гарантируют комфортную и надежную фиксацию маски.', 7499, 100, 'img/678d293d7b705.jpg', NULL, 6, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(13, 'Маска горнолыжная Uvex Splash', 'maska-gornolyzhnaya-uvex-splash', 'Легкая маска для катания в пасмурную погоду от Uvex.\n\nЗАЩИТА ОТ УЛЬТРАФИОЛЕТА\nЛинза со встроенными фильтрами со 100% защитой от всех видов ультрафиолетового излучения.\nЗАЩИТА ОТ ЗАПОТЕВАНИЯ\nСпециальное покрытие не позволяет маске запотеть.', 3999, 1000, 'img/679605dab4c82.jpg', NULL, 6, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(14, 'Сноубордические ботинки Nitro Team TLS', 'snoubordicheskie-botinki-nitro-team-tls', 'Жесткие ботинки Nitro для продвинутых и профессиональных райдеров. Подойдут для универсального катания и бэккантри. Съемный усилитель язычка позволяет подстраивать жесткость под стиль катания.', 100, 20, 'img/683f3c75171d1.jpg', NULL, 3, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(23, 'Балаклава Airhole Balaclava Full Hinge', 'balaklava-airhole-balaclava-full-hinge-2', 'Удобная балаклава Airhole с фирменным отверстием для дыхания предназначена для занятий зимними видами спорта. Модель надежно защищает лицо от снега и встречного ветра.', 4699, 500, 'img/683f4eaee4745.jpg', NULL, 4, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(25, 'Шлем Uvex Wanted', 'shlem-uvex-wanted', 'All-mountain шлем с глубокой посадкой Uvex wanted. Прочная внешняя конструкция Hardshell и амортизирующий внутренний слой EPS гарантируют максимальную защиту. Подкладка с дополнительным утеплителем в области шеи для комфорта во время катания. Регулируемая вентиляция поддерживает оптимальный микроклимат внутри шлема.', 12999, 500, 'img/683f52208745a.jpg', NULL, 6, '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(26, 'Сноуборд Termit Savage', 'snoubord-termit-savage', 'Сноуборд Savage от Termit — идеальный выбор для любителей фрирайда. Надежная универсальная доска подходит для катания на высоких склонах, отлично справляется со скоростным спуском по трассе и всплывает в легком пухляке.', 27999, 1000, 'img/684ffc9078641.jpg', NULL, 1, '2025-06-17 14:25:38', '2025-06-17 14:25:38');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `migrations`
---
-
-CREATE TABLE `migrations` (
-  `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
-(3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2024_09_04_102242_create_categories_table', 1),
-(6, '2024_09_04_102353_create_items_table', 1),
-(7, '2024_09_10_143237_add_contact_and_avatar_to_users_table', 1),
-(8, '2024_09_23_122209_create_pages_table', 1),
-(9, '2025_01_20_105833_create_bids_table', 1);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `pages`
---
-
-CREATE TABLE `pages` (
-  `id` bigint UNSIGNED NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default_value',
-  `route` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default_value',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `pages`
---
-
-INSERT INTO `pages` (`id`, `slug`, `name`, `title`, `content`, `type`, `route`, `created_at`, `updated_at`) VALUES
-(1, 'main', 'Главная', 'Главная', NULL, 'default_value', 'default_value', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(2, 'add', 'Добавление лота', 'Добавление лота', NULL, 'default_value', 'lot.create', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(3, 'lot', 'Лот', 'Лот', '1', 'default_value', 'default_value', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(4, 'viewed-lots', 'Просмотренные лоты', 'Просмотренные лоты', NULL, 'default_value', 'viewed.lots', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(5, 'register', 'Регистрация', 'Регистрация', NULL, 'default_value', 'register', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(6, 'login', 'Авторизация', 'Авторизация', NULL, 'default_value', 'login', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(7, 'search', 'Поиск', 'Поиск', NULL, 'default_value', 'search', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(8, 'search-suggestions', 'Поисковые подсказки', 'Поисковые подсказки', NULL, 'default_value', 'search.suggestions', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(9, 'category', 'Категория', 'Категория', '1', 'default_value', 'default_value', '2025-06-17 14:25:38', '2025-06-17 14:25:38'),
-(10, 'profile', 'Профиль', 'Личный кабинет', NULL, 'default_value', 'default_value', '2025-06-17 14:25:38', '2025-06-17 14:25:38');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `password_reset_tokens`
---
-
-CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `personal_access_tokens`
---
-
-CREATE TABLE `personal_access_tokens` (
-  `id` bigint UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
-  `last_used_at` timestamp NULL DEFAULT NULL,
-  `expires_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `users`
---
-
-CREATE TABLE `users` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `contact_details` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `users`
---
-
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `contact_details`, `avatar`) VALUES
-(1, 'Игнат', 'ignat.v@gmail.com', NULL, '$2y$10$OqvsKHQwr0Wk6FMZDoHo1uHoXd4UdxJG/5UDtUiie00XaxMHrW8ka', NULL, '2025-06-17 13:26:36', '2025-06-17 13:26:36', NULL, NULL),
-(2, 'Леночка', 'kitty_93@li.ru', NULL, '$2y$10$bWtSjUhwgggtxrnJ7rxmIe63ABubHQs0AS0hgnOo41IEdMHkYoSVa', NULL, '2025-06-17 13:26:36', '2025-06-17 13:26:36', NULL, NULL),
-(3, 'Руслан', 'warrior07@mail.ru', NULL, '$2y$10$2OxpEH7narYpkOT1H5cApezuzh10tZEEQ2axgFOaKW.55LxIJBgWW', NULL, '2025-06-17 13:26:36', '2025-06-17 13:26:36', NULL, NULL),
-(4, 'Екатерина', 'kvilcins@mail.ru', NULL, '$2y$12$e9FT7Ob0RER29vs9NZDOBuL2q2t09f6QfX9J3FrSibbQdcl07.PG2', NULL, '2025-06-17 13:26:36', '2025-06-17 13:36:14', NULL, 'avatars/caTpSTVXJpoq75D3kXZJESMCjS3tmBujh9I6prF4.webp'),
-(6, 'kvilcins', 'kvilcins@list.ru', NULL, '$2y$12$jfmum6z7v2PVl12PQcu9x.qXDWhfA59kFEvvftH.mA2YqjEK60LxG', NULL, '2025-06-17 14:16:46', '2025-06-17 14:24:49', '12345', 'avatars/2czOzEDaHgtAO47O3Q3c2j78Cv9diiEilYta6UdZ.webp');
-
---
--- Индексы сохранённых таблиц
+-- Database: `yeti-laravel`
 --
 
 --
--- Индексы таблицы `bids`
---
-ALTER TABLE `bids`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `bids_lot_id_foreign` (`lot_id`),
-  ADD KEY `bids_user_id_foreign` (`user_id`);
-
---
--- Индексы таблицы `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `categories_name_unique` (`name`),
-  ADD UNIQUE KEY `categories_slug_unique` (`slug`);
-
---
--- Индексы таблицы `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
-
---
--- Индексы таблицы `items`
---
-ALTER TABLE `items`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `items_slug_unique` (`slug`),
-  ADD KEY `items_category_id_foreign` (`category_id`);
-
---
--- Индексы таблицы `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `pages`
---
-ALTER TABLE `pages`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `pages_slug_unique` (`slug`);
-
---
--- Индексы таблицы `password_reset_tokens`
---
-ALTER TABLE `password_reset_tokens`
-  ADD PRIMARY KEY (`email`);
-
---
--- Индексы таблицы `personal_access_tokens`
---
-ALTER TABLE `personal_access_tokens`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
-  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
-
---
--- Индексы таблицы `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
-
---
--- AUTO_INCREMENT для сохранённых таблиц
+-- Dumping data for table `bids`
 --
 
---
--- AUTO_INCREMENT для таблицы `bids`
---
-ALTER TABLE `bids`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+UPDATE IGNORE `bids` SET `id` = 1,`lot_id` = 15,`user_id` = 2,`bid_amount` = 501.00,`bid_time` = '2025-06-20 18:53:04',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `bids`.`id` = 1;
+UPDATE IGNORE `bids` SET `id` = 2,`lot_id` = 15,`user_id` = 2,`bid_amount` = 503.00,`bid_time` = '2025-06-20 18:53:08',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `bids`.`id` = 2;
+UPDATE IGNORE `bids` SET `id` = 3,`lot_id` = 14,`user_id` = 1,`bid_amount` = 21.00,`bid_time` = '2025-06-20 18:53:41',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `bids`.`id` = 3;
+UPDATE IGNORE `bids` SET `id` = 4,`lot_id` = 14,`user_id` = 1,`bid_amount` = 22.00,`bid_time` = '2025-06-20 18:53:44',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `bids`.`id` = 4;
+UPDATE IGNORE `bids` SET `id` = 5,`lot_id` = 4,`user_id` = 2,`bid_amount` = 12300.00,`bid_time` = '2025-06-20 19:49:54',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `bids`.`id` = 5;
 
 --
--- AUTO_INCREMENT для таблицы `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT для таблицы `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `items`
---
-ALTER TABLE `items`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- AUTO_INCREMENT для таблицы `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT для таблицы `pages`
---
-ALTER TABLE `pages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT для таблицы `personal_access_tokens`
---
-ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `users`
---
-ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- Ограничения внешнего ключа сохраненных таблиц
+-- Dumping data for table `categories`
 --
 
---
--- Ограничения внешнего ключа таблицы `bids`
---
-ALTER TABLE `bids`
-  ADD CONSTRAINT `bids_lot_id_foreign` FOREIGN KEY (`lot_id`) REFERENCES `items` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `bids_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+UPDATE IGNORE `categories` SET `id` = 1,`name` = 'Boards and skis',`slug` = 'boards',`class` = 'boards',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `categories`.`id` = 1;
+UPDATE IGNORE `categories` SET `id` = 2,`name` = 'Bindings',`slug` = 'attachment',`class` = 'attachment',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `categories`.`id` = 2;
+UPDATE IGNORE `categories` SET `id` = 3,`name` = 'Shoes',`slug` = 'boots',`class` = 'boots',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `categories`.`id` = 3;
+UPDATE IGNORE `categories` SET `id` = 4,`name` = 'Clothes',`slug` = 'clothing',`class` = 'clothing',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `categories`.`id` = 4;
+UPDATE IGNORE `categories` SET `id` = 5,`name` = 'Tools',`slug` = 'tools',`class` = 'tools',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `categories`.`id` = 5;
+UPDATE IGNORE `categories` SET `id` = 6,`name` = 'Other',`slug` = 'other',`class` = 'other',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `categories`.`id` = 6;
 
 --
--- Ограничения внешнего ключа таблицы `items`
+-- Dumping data for table `items`
 --
-ALTER TABLE `items`
-  ADD CONSTRAINT `items_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
+
+UPDATE IGNORE `items` SET `id` = 1,`title` = '2014 Rossignol District Snowboard',`slug` = '2014-rossignol-district-snowboard',`description` = 'A lightweight agile snowboard ready to dominate any park with explosive pops and razor-sharp turns.',`price` = 10999,`min_bid` = 12000,`img` = '../img/lot-1.jpg',`timer` = '2025-09-12 23:48:57',`category_id` = 1,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 1;
+UPDATE IGNORE `items` SET `id` = 2,`title` = 'DC Ply Mens 2016/2017 Snowboard',`slug` = 'dc-ply-mens-2016-2017-snowboard',`description` = 'A lightweight agile snowboard ready to dominate any park with explosive pops and razor-sharp turns.\nBi-Ax fiberglass laid in two directions gives this board excellent flex and responsiveness, while symmetrical geometry\ncombined with classic camber profile allows you to confidently hold high speeds. And if you\'re completely exhausted by the end of the riding day,\njust look at your board and smile - the sick graphics by Sean Cliver never leave anyone indifferent.',`price` = 159999,`min_bid` = 12000,`img` = '../img/lot-2.jpg',`timer` = '2025-09-11 23:49:04',`category_id` = 1,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 2;
+UPDATE IGNORE `items` SET `id` = 3,`title` = 'Union Contact Pro 2015 bindings size L/XL\n',`slug` = 'union-contact-pro-2015',`description` = 'A lightweight maneuverable snowboard ready to bring the heat in any park, melting snow with powerful ollies and crisp carves.\nBi-Ax fiberglass laid in two directions gives this board excellent flex and responsiveness, while the symmetrical geometry\ncombined with classic camber profile lets you confidently hold high speeds. And if you\'re completely wiped out by the end of the riding day,\njust look at your board and smile - the awesome graphics by Sean Cliver never fail to impress.',`price` = 8000,`min_bid` = 12000,`img` = '../img/lot-3.jpg',`timer` = '2025-10-02 23:49:09',`category_id` = 2,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 3;
+UPDATE IGNORE `items` SET `id` = 4,`title` = 'DC Mutiny Charcoal snowboard boots',`slug` = 'dc-mutiny-charocal',`description` = 'A lightweight maneuverable snowboard ready to bring the heat in any park, melting snow with powerful ollies and crisp carves.\nBi-Ax fiberglass laid in two directions gives this board excellent flex and responsiveness, while the symmetrical geometry\ncombined with classic camber profile lets you confidently hold high speeds. And if you\'re completely wiped out by the end of the riding day,\njust look at your board and smile - the awesome graphics by Sean Cliver never fail to impress.',`price` = 10999,`min_bid` = 12000,`img` = '../img/lot-4.jpg',`timer` = '2025-06-30 23:49:14',`category_id` = 3,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 4;
+UPDATE IGNORE `items` SET `id` = 5,`title` = 'DC Mutiny Charcoal snowboard jacket',`slug` = 'dc-mutiny-charocal-jacket',`description` = 'A lightweight maneuverable snowboard ready to bring the heat in any park, melting snow with powerful ollies and crisp carves.\nBi-Ax fiberglass laid in two directions gives this board excellent flex and responsiveness, while the symmetrical geometry\ncombined with classic camber profile lets you confidently hold high speeds. And if you\'re completely wiped out by the end of the riding day,\njust look at your board and smile - the awesome graphics by Sean Cliver never fail to impress.',`price` = 7500,`min_bid` = 12000,`img` = '../img/lot-5.jpg',`timer` = '2025-11-13 23:49:18',`category_id` = 4,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 5;
+UPDATE IGNORE `items` SET `id` = 6,`title` = 'Oakley Canopy goggles',`slug` = 'oakley-canopy',`description` = 'A lightweight maneuverable snowboard ready to bring the heat in any park, melting snow with powerful ollies and crisp carves.\nBi-Ax fiberglass laid in two directions gives this board excellent flex and responsiveness, while the symmetrical geometry\ncombined with classic camber profile lets you confidently hold high speeds. And if you\'re completely wiped out by the end of the riding day,\njust look at your board and smile - the awesome graphics by Sean Cliver never fail to impress.',`price` = 5400,`min_bid` = 12000,`img` = '../img/lot-6.jpg',`timer` = '2025-10-01 23:49:22',`category_id` = 6,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 6;
+UPDATE IGNORE `items` SET `id` = 7,`title` = 'Snowboard PRIME Surf',`slug` = 'prime-surf',`description` = 'Features:\nMen\'s snowboard\nFlex: medium\nPurpose: All-mountain, groomed runs\nRider level: beginner, advanced\nTwin-Tip geometry: symmetrical geometry and flex makes the board maximally balanced and versatile and provides maximum mobility for freestyle\nCamber profile: classic board camber provides high stability at speeds and excellent edge hold when carving, as well as explosive pop\nSnowboard construction: CAP\nLight Woodcore: lightweight poplar wood core provides strength and gives uniform flex throughout the board length\nTriaxial Fiberglass: laid in three directions, providing high stiffness, responsiveness and stability\nPolyurethane ABS Sidewalls: high-strength seamless polyurethane sidewalls provide excellent dampening and evenly distribute impact loads\nExtruded 4400 base: durable and easy to maintain\nTank Armour Inserts (16 pcs): durable stainless steel 304 grade inserts\nABS TOPSHEET with UV-Protection: high-quality durable top layer with protection from scratches and UV rays\nSteel edges\n2x4 binding system',`price` = 17780,`min_bid` = 100,`img` = 'img/678d26e85dde6.jpg',`timer` = '2025-10-17 23:49:26',`category_id` = 1,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 7;
+UPDATE IGNORE `items` SET `id` = 8,`title` = 'Termit men\'s insulated jacket',`slug` = 'termit-jacket',`description` = 'Design Features\nCut	\nRegular\nLength	\nMedium\nHood	\nNon-detachable\nClosure	\nZipper\nNumber of pockets	\n2\nSnow skirt	\nNon-detachable\n\nFunctional Features\nWater-repellent treatment	\nYes\nWind protection	\nYes\nInsulation	\nSynthetic\n\nGeneral Characteristics\nSport	\nSnowboarding\nGender	\nMen\nProduct authenticity guarantee	\nYes\n\nComposition\nUpper material	\n100% polyester\nInsulation material	\n100% polyester\nLining material	\n100% polyester\n\nAdditional Characteristics\nInsulation weight per m²	\n100\nManufacturer code	\n124847\nCountry of manufacture	\nChina\nSeason	\nWinter\n\nCare Instructions\nCare recommendations	\nGentle wash 30°C. Do not bleach. Tumble drying prohibited. Ironing prohibited. Dry cleaning prohibited.\nAdditional information	\nWash with special detergent. Do not soak.',`price` = 1999,`min_bid` = 100,`img` = 'img/678d27bc0229e.jpg',`timer` = NULL,`category_id` = 4,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 8;
+UPDATE IGNORE `items` SET `id` = 9,`title` = 'Termit women\'s insulated jacket',`slug` = 'termit-jacket-women',`description` = 'WATERPROOF MEMBRANE\nDry\'vex membrane protects against water penetration and wicks away excess heat and moisture from the body. Waterproof and breathability ratings: 5000 mm / 5000 g/m²/24h.',`price` = 3799,`min_bid` = 150,`img` = 'img/678d28009e8a9.jpg',`timer` = '2025-11-19 23:49:31',`category_id` = 4,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 9;
+UPDATE IGNORE `items` SET `id` = 10,`title` = 'Union Flite Pro snowboard bindings',`slug` = 'union-flite-pro',`description` = 'Union Flite Pro — the lightweight champions among snowboard bindings. This freestyle model is perfect for beginner and progressing snowboarders. Universal discs are compatible with 4x4, 4x2, Channel, 3D mounting systems.\n\nSECURE FIXATION\nForma highback provides good force transmission and stability when controlling the board. TS 4.0 toe strap securely holds the boot. Aluminum buckles feature smooth operation.\n\nDURABILITY\nHeelcup is made from durable Extruded 3D Aluminum that doesn\'t deform under load. It provides optimal heel support and minimizes resistance.\n\nPRECISE ENERGY TRANSFER\nLightweight and stiff baseplate made from super-durable Duraflex material guarantees high performance across a wide range of sub-zero temperatures. Reduced contact area with the board provides even greater responsiveness.\n\nCUSHIONING\nBaseplate is partially made from EVA foam and excellently absorbs impact loads during landings.',`price` = 17599,`min_bid` = 200,`img` = 'img/678d2843dc7d4.jpg',`timer` = '2025-11-12 23:49:35',`category_id` = 2,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 10;
+UPDATE IGNORE `items` SET `id` = 11,`title` = 'Terror Fastec snowboard boots',`slug` = 'terror-fastec',`description` = 'Terror snowboard boots with lace lock on the tongue. Durable waterproof material withstands binding friction and keeps feet warm and dry during riding.\n\nCOMFORT\nHeat-moldable liner with anatomical inserts and ankle support. 3D tongue for additional comfort.\n\nQUICK LACING\nQuick boot lacing system is provided. Putting on won\'t take much time!\n\nCUSHIONING\nEVA foam insole and lightweight rubber sole for cushioning.\n\nWEAR RESISTANCE\nOuter boot is made from durable material. Thanks to this, the model will last more than one season.',`price` = 18719,`min_bid` = 200,`img` = 'img/678d28d18c57d.jpg',`timer` = NULL,`category_id` = 3,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 11;
+UPDATE IGNORE `items` SET `id` = 12,`title` = 'Uvex Pyrit FM Goggles',`slug` = 'uvex-pyrit-fm',`description` = 'Basic mask from Uvex. Frameless construction and mirror lens provide stylish appearance and functionality. Light filter S2 (green base, blue mirror external coating).\n\nUV PROTECTION\nBuilt-in UVA, UVB, and UVC radiation filters provide reliable protection for your eyes.\n\nANTI-FOG PROTECTION\nSupravision coating prevents condensation formation on the lens.\n\nGLASSES COMPATIBILITY\nThe mask can be worn over prescription glasses.\n\nCOMFORT\nVelour padding, ventilated frame and silicone-coated strap guarantee comfortable and secure mask fit.',`price` = 7499,`min_bid` = 100,`img` = 'img/678d293d7b705.jpg',`timer` = NULL,`category_id` = 6,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 12;
+UPDATE IGNORE `items` SET `id` = 13,`title` = 'Uvex Splash ski goggles',`slug` = 'maska-gornolyzhnaya-uvex-splash',`description` = 'Lightweight mask for riding in cloudy weather from Uvex.\n\nUV PROTECTION\nLens with built-in filters providing 100% protection from all types of ultraviolet radiation.\n\nANTI-FOG PROTECTION\nSpecial coating prevents the mask from fogging up.',`price` = 3999,`min_bid` = 1000,`img` = 'img/679605dab4c82.jpg',`timer` = '2025-08-22 22:35:45',`category_id` = 6,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 13;
+UPDATE IGNORE `items` SET `id` = 14,`title` = 'Nitro Team TLS snowboard boots',`slug` = 'snoubordicheskie-botinki-nitro-team-tls',`description` = 'Stiff Nitro boots for advanced and professional riders. Suitable for all-mountain riding and backcountry. Removable tongue stiffener allows you to adjust stiffness to your riding style.',`price` = 100,`min_bid` = 20,`img` = 'img/683f3c75171d1.jpg',`timer` = '2025-08-18 22:35:42',`category_id` = 3,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 14;
+UPDATE IGNORE `items` SET `id` = 15,`title` = 'Airhole Balaclava Full Hinge',`slug` = 'balaklava-airhole-balaclava-full-hinge',`description` = 'Comfortable Airhole balaclava with signature breathing hole designed for winter sports. The model reliably protects the face from snow and headwind.',`price` = 4699,`min_bid` = 500,`img` = 'img/68527c37e6425.jpg',`timer` = '2025-08-07 22:35:39',`category_id` = 4,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 15;
+UPDATE IGNORE `items` SET `id` = 16,`title` = 'Airhole Full Hinge balaclava',`slug` = 'airhole-full-hinge-balaclava\n',`description` = 'Comfortable Airhole balaclava with signature breathing hole designed for winter sports. The model reliably protects the face from snow and headwind.',`price` = 4699,`min_bid` = 500,`img` = 'img/68527c37e6425.jpg',`timer` = NULL,`category_id` = 4,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 16;
+UPDATE IGNORE `items` SET `id` = 17,`title` = 'Uvex Wanted helmet',`slug` = 'helmet-uvex-wanted',`description` = 'All-mountain helmet with deep fit Uvex wanted. Durable Hardshell external construction and shock-absorbing EPS inner layer guarantee maximum protection. Lining with additional insulation in the neck area for comfort during riding. Adjustable ventilation maintains optimal microclimate inside the helmet.',`price` = 12999,`min_bid` = 500,`img` = 'img/683f52208745a.jpg',`timer` = NULL,`category_id` = 6,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 17;
+UPDATE IGNORE `items` SET `id` = 18,`title` = 'Snowboard Termit Savage',`slug` = 'snoubord-termit-savage',`description` = 'Savage snowboard from Termit — the perfect choice for freeride enthusiasts. Reliable all-mountain board suitable for riding on high slopes, excellently handles high-speed descents on groomed runs and floats in light powder.',`price` = 27999,`min_bid` = 1000,`img` = 'img/684ffc9078641.jpg',`timer` = NULL,`category_id` = 1,`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `items`.`id` = 18;
+
+--
+-- Dumping data for table `migrations`
+--
+
+UPDATE IGNORE `migrations` SET `id` = 1,`migration` = '2014_10_12_000000_create_users_table',`batch` = 1 WHERE `migrations`.`id` = 1;
+UPDATE IGNORE `migrations` SET `id` = 2,`migration` = '2014_10_12_100000_create_password_reset_tokens_table',`batch` = 1 WHERE `migrations`.`id` = 2;
+UPDATE IGNORE `migrations` SET `id` = 3,`migration` = '2019_08_19_000000_create_failed_jobs_table',`batch` = 1 WHERE `migrations`.`id` = 3;
+UPDATE IGNORE `migrations` SET `id` = 4,`migration` = '2019_12_14_000001_create_personal_access_tokens_table',`batch` = 1 WHERE `migrations`.`id` = 4;
+UPDATE IGNORE `migrations` SET `id` = 5,`migration` = '2024_09_04_102242_create_categories_table',`batch` = 1 WHERE `migrations`.`id` = 5;
+UPDATE IGNORE `migrations` SET `id` = 6,`migration` = '2024_09_04_102353_create_items_table',`batch` = 1 WHERE `migrations`.`id` = 6;
+UPDATE IGNORE `migrations` SET `id` = 7,`migration` = '2024_09_10_143237_add_contact_and_avatar_to_users_table',`batch` = 1 WHERE `migrations`.`id` = 7;
+UPDATE IGNORE `migrations` SET `id` = 8,`migration` = '2024_09_23_122209_create_pages_table',`batch` = 1 WHERE `migrations`.`id` = 8;
+UPDATE IGNORE `migrations` SET `id` = 9,`migration` = '2025_01_20_105833_create_bids_table',`batch` = 1 WHERE `migrations`.`id` = 9;
+
+--
+-- Dumping data for table `pages`
+--
+
+UPDATE IGNORE `pages` SET `id` = 1,`slug` = 'main',`name` = 'Homepage',`title` = 'Homepage',`content` = NULL,`type` = 'default_value',`route` = 'default_value',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `pages`.`id` = 1;
+UPDATE IGNORE `pages` SET `id` = 2,`slug` = 'add',`name` = 'Add Lot',`title` = 'Add Lot',`content` = NULL,`type` = 'default_value',`route` = 'lot.create',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `pages`.`id` = 2;
+UPDATE IGNORE `pages` SET `id` = 3,`slug` = 'lot',`name` = 'Lot',`title` = 'Lot',`content` = '1',`type` = 'default_value',`route` = 'default_value',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `pages`.`id` = 3;
+UPDATE IGNORE `pages` SET `id` = 4,`slug` = 'viewed-lots',`name` = 'Viewing History',`title` = 'Viewing History',`content` = NULL,`type` = 'default_value',`route` = 'viewed.lots',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `pages`.`id` = 4;
+UPDATE IGNORE `pages` SET `id` = 5,`slug` = 'register',`name` = 'Registration',`title` = 'Registration',`content` = NULL,`type` = 'default_value',`route` = 'register',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `pages`.`id` = 5;
+UPDATE IGNORE `pages` SET `id` = 6,`slug` = 'login',`name` = 'Login',`title` = 'Login',`content` = NULL,`type` = 'default_value',`route` = 'login',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `pages`.`id` = 6;
+UPDATE IGNORE `pages` SET `id` = 7,`slug` = 'search',`name` = 'Search results',`title` = 'Search results',`content` = NULL,`type` = 'default_value',`route` = 'search',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `pages`.`id` = 7;
+UPDATE IGNORE `pages` SET `id` = 8,`slug` = 'search-suggestions',`name` = 'Search suggestions',`title` = 'Search suggestions',`content` = NULL,`type` = 'default_value',`route` = 'search.suggestions',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `pages`.`id` = 8;
+UPDATE IGNORE `pages` SET `id` = 9,`slug` = 'category',`name` = 'Category',`title` = 'Category',`content` = '1',`type` = 'default_value',`route` = 'default_value',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `pages`.`id` = 9;
+UPDATE IGNORE `pages` SET `id` = 10,`slug` = 'profile',`name` = 'Account',`title` = 'Account',`content` = NULL,`type` = 'default_value',`route` = 'profile',`created_at` = '2025-06-20 19:50:26',`updated_at` = '2025-06-20 19:50:26' WHERE `pages`.`id` = 10;
+
+--
+-- Dumping data for table `users`
+--
+
+UPDATE IGNORE `users` SET `id` = 1,`name` = 'Kate',`email` = 'kvilcins@gmail.com',`email_verified_at` = NULL,`password` = '$2y$12$NV3fmUuenDnKtGBd/x1Q0uSmn/od/4g2w6cFByXaq0s0u4gYPu8IW',`remember_token` = NULL,`created_at` = '2025-06-20 18:55:09',`updated_at` = '2025-06-20 18:56:25',`contact_details` = NULL,`avatar` = 'avatars/VlWQ7EYKTB4JxVWaBPfSvtfGQvXdh5sSEOJUbNVr.webp' WHERE `users`.`id` = 1;
+UPDATE IGNORE `users` SET `id` = 2,`name` = 'test',`email` = 'test@gmail.com',`email_verified_at` = NULL,`password` = '$2y$12$bFzEnQewNYtTqLu6Lw4lYOyKiftPIaLS9r9KR.jNgrEWYoi318wNm',`remember_token` = NULL,`created_at` = '2025-06-20 18:55:09',`updated_at` = '2025-06-20 18:55:09',`contact_details` = NULL,`avatar` = NULL WHERE `users`.`id` = 2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

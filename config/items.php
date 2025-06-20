@@ -9,7 +9,7 @@
     'min_bid' => 12000,
     'img' => '../img/lot-1.jpg',
     'category_id' => 1,
-    'timer' => NULL,
+    'timer' => '2025-09-12 23:48:57',
   ),
   1 => 
   array (
@@ -24,7 +24,7 @@ just look at your board and smile - the sick graphics by Sean Cliver never leave
     'min_bid' => 12000,
     'img' => '../img/lot-2.jpg',
     'category_id' => 1,
-    'timer' => NULL,
+    'timer' => '2025-09-11 23:49:04',
   ),
   2 => 
   array (
@@ -40,7 +40,7 @@ just look at your board and smile - the awesome graphics by Sean Cliver never fa
     'min_bid' => 12000,
     'img' => '../img/lot-3.jpg',
     'category_id' => 2,
-    'timer' => NULL,
+    'timer' => '2025-10-02 23:49:09',
   ),
   3 => 
   array (
@@ -55,7 +55,7 @@ just look at your board and smile - the awesome graphics by Sean Cliver never fa
     'min_bid' => 12000,
     'img' => '../img/lot-4.jpg',
     'category_id' => 3,
-    'timer' => NULL,
+    'timer' => '2025-06-30 23:49:14',
   ),
   4 => 
   array (
@@ -70,7 +70,7 @@ just look at your board and smile - the awesome graphics by Sean Cliver never fa
     'min_bid' => 12000,
     'img' => '../img/lot-5.jpg',
     'category_id' => 4,
-    'timer' => NULL,
+    'timer' => '2025-11-13 23:49:18',
   ),
   5 => 
   array (
@@ -85,7 +85,7 @@ just look at your board and smile - the awesome graphics by Sean Cliver never fa
     'min_bid' => 12000,
     'img' => '../img/lot-6.jpg',
     'category_id' => 6,
-    'timer' => NULL,
+    'timer' => '2025-10-01 23:49:22',
   ),
   6 => 
   array (
@@ -112,7 +112,7 @@ Steel edges
     'min_bid' => 100,
     'img' => 'img/678d26e85dde6.jpg',
     'category_id' => 1,
-    'timer' => NULL,
+    'timer' => '2025-10-17 23:49:26',
   ),
   7 => 
   array (
@@ -189,7 +189,7 @@ Dry\'vex membrane protects against water penetration and wicks away excess heat 
     'min_bid' => 150,
     'img' => 'img/678d28009e8a9.jpg',
     'category_id' => 4,
-    'timer' => NULL,
+    'timer' => '2025-11-19 23:49:31',
   ),
   9 => 
   array (
@@ -213,7 +213,7 @@ Baseplate is partially made from EVA foam and excellently absorbs impact loads d
     'min_bid' => 200,
     'img' => 'img/678d2843dc7d4.jpg',
     'category_id' => 2,
-    'timer' => NULL,
+    'timer' => '2025-11-12 23:49:35',
   ),
   10 => 
   array (
