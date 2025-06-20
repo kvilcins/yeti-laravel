@@ -5,7 +5,7 @@
             @foreach($userBids as $bid)
                 @if($bid->lot)
                     <li>
-                        <a href="{{ route('lot.show', ['category_slug' => $bid->lot->category->slug, 'slug' => $bid->lot->slug]) }}" class="text-link">{{ $bid->lot->title }}</a> - Bid: {{ $bid->bid_amount }}
+                        <a href="{{ route('lot.show', ['category_slug' => $bid->lot->category->slug, 'slug' => $bid->lot->slug]) }}" class="link">{{ $bid->lot->title }}</a> - Bid: {{ $bid->bid_amount }}
                     </li>
                 @else
                     <li>This lot is no longer available.</li>

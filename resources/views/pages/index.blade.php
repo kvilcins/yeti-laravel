@@ -6,7 +6,7 @@
     <main>
         <div class="container">
             <section class="promo">
-                <h1 class="promo__title h1">Need gear for riding?</h1>
+                <h1 class="promo__title h1">Need snowboard gear?</h1>
                 <p class="promo__text">
                     At our online auction you'll find the most exclusive snowboard and ski equipment.
                 </p>

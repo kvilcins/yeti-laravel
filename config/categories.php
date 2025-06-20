@@ -2,42 +2,42 @@
   0 => 
   array (
     'id' => 1,
-    'name' => 'Доски и лыжи',
+    'name' => 'Boards and skis',
     'class' => 'boards',
     'slug' => 'boards',
   ),
   1 => 
   array (
     'id' => 2,
-    'name' => 'Крепления',
+    'name' => 'Bindings',
     'class' => 'attachment',
     'slug' => 'attachment',
   ),
   2 => 
   array (
     'id' => 3,
-    'name' => 'Ботинки',
+    'name' => 'Shoes',
     'class' => 'boots',
     'slug' => 'boots',
   ),
   3 => 
   array (
     'id' => 4,
-    'name' => 'Одежда',
+    'name' => 'Clothes',
     'class' => 'clothing',
     'slug' => 'clothing',
   ),
   4 => 
   array (
     'id' => 5,
-    'name' => 'Инструменты',
+    'name' => 'Tools',
     'class' => 'tools',
     'slug' => 'tools',
   ),
   5 => 
   array (
     'id' => 6,
-    'name' => 'Разное',
+    'name' => 'Other',
     'class' => 'other',
     'slug' => 'other',
   ),

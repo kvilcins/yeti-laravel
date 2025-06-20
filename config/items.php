@@ -4,10 +4,7 @@
     'id' => 1,
     'title' => '2014 Rossignol District Snowboard',
     'slug' => '2014-rossignol-district-snowboard',
-    'description' => 'Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив снег мощным щелчком и четкими дугами.
-                          Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот снаряд отличной гибкостью и отзывчивостью, а симметричная геометрия
-                          в сочетании с классическим прогибом кэмбер позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,
-                          просто посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла равнодушным.',
+    'description' => 'A lightweight agile snowboard ready to dominate any park with explosive pops and razor-sharp turns.',
     'price' => 10999,
     'min_bid' => 12000,
     'img' => '../img/lot-1.jpg',
@@ -19,10 +16,10 @@
     'id' => 2,
     'title' => 'DC Ply Mens 2016/2017 Snowboard',
     'slug' => 'dc-ply-mens-2016-2017-snowboard',
-    'description' => 'Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив снег мощным щелчком и четкими дугами.
-                          Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот снаряд отличной гибкостью и отзывчивостью, а симметричная геометрия
-                          в сочетании с классическим прогибом кэмбер позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,
-                          просто посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла равнодушным.',
+    'description' => 'A lightweight agile snowboard ready to dominate any park with explosive pops and razor-sharp turns.
+Bi-Ax fiberglass laid in two directions gives this board excellent flex and responsiveness, while symmetrical geometry
+combined with classic camber profile allows you to confidently hold high speeds. And if you\'re completely exhausted by the end of the riding day,
+just look at your board and smile - the sick graphics by Sean Cliver never leave anyone indifferent.',
     'price' => 159999,
     'min_bid' => 12000,
     'img' => '../img/lot-2.jpg',
@@ -32,12 +29,13 @@
   2 => 
   array (
     'id' => 3,
-    'title' => 'Крепления Union Contact Pro 2015 года размер L/XL',
+    'title' => 'Union Contact Pro 2015 bindings size L/XL
+',
     'slug' => 'union-contact-pro-2015',
-    'description' => 'Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив снег мощным щелчком и четкими дугами.
-                          Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот снаряд отличной гибкостью и отзывчивостью, а симметричная геометрия
-                          в сочетании с классическим прогибом кэмбер позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,
-                          просто посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла равнодушным.',
+    'description' => 'A lightweight maneuverable snowboard ready to bring the heat in any park, melting snow with powerful ollies and crisp carves.
+Bi-Ax fiberglass laid in two directions gives this board excellent flex and responsiveness, while the symmetrical geometry
+combined with classic camber profile lets you confidently hold high speeds. And if you\'re completely wiped out by the end of the riding day,
+just look at your board and smile - the awesome graphics by Sean Cliver never fail to impress.',
     'price' => 8000,
     'min_bid' => 12000,
     'img' => '../img/lot-3.jpg',
@@ -47,12 +45,12 @@
   3 => 
   array (
     'id' => 4,
-    'title' => 'Ботинки для сноуборда DC Mutiny Charocal',
+    'title' => 'DC Mutiny Charcoal snowboard boots',
     'slug' => 'dc-mutiny-charocal',
-    'description' => 'Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив снег мощным щелчком и четкими дугами.
-                          Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот снаряд отличной гибкостью и отзывчивостью, а симметричная геометрия
-                          в сочетании с классическим прогибом кэмбер позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,
-                          просто посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла равнодушным.',
+    'description' => 'A lightweight maneuverable snowboard ready to bring the heat in any park, melting snow with powerful ollies and crisp carves.
+Bi-Ax fiberglass laid in two directions gives this board excellent flex and responsiveness, while the symmetrical geometry
+combined with classic camber profile lets you confidently hold high speeds. And if you\'re completely wiped out by the end of the riding day,
+just look at your board and smile - the awesome graphics by Sean Cliver never fail to impress.',
     'price' => 10999,
     'min_bid' => 12000,
     'img' => '../img/lot-4.jpg',
@@ -62,12 +60,12 @@
   4 => 
   array (
     'id' => 5,
-    'title' => 'Куртка для сноуборда DC Mutiny Charocal',
+    'title' => 'DC Mutiny Charcoal snowboard jacket',
     'slug' => 'dc-mutiny-charocal-jacket',
-    'description' => 'Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив снег мощным щелчком и четкими дугами.
-                          Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот снаряд отличной гибкостью и отзывчивостью, а симметричная геометрия
-                          в сочетании с классическим прогибом кэмбер позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,
-                          просто посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла равнодушным.',
+    'description' => 'A lightweight maneuverable snowboard ready to bring the heat in any park, melting snow with powerful ollies and crisp carves.
+Bi-Ax fiberglass laid in two directions gives this board excellent flex and responsiveness, while the symmetrical geometry
+combined with classic camber profile lets you confidently hold high speeds. And if you\'re completely wiped out by the end of the riding day,
+just look at your board and smile - the awesome graphics by Sean Cliver never fail to impress.',
     'price' => 7500,
     'min_bid' => 12000,
     'img' => '../img/lot-5.jpg',
@@ -77,12 +75,12 @@
   5 => 
   array (
     'id' => 6,
-    'title' => 'Маска Oakley Canopy',
+    'title' => 'Oakley Canopy goggles',
     'slug' => 'oakley-canopy',
-    'description' => 'Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив снег мощным щелчком и четкими дугами.
-                          Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот снаряд отличной гибкостью и отзывчивостью, а симметричная геометрия
-                          в сочетании с классическим прогибом кэмбер позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,
-                          просто посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла равнодушным.',
+    'description' => 'A lightweight maneuverable snowboard ready to bring the heat in any park, melting snow with powerful ollies and crisp carves.
+Bi-Ax fiberglass laid in two directions gives this board excellent flex and responsiveness, while the symmetrical geometry
+combined with classic camber profile lets you confidently hold high speeds. And if you\'re completely wiped out by the end of the riding day,
+just look at your board and smile - the awesome graphics by Sean Cliver never fail to impress.',
     'price' => 5400,
     'min_bid' => 12000,
     'img' => '../img/lot-6.jpg',
@@ -92,24 +90,24 @@
   6 => 
   array (
     'id' => 7,
-    'title' => 'Сноуборд PRIME Surf',
+    'title' => 'Snowboard PRIME Surf',
     'slug' => 'prime-surf',
-    'description' => 'Особенности:
-Мужской сноуборд
-Жесткость: средняя
-Назначение: All-mountain, подготовленные трассы
-Уровень райдера: новичок, продвинутый
-Геометрия Twin-Tip: симметричная геометрия и жесткость делает доску максимально сбалансированной и универсальной и дает максимальную мобильность для фристайла
-Прогиб Camber: классический прогиб доски обладает высокой стабильностью на скоростях и отлично держит кант при закладывании дуг, а так же имеет взрывной щелчок
-Конструкция сноуборда: CAP
-Сердечник Light Woodcore: облегченный сердечник из древесины тополя обладает прочностью и дает единую гибкость доски по всей длине
-Стекловолокно Triaxial Fiberglass: укладывается в трёх направлениях, обеспеяивая высокую жесткость, отзывчивость и стабильность
-Боковые стенки Polyurethane ABS Sidewall: высокопрочные бесшовные боковые стенки из полиуретана отлично демпфируют и равномерно распределяют ударную нагрузку
-Экструдированный скользяк Extruded 4400: прочный и простой в обслуживании
-Закладные Tank Armour Inserts (16 шт.): прочные закладные из нержавеющей стали марки 304
-Верхний слой ABS TOPSHEET with UV-Protection: высококачественный прочный верхний слой с защитой от царапин и ультрафиолетовых лучей 
-Стальной кант
-Система креплений 2x4',
+    'description' => 'Features:
+Men\'s snowboard
+Flex: medium
+Purpose: All-mountain, groomed runs
+Rider level: beginner, advanced
+Twin-Tip geometry: symmetrical geometry and flex makes the board maximally balanced and versatile and provides maximum mobility for freestyle
+Camber profile: classic board camber provides high stability at speeds and excellent edge hold when carving, as well as explosive pop
+Snowboard construction: CAP
+Light Woodcore: lightweight poplar wood core provides strength and gives uniform flex throughout the board length
+Triaxial Fiberglass: laid in three directions, providing high stiffness, responsiveness and stability
+Polyurethane ABS Sidewalls: high-strength seamless polyurethane sidewalls provide excellent dampening and evenly distribute impact loads
+Extruded 4400 base: durable and easy to maintain
+Tank Armour Inserts (16 pcs): durable stainless steel 304 grade inserts
+ABS TOPSHEET with UV-Protection: high-quality durable top layer with protection from scratches and UV rays
+Steel edges
+2x4 binding system',
     'price' => 17780,
     'min_bid' => 100,
     'img' => 'img/678d26e85dde6.jpg',
@@ -119,56 +117,61 @@
   7 => 
   array (
     'id' => 8,
-    'title' => 'Куртка утепленная мужская Termit',
+    'title' => 'Termit men\'s insulated jacket',
     'slug' => 'termit-jacket',
-    'description' => 'Конструктивные особенности
-Покрой	
-Прямой
-Длина	
-Средняя
-Капюшон	
-Не отстегивается
-Застежка	
-Молния​
-Количество карманов	
+    'description' => 'Design Features
+Cut	
+Regular
+Length	
+Medium
+Hood	
+Non-detachable
+Closure	
+Zipper
+Number of pockets	
 2
-Снегозащитная юбка	
-Не отстегивается
-Функциональные особенности
-Водоотталкивающая пропитка	
-Да
-Защита от ветра	
-Да
-Утеплитель	
-Синтетический
-Общие характеристики
-Вид спорта	
-Сноубординг
-Пол	
-Мужчины
-Гарантия подлинности товара	
-Да
-Состав
-Материал верха	
-100% полиэстер
-Материал утеплителя	
-100% полиэстер
-Материал подкладки	
-100% полиэстер
-Дополнительные характеристики
-Вес утеплителя на м2	
+Snow skirt	
+Non-detachable
+
+Functional Features
+Water-repellent treatment	
+Yes
+Wind protection	
+Yes
+Insulation	
+Synthetic
+
+General Characteristics
+Sport	
+Snowboarding
+Gender	
+Men
+Product authenticity guarantee	
+Yes
+
+Composition
+Upper material	
+100% polyester
+Insulation material	
+100% polyester
+Lining material	
+100% polyester
+
+Additional Characteristics
+Insulation weight per m²	
 100
-Код производителя	
+Manufacturer code	
 124847
-Страна производства	
-Китай
-Сезон	
-Зима
-Уход за товаром
-Рекомендации по уходу	
-Щадящая стирка 30 °C. Не отбеливать. Сушка в машине запрещена. Глажение запрещено. Химчистка запрещена.
-Дополнительная информация	
-Стирать специальным средством. Не замачивать.',
+Country of manufacture	
+China
+Season	
+Winter
+
+Care Instructions
+Care recommendations	
+Gentle wash 30°C. Do not bleach. Tumble drying prohibited. Ironing prohibited. Dry cleaning prohibited.
+Additional information	
+Wash with special detergent. Do not soak.',
     'price' => 1999,
     'min_bid' => 100,
     'img' => 'img/678d27bc0229e.jpg',
@@ -178,10 +181,10 @@
   8 => 
   array (
     'id' => 9,
-    'title' => 'Куртка утепленная женская Termit',
+    'title' => 'Termit women\'s insulated jacket',
     'slug' => 'termit-jacket-women',
-    'description' => 'ВОДОНЕПРОНИЦАЕМАЯ МЕМБРАНА
-Мембрана Dry\'vex защищает от промокания и отводит от тела излишки тепла и влаги. Показатели водонепроницаемости и паропроницаемости: 5000 мм / 5000 г/м2/24 ч.',
+    'description' => 'WATERPROOF MEMBRANE
+Dry\'vex membrane protects against water penetration and wicks away excess heat and moisture from the body. Waterproof and breathability ratings: 5000 mm / 5000 g/m²/24h.',
     'price' => 3799,
     'min_bid' => 150,
     'img' => 'img/678d28009e8a9.jpg',
@@ -191,18 +194,21 @@
   9 => 
   array (
     'id' => 10,
-    'title' => 'Крепления сноубордические Union Flite Pro',
+    'title' => 'Union Flite Pro snowboard bindings',
     'slug' => 'union-flite-pro',
-    'description' => 'Union Flite Pro — чемпионы по легкости среди сноубордических креплений. Эта модель для фристайла идеально подойдет начинающим и прогрессирующим сноубордистам. Универсальные диски совместимы с системой закладных 4x4, 4x2, Channel, 3D.
+    'description' => 'Union Flite Pro — the lightweight champions among snowboard bindings. This freestyle model is perfect for beginner and progressing snowboarders. Universal discs are compatible with 4x4, 4x2, Channel, 3D mounting systems.
 
-НАДЕЖНАЯ ФИКСАЦИЯ
-Верхний стреп Forma обеспечивает хорошую передачу усилия и стабильность при управлении доской. Носочный стреп TS 4.0 надежно фиксирует ботинок. Алюминиевые бакли отличаются мягким ходом.
-ПРОЧНОСТЬ
-Пяточная дуга изготовлена из прочного экструдированного алюминия Extruded 3D Aluminum не деформируется под воздействием нагрузок. Она обеспечивает оптимальную поддержку пятки и минимизирует сопротивление.
-ТОЧНАЯ ПЕРЕДАЧА ЭНЕРГИИ
-Легкая и жесткая база из суперпрочного материала Duraflex гарантирует высокую производительность в широком диапазоне минусовых температур. Уменьшенная площадь контакта с доской обеспечивает еще большую степень отзывчивости.
-АМОРТИЗАЦИЯ
-База частично выполнена из пены ЭВА и превосходно компенсирует ударные нагрузки при приземлениях.',
+SECURE FIXATION
+Forma highback provides good force transmission and stability when controlling the board. TS 4.0 toe strap securely holds the boot. Aluminum buckles feature smooth operation.
+
+DURABILITY
+Heelcup is made from durable Extruded 3D Aluminum that doesn\'t deform under load. It provides optimal heel support and minimizes resistance.
+
+PRECISE ENERGY TRANSFER
+Lightweight and stiff baseplate made from super-durable Duraflex material guarantees high performance across a wide range of sub-zero temperatures. Reduced contact area with the board provides even greater responsiveness.
+
+CUSHIONING
+Baseplate is partially made from EVA foam and excellently absorbs impact loads during landings.',
     'price' => 17599,
     'min_bid' => 200,
     'img' => 'img/678d2843dc7d4.jpg',
@@ -212,18 +218,21 @@
   10 => 
   array (
     'id' => 11,
-    'title' => 'Сноубордические ботинки Terror Fastec',
+    'title' => 'Terror Fastec snowboard boots',
     'slug' => 'terror-fastec',
-    'description' => 'Сноубордические ботинки Terror с фиксатором шнуровки на язычке. Прочный непромокаемый материал выдержит трение о крепления и обеспечит тепло и сухость ног во время катания.
+    'description' => 'Terror snowboard boots with lace lock on the tongue. Durable waterproof material withstands binding friction and keeps feet warm and dry during riding.
 
-КОМФОРТ
-Термоформуемый внутренник с анатомическими вкладышами и поддержкой голеностопа. 3D-язычок для дополнительного комфорта.
-БЫСТРАЯ ФИКСАЦИЯ
-Предусмотрена система быстрой фиксации ботинка. Обувание не займет много времени!
-АМОРТИЗАЦИЯ
-Стелька из пеноматериала ЭВА и облегченная резиновая подошва для амортизации.
-УСТОЙЧИВОСТЬ К ИЗНОСУ
-Внешний ботинок выполнен из прочного материала. Благодаря этому модель прослужит не один сезон.',
+COMFORT
+Heat-moldable liner with anatomical inserts and ankle support. 3D tongue for additional comfort.
+
+QUICK LACING
+Quick boot lacing system is provided. Putting on won\'t take much time!
+
+CUSHIONING
+EVA foam insole and lightweight rubber sole for cushioning.
+
+WEAR RESISTANCE
+Outer boot is made from durable material. Thanks to this, the model will last more than one season.',
     'price' => 18719,
     'min_bid' => 200,
     'img' => 'img/678d28d18c57d.jpg',
@@ -233,18 +242,21 @@
   11 => 
   array (
     'id' => 12,
-    'title' => 'Маска Uvex Pyrit FM',
+    'title' => 'Uvex Pyrit FM Goggles',
     'slug' => 'uvex-pyrit-fm',
-    'description' => 'Базовая маска от Uvex. Безрамочная конструкция и зеркальная линза обеспечивают стильный внешний вид и функциональность модели. Световой фильтр S2 (база зеленая, внешнее покрытие зеркальное синее).
+    'description' => 'Basic mask from Uvex. Frameless construction and mirror lens provide stylish appearance and functionality. Light filter S2 (green base, blue mirror external coating).
 
-ЗАЩИТА ОТ УЛЬТРАФИОЛЕТА
-Встроенные фильтры от UVA-, UVB- и UVC-излучения обеспечивают надежную защиту ваших глаз.
-ЗАЩИТА ОТ ЗАПОТЕВАНИЯ
-Покрытие Supravision предотвращает образование конденсата на линзе.
-СОВМЕСТИМОСТЬ С ОЧКАМИ
-Маску можно надевать поверх очков, корректирующих зрение.
-КОМФОРТ
-Уплотнитель из велюра, вентилируемая оправа и стреп с силиконовым покрытием гарантируют комфортную и надежную фиксацию маски.',
+UV PROTECTION
+Built-in UVA, UVB, and UVC radiation filters provide reliable protection for your eyes.
+
+ANTI-FOG PROTECTION
+Supravision coating prevents condensation formation on the lens.
+
+GLASSES COMPATIBILITY
+The mask can be worn over prescription glasses.
+
+COMFORT
+Velour padding, ventilated frame and silicone-coated strap guarantee comfortable and secure mask fit.',
     'price' => 7499,
     'min_bid' => 100,
     'img' => 'img/678d293d7b705.jpg',
@@ -254,110 +266,114 @@
   12 => 
   array (
     'id' => 13,
-    'title' => 'Маска горнолыжная Uvex Splash',
+    'title' => 'Uvex Splash ski goggles',
     'slug' => 'maska-gornolyzhnaya-uvex-splash',
-    'description' => 'Легкая маска для катания в пасмурную погоду от Uvex.
+    'description' => 'Lightweight mask for riding in cloudy weather from Uvex.
 
-ЗАЩИТА ОТ УЛЬТРАФИОЛЕТА
-Линза со встроенными фильтрами со 100% защитой от всех видов ультрафиолетового излучения.
-ЗАЩИТА ОТ ЗАПОТЕВАНИЯ
-Специальное покрытие не позволяет маске запотеть.',
+UV PROTECTION
+Lens with built-in filters providing 100% protection from all types of ultraviolet radiation.
+
+ANTI-FOG PROTECTION
+Special coating prevents the mask from fogging up.',
     'price' => 3999,
     'min_bid' => 1000,
     'img' => 'img/679605dab4c82.jpg',
     'category_id' => 6,
-    'timer' => NULL,
+    'timer' => '2025-08-22 22:35:45',
   ),
   13 => 
   array (
     'id' => 14,
-    'title' => 'Сноубордические ботинки Nitro Team TLS',
+    'title' => 'Nitro Team TLS snowboard boots',
     'slug' => 'snoubordicheskie-botinki-nitro-team-tls',
-    'description' => 'Жесткие ботинки Nitro для продвинутых и профессиональных райдеров. Подойдут для универсального катания и бэккантри. Съемный усилитель язычка позволяет подстраивать жесткость под стиль катания.',
+    'description' => 'Stiff Nitro boots for advanced and professional riders. Suitable for all-mountain riding and backcountry. Removable tongue stiffener allows you to adjust stiffness to your riding style.',
     'price' => 100,
     'min_bid' => 20,
     'img' => 'img/683f3c75171d1.jpg',
     'category_id' => 3,
-    'timer' => '2025-08-14 19:25:15',
+    'timer' => '2025-08-18 22:35:42',
   ),
   14 => 
   array (
-    'id' => 23,
-    'title' => 'Балаклава Airhole Balaclava Full Hinge',
+    'id' => 15,
+    'title' => 'Airhole Balaclava Full Hinge',
     'slug' => 'balaklava-airhole-balaclava-full-hinge',
-    'description' => 'Удобная балаклава Airhole с фирменным отверстием для дыхания предназначена для занятий зимними видами спорта. Модель надежно защищает лицо от снега и встречного ветра.',
+    'description' => 'Comfortable Airhole balaclava with signature breathing hole designed for winter sports. The model reliably protects the face from snow and headwind.',
     'price' => 4699,
     'min_bid' => 500,
     'img' => 'img/68527c37e6425.jpg',
     'category_id' => 4,
-    'timer' => '2025-08-31 19:25:09',
+    'timer' => '2025-08-07 22:35:39',
   ),
   15 => 
   array (
+    'id' => 23,
+    'title' => 'Airhole Full Hinge balaclava',
+    'slug' => 'airhole-full-hinge-balaclava
+',
+    'description' => 'Comfortable Airhole balaclava with signature breathing hole designed for winter sports. The model reliably protects the face from snow and headwind.',
+    'price' => 4699,
+    'min_bid' => 500,
+    'img' => 'img/68527c37e6425.jpg',
+    'category_id' => 4,
+  ),
+  16 => 
+  array (
     'id' => 25,
-    'title' => 'Шлем Uvex Wanted',
-    'slug' => 'shlem-uvex-wanted',
-    'description' => 'All-mountain шлем с глубокой посадкой Uvex wanted. Прочная внешняя конструкция Hardshell и амортизирующий внутренний слой EPS гарантируют максимальную защиту. Подкладка с дополнительным утеплителем в области шеи для комфорта во время катания. Регулируемая вентиляция поддерживает оптимальный микроклимат внутри шлема.',
+    'title' => 'Uvex Wanted helmet',
+    'slug' => 'helmet-uvex-wanted',
+    'description' => 'All-mountain helmet with deep fit Uvex wanted. Durable Hardshell external construction and shock-absorbing EPS inner layer guarantee maximum protection. Lining with additional insulation in the neck area for comfort during riding. Adjustable ventilation maintains optimal microclimate inside the helmet.',
     'price' => 12999,
     'min_bid' => 500,
     'img' => 'img/683f52208745a.jpg',
     'category_id' => 6,
-    'timer' => '2025-07-31 19:25:01',
   ),
-  16 => 
+  17 => 
   array (
     'id' => 26,
-    'title' => 'Сноуборд Termit Savage',
+    'title' => 'Snowboard Termit Savage',
     'slug' => 'snoubord-termit-savage',
-    'description' => 'Сноуборд Savage от Termit — идеальный выбор для любителей фрирайда. Надежная универсальная доска подходит для катания на высоких склонах, отлично справляется со скоростным спуском по трассе и всплывает в легком пухляке.',
+    'description' => 'Savage snowboard from Termit — the perfect choice for freeride enthusiasts. Reliable all-mountain board suitable for riding on high slopes, excellently handles high-speed descents on groomed runs and floats in light powder.',
     'price' => 27999,
     'min_bid' => 1000,
     'img' => 'img/684ffc9078641.jpg',
     'category_id' => 1,
-    'timer' => '2025-07-31 19:23:55',
-  ),
-  17 => 
-  array (
-    'id' => 15,
-    'title' => 'Балаклава Airhole Balaclava Full Hinge',
-    'slug' => 'balaklava-airhole-balaclava-full-hinge-2',
-    'description' => 'Удобная балаклава Airhole с фирменным отверстием для дыхания предназначена для занятий зимними видами спорта. Модель надежно защищает лицо от снега и встречного ветра.',
-    'price' => 4699,
-    'min_bid' => 500,
-    'img' => 'img/683f4eaee4745.jpg',
-    'category_id' => 4,
   ),
   18 => 
   array (
     'id' => 16,
-    'title' => 'Шлем Uvex Wanted',
-    'slug' => 'shlem-uvex-wanted',
-    'description' => 'All-mountain шлем с глубокой посадкой Uvex wanted. Прочная внешняя конструкция Hardshell и амортизирующий внутренний слой EPS гарантируют максимальную защиту. Подкладка с дополнительным утеплителем в области шеи для комфорта во время катания. Регулируемая вентиляция поддерживает оптимальный микроклимат внутри шлема.',
-    'price' => 12999,
-    'min_bid' => 500,
-    'img' => 'img/683f52208745a.jpg',
-    'category_id' => 6,
-  ),
-  19 => 
-  array (
-    'id' => 17,
-    'title' => 'Сноуборд Termit Savage',
-    'slug' => 'snoubord-termit-savage',
-    'description' => 'Сноуборд Savage от Termit — идеальный выбор для любителей фрирайда. Надежная универсальная доска подходит для катания на высоких склонах, отлично справляется со скоростным спуском по трассе и всплывает в легком пухляке.',
-    'price' => 27999,
-    'min_bid' => 1000,
-    'img' => 'img/684ffc9078641.jpg',
-    'category_id' => 1,
-  ),
-  20 => 
-  array (
-    'id' => 27,
-    'title' => 'Балаклава Airhole Balaclava Full Hinge',
-    'slug' => 'balaklava-airhole-balaclava-full-hinge',
-    'description' => 'Удобная балаклава Airhole с фирменным отверстием для дыхания предназначена для занятий зимними видами спорта. Модель надежно защищает лицо от снега и встречного ветра.',
+    'title' => 'Airhole Full Hinge balaclava',
+    'slug' => 'airhole-full-hinge-balaclava
+',
+    'description' => 'Comfortable Airhole balaclava with signature breathing hole designed for winter sports. The model reliably protects the face from snow and headwind.',
     'price' => 4699,
     'min_bid' => 500,
     'img' => 'img/68527c37e6425.jpg',
     'category_id' => 4,
+    'timer' => NULL,
+  ),
+  19 => 
+  array (
+    'id' => 17,
+    'title' => 'Uvex Wanted helmet',
+    'slug' => 'helmet-uvex-wanted',
+    'description' => 'All-mountain helmet with deep fit Uvex wanted. Durable Hardshell external construction and shock-absorbing EPS inner layer guarantee maximum protection. Lining with additional insulation in the neck area for comfort during riding. Adjustable ventilation maintains optimal microclimate inside the helmet.',
+    'price' => 12999,
+    'min_bid' => 500,
+    'img' => 'img/683f52208745a.jpg',
+    'category_id' => 6,
+    'timer' => NULL,
+  ),
+  20 => 
+  array (
+    'id' => 18,
+    'title' => 'Snowboard Termit Savage',
+    'slug' => 'snoubord-termit-savage',
+    'description' => 'Savage snowboard from Termit — the perfect choice for freeride enthusiasts. Reliable all-mountain board suitable for riding on high slopes, excellently handles high-speed descents on groomed runs and floats in light powder.',
+    'price' => 27999,
+    'min_bid' => 1000,
+    'img' => 'img/684ffc9078641.jpg',
+    'category_id' => 1,
+    'timer' => NULL,
   ),
 );

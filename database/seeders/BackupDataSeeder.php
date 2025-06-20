@@ -14,24 +14,6 @@ class BackupDataSeeder extends Seeder
 {
     public function run()
     {
-        $categories = Category::all()->toArray();
-
-        $formattedCategories = array_map(function($category) {
-            return [
-                'id' => $category['id'],
-                'name' => $category['name'],
-                'class' => $category['class'],
-                'slug' => $category['slug'],
-            ];
-        }, $categories);
-
-        $existingCategories = Config::get('categories', []);
-        $mergedCategories = array_merge($existingCategories, $formattedCategories);
-        $mergedCategories = $this->removeDuplicates($mergedCategories, 'id');
-
-        Config::set('categories', $mergedCategories);
-        file_put_contents(config_path('categories.php'), '<?php return ' . var_export($mergedCategories, true) . ';');
-
         $items = Item::all()->toArray();
 
         $formattedItems = array_map(function($item) {
@@ -49,11 +31,33 @@ class BackupDataSeeder extends Seeder
         }, $items);
 
         $existingItems = Config::get('items', []);
+
         $mergedItems = array_merge($existingItems, $formattedItems);
         $mergedItems = $this->removeDuplicates($mergedItems, 'id');
 
         Config::set('items', $mergedItems);
+
         file_put_contents(config_path('items.php'), '<?php return ' . var_export($mergedItems, true) . ';');
+
+        $categories = Category::all()->toArray();
+
+        $formattedCategories = array_map(function($category) {
+            return [
+                'id' => $category['id'],
+                'name' => $category['name'],
+                'class' => $category['class'],
+                'slug' => $category['slug'],
+            ];
+        }, $categories);
+
+        $existingCategories = Config::get('categories', []);
+
+        $mergedCategories = array_merge($existingCategories, $formattedCategories);
+        $mergedCategories = $this->removeDuplicates($mergedCategories, 'id');
+
+        Config::set('categories', $mergedCategories);
+
+        file_put_contents(config_path('categories.php'), '<?php return ' . var_export($mergedCategories, true) . ';');
 
         $users = User::all();
 
@@ -70,7 +74,7 @@ class BackupDataSeeder extends Seeder
                 'created_at' => $user->created_at ? $user->created_at->toISOString() : null,
                 'updated_at' => $user->updated_at ? $user->updated_at->toISOString() : null,
                 'contact_details' => $user->contact_details ?? null,
-                'avatar' => $user->avatar ?? null, // Avatar field included
+                'avatar' => $user->avatar ?? null,
             ];
         })->toArray();
 
@@ -78,29 +82,8 @@ class BackupDataSeeder extends Seeder
         $mergedUsers = $this->removeDuplicates($mergedUsers, 'id');
 
         Config::set('userdata', $mergedUsers);
+
         file_put_contents(config_path('userdata.php'), '<?php return ' . var_export($mergedUsers, true) . ';');
-
-        $bids = Bid::all()->toArray();
-
-        $formattedBids = array_map(function ($bid) {
-            return [
-                'id' => $bid['id'],
-                'lot_id' => $bid['lot_id'],
-                'user_id' => $bid['user_id'],
-                'bid_amount' => $bid['bid_amount'],
-                'bid_time' => $bid['bid_time'],
-                'created_at' => $bid['created_at'] ?? null,
-                'updated_at' => $bid['updated_at'] ?? null,
-            ];
-        }, $bids);
-
-        $existingBids = Config::get('bids', []);
-
-        $mergedBids = array_merge($existingBids, $formattedBids);
-        $mergedBids = $this->removeDuplicates($mergedBids, 'id');
-
-        Config::set('bids', $mergedBids);
-        file_put_contents(config_path('bids.php'), '<?php return ' . var_export($mergedBids, true) . ';');
 
         $pages = Page::all()->toArray();
 
@@ -126,7 +109,32 @@ class BackupDataSeeder extends Seeder
         $mergedPages = $this->removeDuplicates($mergedPages, 'id');
 
         Config::set('pages', $mergedPages);
+
         file_put_contents(config_path('pages.php'), '<?php return ' . var_export($mergedPages, true) . ';');
+
+        $bids = Bid::all()->toArray();
+
+        $formattedBids = array_map(function ($bid) {
+            return [
+                'id' => $bid['id'],
+                'lot_id' => $bid['lot_id'],
+                'user_id' => $bid['user_id'],
+                'bid_amount' => $bid['bid_amount'],
+                'bid_time' => $bid['bid_time'],
+                'created_at' => $bid['created_at'] ?? null,
+                'updated_at' => $bid['updated_at'] ?? null,
+            ];
+        }, $bids);
+
+        $existingBids = Config::get('bids', []);
+
+        $mergedBids = array_merge($existingBids, $formattedBids);
+        $mergedBids = $this->removeDuplicates($mergedBids, 'id');
+
+        Config::set('bids', $mergedBids);
+
+        file_put_contents(config_path('bids.php'), '<?php return ' . var_export($mergedBids, true) . ';');
+
     }
 
     private function removeDuplicates($array, $key)

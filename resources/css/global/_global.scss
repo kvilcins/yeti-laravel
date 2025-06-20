@@ -63,7 +63,7 @@ p {
     line-height: 19px;
 }
 
-.text-link {
+.link {
     @include font($PTSans-700);
     color: $link-color;
 
