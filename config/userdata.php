@@ -64,4 +64,17 @@
     'contact_details' => '12345',
     'avatar' => 'avatars/2czOzEDaHgtAO47O3Q3c2j78Cv9diiEilYta6UdZ.webp',
   ),
+  5 => 
+  array (
+    'id' => 7,
+    'email' => 'test@yandex.ru',
+    'name' => 'test',
+    'password' => '$2y$12$7Y9shm.bdlMy9pr2Mofcy.lVgJOkwzIv2m6Tq/tXSNui3IQnsulMe',
+    'remember_token' => NULL,
+    'email_verified_at' => NULL,
+    'created_at' => '2025-06-19T13:19:55.000000Z',
+    'updated_at' => '2025-06-20T14:59:05.000000Z',
+    'contact_details' => '123456',
+    'avatar' => 'avatars/832ilduvoLfp5KISWvvkONJJy8AvMN2gnPy2SDNn.webp',
+  ),
 );

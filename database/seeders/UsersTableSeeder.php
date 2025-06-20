@@ -15,9 +15,9 @@ class UsersTableSeeder extends Seeder
             $existingUser = DB::table('users')->where('email', $user['email'])->first();
             if (!$existingUser) {
                 DB::table('users')->insert($user);
-                echo "Пользователь {$user['name']} успешно восстановлен.\n";
+                echo "User {$user['name']} successfully restored.\n";
             } else {
-                echo "Пользователь с email {$user['email']} уже существует, пропускаем.\n";
+                echo "User with email {$user['email']} already exists, skipping.\n";
             }
         }
     }

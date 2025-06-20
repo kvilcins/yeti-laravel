@@ -51,7 +51,7 @@ class AuthController extends Controller
             'avatar' => $validatedData['avatar'],
         ]);
 
-        return redirect()->route('login')->with('success', 'Аккаунт успешно зарегистрирован!');
+        return redirect()->route('login')->with('success', 'Account successfully registered!');
     }
 
     public function showLogin()
@@ -72,10 +72,10 @@ class AuthController extends Controller
 
         if ($user && Hash::check($validatedData['password'], $user->password)) {
             Auth::login($user);
-            return redirect()->route('home')->with('success', 'Вы успешно вошли в систему!');
+            return redirect()->route('home')->with('success', 'You have successfully logged in!');
         } else {
             return redirect()->back()->withErrors([
-                'email' => 'Неверные учетные данные.',
+                'email' => 'Invalid credentials.',
             ]);
         }
     }
@@ -83,6 +83,6 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect()->route('home')->with('success', 'Вы успешно вышли из системы!');
+        return redirect()->route('home')->with('success', 'You have successfully logged out!');
     }
 }

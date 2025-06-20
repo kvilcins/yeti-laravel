@@ -1,13 +1,13 @@
 <ul class="pagination-list">
     <li class="pagination-item pagination-item-prev">
-        <a href="{{ $paginator->previousPageUrl() }}">Назад</a>
+        <a href="{{ $paginator->previousPageUrl() }}">Previous</a>
     </li>
-    
+
     @foreach ($paginator->links()->elements as $element)
         @if (is_string($element))
             <li class="pagination-item disabled"><span>{{ $element }}</span></li>
         @endif
-        
+
         @if (is_array($element))
             @foreach ($element as $page => $url)
                 @if ($page == $paginator->currentPage())
@@ -18,8 +18,8 @@
             @endforeach
         @endif
     @endforeach
-    
+
     <li class="pagination-item pagination-item-next">
-        <a href="{{ $paginator->nextPageUrl() }}">Вперед</a>
+        <a href="{{ $paginator->nextPageUrl() }}">Next</a>
     </li>
 </ul>

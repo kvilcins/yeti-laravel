@@ -1,6 +1,6 @@
 @extends('layouts.page')
 
-@section('title', 'Категория: ' . $category_name)
+@section('title', 'Category: ' . $category_name)
 
 @section('content')
     <main>
@@ -8,7 +8,7 @@
             <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
             @include('components.lots', [
-                'lots__title' => 'Все лоты в категории <span>«' . ($category_name ?? 'Все категории') . '»</span>'
+                'lots__title' => 'All lots in category <span>"' . ($category_name ?? 'All categories') . '"</span>'
             ])
         </div>
     </main>

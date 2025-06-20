@@ -1,6 +1,6 @@
 @extends('layouts.internal')
 
-@section('title', 'История просмотров')
+@section('title', 'Viewing History')
 
 @section('content')
     <main>
@@ -9,11 +9,11 @@
 
             <section class="lots">
                 <div class="lots__title h1">
-                    <h1 class="h1">История просмотров</h1>
+                    <h1 class="h1">Viewing History</h1>
                 </div>
 
                 @if ($viewedLotsData->isEmpty())
-                    <p>Просмотренные лоты отсутствуют.</p>
+                    <p>No viewed lots.</p>
                 @else
                     <ul class="lots__list">
                         @foreach ($viewedLotsData as $ad)

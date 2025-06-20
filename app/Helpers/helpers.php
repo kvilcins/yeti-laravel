@@ -5,31 +5,23 @@ use Carbon\Carbon;
 function lot_time_left($timer)
 {
     if (!$timer) {
-        return 'Торги окончены';
+        return 'Auction ended';
     }
 
     $now = \Carbon\Carbon::now();
     $end = \Carbon\Carbon::parse($timer);
 
     if ($end->isPast()) {
-        return 'Торги окончены';
+        return 'Auction ended';
     }
 
     $pluralize = function($count, $forms) {
-        // $forms — массив из трёх вариантов: ['минута', 'минуты', 'минут']
-        $count = abs($count) % 100;
-        $count1 = $count % 10;
+        $count = abs($count);
 
-        if ($count > 10 && $count < 20) {
-            return $forms[2];
-        }
-        if ($count1 > 1 && $count1 < 5) {
-            return $forms[1];
-        }
-        if ($count1 == 1) {
+        if ($count == 1) {
             return $forms[0];
         }
-        return $forms[2];
+        return $forms[1];
     };
 
     $diff = $end->diff($now);
@@ -41,19 +33,19 @@ function lot_time_left($timer)
     $parts = [];
 
     if ($days > 0) {
-        $parts[] = $days . ' ' . $pluralize($days, ['день', 'дня', 'дней']);
+        $parts[] = $days . ' ' . $pluralize($days, ['day', 'days']);
     }
 
     if ($hours > 0) {
-        $parts[] = $hours . ' ' . $pluralize($hours, ['час', 'часа', 'часов']);
+        $parts[] = $hours . ' ' . $pluralize($hours, ['hour', 'hours']);
     }
 
     if ($minutes > 0) {
-        $parts[] = $minutes . ' ' . $pluralize($minutes, ['минута', 'минуты', 'минут']);
+        $parts[] = $minutes . ' ' . $pluralize($minutes, ['minute', 'minutes']);
     }
 
     if (empty($parts)) {
-        return 'меньше минуты';
+        return 'less than a minute';
     }
 
     return implode(' ', $parts);
@@ -81,7 +73,7 @@ function formatPrice($price) {
     if ($price >= 1000) {
         $price = number_format($price, 0, '.', ' ');
     }
-    return $price . ' ₽';
+    return '$' . $price;
 }
 
 if (!function_exists('getDynamicPageTitle')) {
@@ -91,5 +83,3 @@ if (!function_exists('getDynamicPageTitle')) {
         return $page ? $page->title : null;
     }
 }
-
-

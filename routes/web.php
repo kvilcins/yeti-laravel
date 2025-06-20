@@ -23,55 +23,50 @@ use App\Http\Controllers\CatalogController;
 |
 */
 
-// Главная страница
+// Homepage
 Route::get('/', [MainController::class, 'index'])->name('home');
 
-// Доступ к добавлению лота только для авторизованных пользователей
+// Public authentication pages
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [AuthController::class, 'create'])->name('register');
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/register', [AuthController::class, 'store'])->name('register.store');
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+});
+
+// Logout (available only to authenticated users)
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
+// Routes group for authenticated users
 Route::middleware('auth')->group(function () {
-    Route::get('/add', [LotController::class, 'create'])->name('lot.create');
-    Route::post('/add', [LotController::class, 'store'])->name('lot.store');
 
-    // Ставки
-    Route::post('/lots/{id}/bid', [LotController::class, 'placeBid'])->name('bids.store');
+    // Lots
+    Route::prefix('lots')->group(function () {
+        Route::get('/add', [LotController::class, 'create'])->name('lot.create');
+        Route::post('/add', [LotController::class, 'store'])->name('lot.store');
+        Route::post('/{id}/bid', [LotController::class, 'placeBid'])->name('bids.store');
+    });
 
-    // Страница личного кабинета
-    Route::get('/account', [ProfileController::class, 'show'])->name('profile');
+    // User profile
+    Route::prefix('account')->name('profile.')->group(function () {
+        Route::get('/', [ProfileController::class, 'show'])->name('');
+        Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
+        Route::put('/update', [ProfileController::class, 'update'])->name('update');
+        Route::delete('/avatar', [ProfileController::class, 'deleteAvatar'])->name('avatar.delete');
+    });
 
-    // Форма редактирования профиля
-    Route::get('/account/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-
-    // Обновление профиля
-    Route::put('/account/update', [ProfileController::class, 'update'])->name('profile.update');
-
-    // Удаление аватара
-    Route::put('/account/avatar/delete', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
-
-    // Просмотренные лоты
+    // Viewed lots
     Route::get('/viewed-lots', [ViewedLotsController::class, 'index'])->name('viewed.lots');
 });
 
-// Страницы лотов
-Route::get('/catalog/{category_slug}/{slug}', [LotController::class, 'show'])->name('lot.show');
-
-// Показать форму регистрации и входа
-Route::get('/register', [AuthController::class, 'create'])->name('register');
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-
-// Обработка данных регистрации и логина
-Route::post('/register', [AuthController::class, 'store'])->name('register.store');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-
-// Разлогирование
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-// Поиск
+// Public pages (no authentication required)
+// Search
 Route::get('/search', [SearchController::class, 'search'])->name('search');
-
-// Поисковые подсказки
 Route::get('/search-suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');
 
-// Страницы категорий
+// Catalog and categories
+Route::get('/catalog', [CatalogController::class, 'show'])->name('catalog');
 Route::get('/catalog/{slug}', [CategoryController::class, 'show'])->name('category.show');
 
-// Страница каталога
-Route::get('/catalog', [CatalogController::class, 'show'])->name('catalog');
+// Lot pages (should be at the end to avoid intercepting other routes)
+Route::get('/catalog/{category_slug}/{slug}', [LotController::class, 'show'])->name('lot.show');

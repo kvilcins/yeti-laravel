@@ -5,3 +5,5 @@ import './modules/menu-dropdown.js';
 import './modules/mobile-menu.js';
 import './modules/fixed-scroll.js';
 import './modules/scroll-to-top.js';
+import './modules/modals.js';
+import './modules/delete-avatar.js';

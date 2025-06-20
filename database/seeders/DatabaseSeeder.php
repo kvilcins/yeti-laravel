@@ -31,10 +31,10 @@ class DatabaseSeeder extends Seeder
             $existingPage = Page::where('slug', $page['slug'])->first();
             if (!$existingPage) {
                 Page::create($page);
-                echo "Страница {$page['name']} успешно восстановлена.\n";
+                echo "Page {$page['name']} successfully restored.\n";
             } else {
                 $existingPage->update($page);
-                echo "Страница с slug {$page['slug']} обновлена.\n";
+                echo "Page with slug {$page['slug']} updated.\n";
             }
         }
     }

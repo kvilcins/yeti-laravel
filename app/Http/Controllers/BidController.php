@@ -15,7 +15,7 @@ class BidController extends Controller
         $item = Item::find($lot);
 
         if (!$item) {
-            return redirect()->back()->withErrors(['lot' => 'Лот не найден.']);
+            return redirect()->back()->withErrors(['lot' => 'Lot not found.']);
         }
 
         Bid::create([
@@ -24,6 +24,6 @@ class BidController extends Controller
             'price' => $validatedData['cost'],
         ]);
 
-        return redirect()->route('lot.show', $item->id)->with('success', 'Ставка успешно сделана!');
+        return redirect()->route('lot.show', $item->id)->with('success', 'Bid successfully placed!');
     }
 }

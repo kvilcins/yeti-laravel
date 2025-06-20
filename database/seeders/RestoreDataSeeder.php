@@ -18,7 +18,7 @@ class RestoreDataSeeder extends Seeder
         $categories = Config::get('categories', []);
 
         if (empty($categories)) {
-            echo "Данные о категориях не найдены в конфиге!\n";
+            echo "Category data not found in config!\n";
         } else {
             foreach ($categories as $category) {
                 $category['slug'] = $category['slug'] ?? Str::slug($category['name']);
@@ -31,14 +31,14 @@ class RestoreDataSeeder extends Seeder
                         'class' => $category['class'],
                         'slug' => $category['slug'],
                     ]);
-                    echo "Категория {$category['name']} успешно восстановлена.\n";
+                    echo "Category {$category['name']} successfully restored.\n";
                 } else {
                     $existingCategory->update([
                         'name' => $category['name'],
                         'class' => $category['class'],
                         'slug' => $category['slug'],
                     ]);
-                    echo "Категория с классом {$category['class']} обновлена.\n";
+                    echo "Category with class {$category['class']} updated.\n";
                 }
             }
         }
@@ -46,7 +46,7 @@ class RestoreDataSeeder extends Seeder
         $items = Config::get('items', []);
 
         if (empty($items)) {
-            echo "Данные о товарах не найдены в конфиге!\n";
+            echo "Item data not found in config!\n";
         } else {
             foreach ($items as $item) {
                 $item['slug'] = $item['slug'] ?? Str::slug($item['title']);
@@ -65,13 +65,14 @@ class RestoreDataSeeder extends Seeder
                             'min_bid' => $item['min_bid'],
                             'img' => $item['img'],
                             'category_id' => $category->id,
+                            'timer' => $item['timer'],
                         ]);
-                        echo "Товар {$item['title']} успешно восстановлен.\n";
+                        echo "Item {$item['title']} successfully restored.\n";
                     } else {
-                        echo "Категория с id {$item['category_id']} не найдена для товара {$item['title']}.\n";
+                        echo "Category with id {$item['category_id']} not found for item {$item['title']}.\n";
                     }
                 } else {
-                    $existingItem->update([
+                    $updateData = [
                         'title' => $item['title'],
                         'slug' => $item['slug'],
                         'description' => $item['description'],
@@ -79,8 +80,10 @@ class RestoreDataSeeder extends Seeder
                         'min_bid' => $item['min_bid'],
                         'img' => $item['img'],
                         'category_id' => $item['category_id'],
-                    ]);
-                    echo "Товар с названием {$item['title']} обновлен.\n";
+                    ];
+
+                    $existingItem->update($updateData);
+                    echo "Item with title {$item['title']} updated.\n";
                 }
             }
         }
@@ -88,7 +91,7 @@ class RestoreDataSeeder extends Seeder
         $users = Config::get('userdata', []);
 
         if (empty($users)) {
-            echo "Данные о пользователях не найдены в конфиге!\n";
+            echo "User data not found in config!\n";
         } else {
             foreach ($users as $user) {
                 $existingUser = User::where('email', $user['email'])->first();
@@ -105,7 +108,7 @@ class RestoreDataSeeder extends Seeder
                         'contact_details' => $user['contact_details'] ?? null,
                         'avatar' => $user['avatar'] ?? null,
                     ]);
-                    echo "Пользователь {$user['name']} успешно восстановлен.\n";
+                    echo "User {$user['name']} successfully restored.\n";
                 } else {
                     $existingUser->update([
                         'email' => $user['email'],
@@ -118,7 +121,7 @@ class RestoreDataSeeder extends Seeder
                         'contact_details' => $user['contact_details'] ?? null,
                         'avatar' => $user['avatar'] ?? null,
                     ]);
-                    echo "Пользователь с email {$user['email']} обновлен.\n";
+                    echo "User with email {$user['email']} updated.\n";
                 }
             }
         }
@@ -126,7 +129,7 @@ class RestoreDataSeeder extends Seeder
         $bids = Config::get('bids', []);
 
         if (empty($bids)) {
-            echo "Данные о ставках не найдены в конфиге!\n";
+            echo "Bid data not found in config!\n";
         } else {
             foreach ($bids as $bid) {
                 $existingBid = Bid::find($bid['id']);
@@ -143,9 +146,9 @@ class RestoreDataSeeder extends Seeder
                             'created_at' => $bid['created_at'] ?? null,
                             'updated_at' => $bid['updated_at'] ?? null,
                         ]);
-                        echo "Ставка с ID {$bid['id']} успешно восстановлена.\n";
+                        echo "Bid with ID {$bid['id']} successfully restored.\n";
                     } else {
-                        echo "Ставка с ID {$bid['id']} не восстановлена: товар или пользователь не найдены.\n";
+                        echo "Bid with ID {$bid['id']} not restored: item or user not found.\n";
                     }
                 } else {
                     $existingBid->update([
@@ -156,7 +159,7 @@ class RestoreDataSeeder extends Seeder
                         'created_at' => $bid['created_at'] ?? null,
                         'updated_at' => $bid['updated_at'] ?? null,
                     ]);
-                    echo "Ставка с ID {$bid['id']} обновлена.\n";
+                    echo "Bid with ID {$bid['id']} updated.\n";
                 }
             }
         }
@@ -164,7 +167,7 @@ class RestoreDataSeeder extends Seeder
         $pages = Config::get('pages', []);
 
         if (empty($pages)) {
-            echo "Данные о страницах не найдены в конфиге!\n";
+            echo "Page data not found in config!\n";
         } else {
             foreach ($pages as $page) {
                 $existingPage = Page::find($page['id']);
@@ -178,7 +181,7 @@ class RestoreDataSeeder extends Seeder
                         'type' => $page['type'] ?? 'default_value',
                         'route' => $page['route'] ?? 'default_value',
                     ]);
-                    echo "Страница {$page['name']} успешно восстановлена.\n";
+                    echo "Page {$page['name']} successfully restored.\n";
                 } else {
                     $existingPage->update([
                         'slug' => $page['slug'],
@@ -188,7 +191,7 @@ class RestoreDataSeeder extends Seeder
                         'type' => $page['type'] ?? 'default_value',
                         'route' => $page['route'] ?? 'default_value',
                     ]);
-                    echo "Страница с id {$page['id']} обновлена.\n";
+                    echo "Page with id {$page['id']} updated.\n";
                 }
             }
         }

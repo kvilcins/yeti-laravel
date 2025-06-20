@@ -1,6 +1,6 @@
 @php
     $lots__tag = $lots__tag ?? 'h1';
-    $lots__title = $lots__title ?? 'Открытые лоты';
+    $lots__title = $lots__title ?? 'Open Lots';
 @endphp
 
 <section class="lots">
@@ -11,7 +11,7 @@
             @include('components.lot')
         @empty
             <li class="lots__item">
-                <p>{!! $empty ?? 'Нет лотов в этой категории.' !!}</p>
+                <p>{!! $empty ?? 'No lots in this category.' !!}</p>
             </li>
         @endforelse
     </ul>

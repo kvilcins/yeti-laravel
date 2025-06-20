@@ -16,7 +16,7 @@ class Item extends Model
     protected $fillable = ['title', 'slug', 'description', 'price', 'min_bid', 'img', 'category_id', 'timer'];
 
     /**
-     * Связь "лот принадлежит категории".
+     * Relationship "item belongs to category".
      */
     public function category(): BelongsTo
     {
@@ -24,7 +24,7 @@ class Item extends Model
     }
 
     /**
-     * Связь "лот имеет много ставок".
+     * Relationship "item has many bids".
      */
     public function bids(): HasMany
     {
@@ -60,5 +60,4 @@ class Item extends Model
 
         return $slug;
     }
-
 }

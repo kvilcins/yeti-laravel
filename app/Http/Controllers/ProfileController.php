@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\UpdateProfileRequest;
+use App\Http\Requests\Auth\DeleteAvatarRequest;
 use App\Models\Bid;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class ProfileController extends Controller
 {
-    protected $dataController;
-    protected $breadcrumbsController;
-
-    public function __construct(DataController $dataController, BreadcrumbsController $breadcrumbsController)
-    {
-        $this->dataController = $dataController;
-        $this->breadcrumbsController = $breadcrumbsController;
-    }
+    public function __construct(
+        protected DataController $dataController,
+        protected BreadcrumbsController $breadcrumbsController
+    ) {}
 
     public function show()
     {
@@ -38,7 +37,6 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = Auth::user();
-
         $commonData = $this->dataController->getCommonData();
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
@@ -48,47 +46,131 @@ class ProfileController extends Controller
         ]));
     }
 
-    public function update(Request $request)
+    public function update(UpdateProfileRequest $request)
     {
         $user = Auth::user();
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'password' => 'nullable|min:6|confirmed',
-            'avatar' => 'nullable|image|max:2048',
-        ]);
+        try {
+            $validatedData = $request->validated();
 
-        $user->name = $request->name;
+            $this->updateUserData($user, $validatedData);
+            $this->handleAvatarUpload($request, $user);
 
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
+            $user->save();
+
+            return $this->successResponse($request, $user, 'Profile updated successfully!');
+
+        } catch (ValidationException $e) {
+            return $this->validationErrorResponse($request, $e);
+        } catch (\Exception $e) {
+            return $this->errorResponse($request, 'An error occurred while updating the profile');
         }
-
-        if ($request->hasFile('avatar')) {
-            if ($user->avatar) {
-                Storage::delete('public/' . $user->avatar);
-            }
-
-            $path = $request->file('avatar')->store('avatars', 'public');
-            $user->avatar = $path;
-        }
-
-        $user->save();
-
-        return redirect()->route('profile')
-            ->with('success', 'Профиль успешно обновлен!');
     }
 
-    public function deleteAvatar()
+    public function deleteAvatar(DeleteAvatarRequest $request)
     {
         $user = Auth::user();
 
+        try {
+            $this->removeUserAvatar($user);
+            $user->save();
+
+            return $this->successResponse($request, $user, 'Avatar deleted successfully');
+
+        } catch (\Exception $e) {
+            return $this->errorResponse($request, 'Error deleting avatar');
+        }
+    }
+
+    /**
+     * Update user basic data
+     */
+    private function updateUserData(User $user, array $validatedData): void
+    {
+        $user->name = $validatedData['name'];
+
+        if (!empty($validatedData['password'])) {
+            $user->password = Hash::make($validatedData['password']);
+        }
+    }
+
+    /**
+     * Handle avatar upload
+     */
+    private function handleAvatarUpload(Request $request, User $user): void
+    {
+        if (!$request->hasFile('avatar')) {
+            return;
+        }
+
+        // Remove old avatar
+        if ($user->avatar) {
+            Storage::delete('public/' . $user->avatar);
+        }
+
+        // Store new avatar
+        $user->avatar = $request->file('avatar')->store('avatars', 'public');
+    }
+
+    /**
+     * Remove user avatar
+     */
+    private function removeUserAvatar(User $user): void
+    {
         if ($user->avatar) {
             Storage::delete('public/' . $user->avatar);
             $user->avatar = null;
-            $user->save();
+        }
+    }
+
+    /**
+     * Return success response
+     */
+    private function successResponse(Request $request, User $user, string $message)
+    {
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => $message,
+                'avatar_url' => $user->avatar_url
+            ]);
         }
 
-        return redirect()->back()->with('success', 'Аватар удален.');
+        return redirect()->route('profile.')->with('success', $message);
+    }
+
+    /**
+     * Return validation error response
+     */
+    private function validationErrorResponse(Request $request, ValidationException $e)
+    {
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation error',
+                'errors' => $e->errors()
+            ], 422);
+        }
+
+        return redirect()->back()
+            ->withErrors($e->errors())
+            ->withInput();
+    }
+
+    /**
+     * Return error response
+     */
+    private function errorResponse(Request $request, string $message)
+    {
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => false,
+                'message' => $message
+            ], 500);
+        }
+
+        return redirect()->back()
+            ->with('error', $message)
+            ->withInput();
     }
 }

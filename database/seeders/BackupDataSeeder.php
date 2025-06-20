@@ -44,6 +44,7 @@ class BackupDataSeeder extends Seeder
                 'min_bid' => $item['min_bid'],
                 'img' => $item['img'],
                 'category_id' => $item['category_id'],
+                'timer' => $item['timer'] ?? null,
             ];
         }, $items);
 

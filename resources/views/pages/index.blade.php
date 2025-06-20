@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
-@section('title', 'Главная страница')
+@section('title', 'Homepage')
 
 @section('content')
     <main>
         <div class="container">
             <section class="promo">
-                <h1 class="promo__title h1">Нужен стафф для катки?</h1>
+                <h1 class="promo__title h1">Need gear for riding?</h1>
                 <p class="promo__text">
-                    На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.
+                    At our online auction you'll find the most exclusive snowboard and ski equipment.
                 </p>
                 <ul class="promo__list">
                     @foreach ($categories as $category)
@@ -22,7 +22,7 @@
             </section>
 
             @include('components.lots', [
-                'lots__title' => 'Открытые лоты',
+                'lots__title' => 'Open Lots',
                 'lots__tag' => 'h2'
             ])
         </div>

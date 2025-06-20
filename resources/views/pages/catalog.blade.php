@@ -1,6 +1,6 @@
 @extends('layouts.page')
 
-@section('title', 'Каталог лотов')
+@section('title', 'Lot Catalog')
 
 @section('content')
     <main>
@@ -8,7 +8,7 @@
             <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
             @include('components.lots', [
-                'lots__title' => 'Открытые лоты'
+                'lots__title' => 'Open Lots'
             ])
         </div>
     </main>

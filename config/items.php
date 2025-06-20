@@ -12,6 +12,7 @@
     'min_bid' => 12000,
     'img' => '../img/lot-1.jpg',
     'category_id' => 1,
+    'timer' => NULL,
   ),
   1 => 
   array (
@@ -26,6 +27,7 @@
     'min_bid' => 12000,
     'img' => '../img/lot-2.jpg',
     'category_id' => 1,
+    'timer' => NULL,
   ),
   2 => 
   array (
@@ -40,6 +42,7 @@
     'min_bid' => 12000,
     'img' => '../img/lot-3.jpg',
     'category_id' => 2,
+    'timer' => NULL,
   ),
   3 => 
   array (
@@ -54,6 +57,7 @@
     'min_bid' => 12000,
     'img' => '../img/lot-4.jpg',
     'category_id' => 3,
+    'timer' => NULL,
   ),
   4 => 
   array (
@@ -68,6 +72,7 @@
     'min_bid' => 12000,
     'img' => '../img/lot-5.jpg',
     'category_id' => 4,
+    'timer' => NULL,
   ),
   5 => 
   array (
@@ -82,6 +87,7 @@
     'min_bid' => 12000,
     'img' => '../img/lot-6.jpg',
     'category_id' => 6,
+    'timer' => NULL,
   ),
   6 => 
   array (
@@ -108,6 +114,7 @@
     'min_bid' => 100,
     'img' => 'img/678d26e85dde6.jpg',
     'category_id' => 1,
+    'timer' => NULL,
   ),
   7 => 
   array (
@@ -166,6 +173,7 @@
     'min_bid' => 100,
     'img' => 'img/678d27bc0229e.jpg',
     'category_id' => 4,
+    'timer' => NULL,
   ),
   8 => 
   array (
@@ -178,6 +186,7 @@
     'min_bid' => 150,
     'img' => 'img/678d28009e8a9.jpg',
     'category_id' => 4,
+    'timer' => NULL,
   ),
   9 => 
   array (
@@ -198,6 +207,7 @@
     'min_bid' => 200,
     'img' => 'img/678d2843dc7d4.jpg',
     'category_id' => 2,
+    'timer' => NULL,
   ),
   10 => 
   array (
@@ -218,6 +228,7 @@
     'min_bid' => 200,
     'img' => 'img/678d28d18c57d.jpg',
     'category_id' => 3,
+    'timer' => NULL,
   ),
   11 => 
   array (
@@ -238,6 +249,7 @@
     'min_bid' => 100,
     'img' => 'img/678d293d7b705.jpg',
     'category_id' => 6,
+    'timer' => NULL,
   ),
   12 => 
   array (
@@ -254,6 +266,7 @@
     'min_bid' => 1000,
     'img' => 'img/679605dab4c82.jpg',
     'category_id' => 6,
+    'timer' => NULL,
   ),
   13 => 
   array (
@@ -265,17 +278,19 @@
     'min_bid' => 20,
     'img' => 'img/683f3c75171d1.jpg',
     'category_id' => 3,
+    'timer' => '2025-08-14 19:25:15',
   ),
   14 => 
   array (
     'id' => 23,
     'title' => 'Балаклава Airhole Balaclava Full Hinge',
-    'slug' => 'balaklava-airhole-balaclava-full-hinge-2',
+    'slug' => 'balaklava-airhole-balaclava-full-hinge',
     'description' => 'Удобная балаклава Airhole с фирменным отверстием для дыхания предназначена для занятий зимними видами спорта. Модель надежно защищает лицо от снега и встречного ветра.',
     'price' => 4699,
     'min_bid' => 500,
-    'img' => 'img/683f4eaee4745.jpg',
+    'img' => 'img/68527c37e6425.jpg',
     'category_id' => 4,
+    'timer' => '2025-08-31 19:25:09',
   ),
   15 => 
   array (
@@ -287,6 +302,7 @@
     'min_bid' => 500,
     'img' => 'img/683f52208745a.jpg',
     'category_id' => 6,
+    'timer' => '2025-07-31 19:25:01',
   ),
   16 => 
   array (
@@ -298,6 +314,7 @@
     'min_bid' => 1000,
     'img' => 'img/684ffc9078641.jpg',
     'category_id' => 1,
+    'timer' => '2025-07-31 19:23:55',
   ),
   17 => 
   array (

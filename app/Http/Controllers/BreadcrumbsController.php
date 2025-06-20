@@ -16,7 +16,7 @@ class BreadcrumbsController extends Controller
         $currentRouteName = Route::currentRouteName();
         $routeParameters = $request->route()->parameters();
 
-        $breadcrumbs[] = ['title' => 'Главная', 'url' => route('home')];
+        $breadcrumbs[] = ['title' => 'Home', 'url' => route('home')];
 
         $this->addRouteBreadcrumbs($currentRouteName, $routeParameters, $breadcrumbs);
 
@@ -24,7 +24,7 @@ class BreadcrumbsController extends Controller
     }
 
     /**
-     * Рекурсивное добавление хлебных крошек на основе маршрута
+     * Recursive adding of breadcrumbs based on route
      */
     private function addRouteBreadcrumbs($routeName, $routeParameters, &$breadcrumbs)
     {
@@ -38,7 +38,7 @@ class BreadcrumbsController extends Controller
                 'profile',
             ])) {
             $breadcrumbs[] = [
-                'title' => 'Каталог',
+                'title' => 'Catalog',
                 'url' => route('catalog'),
             ];
         }
@@ -73,7 +73,7 @@ class BreadcrumbsController extends Controller
     }
 
     /**
-     * Добавление хлебных крошек для лота
+     * Adding breadcrumbs for lot
      */
     private function addLotBreadcrumbs($categorySlug, $lotSlug, &$breadcrumbs)
     {
@@ -95,7 +95,7 @@ class BreadcrumbsController extends Controller
     }
 
     /**
-     * Генерация URL для страницы
+     * Generate URL for page
      */
     private function generatePageUrl(Page $page, $routeParameters)
     {

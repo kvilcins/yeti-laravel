@@ -13,9 +13,9 @@ class PagesTableSeeder extends Seeder
         Page::truncate();
 
         $pages = [
-            ['route' => 'category.show', 'name' => 'Категория', 'type' => 'category', 'slug' => Str::slug('Категория'), 'title' => 'Категория'],
+            ['route' => 'category.show', 'name' => 'Category', 'type' => 'category', 'slug' => Str::slug('Category'), 'title' => 'Category'],
 
-            ['route' => 'lot.show', 'name' => 'Лот', 'type' => 'item', 'slug' => Str::slug('Лот'), 'title' => 'Лот'],
+            ['route' => 'lot.show', 'name' => 'Lot', 'type' => 'item', 'slug' => Str::slug('Lot'), 'title' => 'Lot'],
         ];
 
         foreach ($pages as $page) {

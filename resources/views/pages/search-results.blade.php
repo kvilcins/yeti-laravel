@@ -1,14 +1,14 @@
 @extends('layouts.page')
 
-@section('title', 'Поиск по сайту')
+@section('title', 'Site Search')
 
 @section('content')
     <main>
         <div class="container">
-            <h1 class="h1">Результаты поиска для "{{ $searchTerm }}"</h1>
+            <h1 class="h1">Search results for "{{ $searchTerm }}"</h1>
 
             @if($results->isEmpty())
-                <p>Ничего не найдено по вашему запросу</p>
+                <p>Nothing found for your search query</p>
             @else
                 <ul>
                     @foreach($results as $lot)
