@@ -1,0 +1,15 @@
+.error-content__description {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.error-content__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.error-content {
+    min-height: 70vh;
+    padding-top: 50px;
+}

@@ -53,6 +53,7 @@
 }
 
 .search-form__suggestions {
+
     &.active {
         width: 100%;
         padding: 10px;
@@ -60,6 +61,9 @@
         position: absolute;
         background-color: $border-white;
         z-index: 1111;
+
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 0 0 8px 8px;
     }
 }
 
