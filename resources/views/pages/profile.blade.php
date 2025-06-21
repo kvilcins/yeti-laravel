@@ -25,7 +25,6 @@
                     @method('PUT')
                     <h1 class="form__title h1">Edit Profile</h1>
 
-                    <!-- Основные данные -->
                     <div class="form__section">
                         <h2 class="form__section-title">Basic Information</h2>
 
@@ -35,7 +34,13 @@
                             <span class="form__error" id="nameError"></span>
                         </div>
 
-                        <div class="form__item" id="contactGroup">
+                        <div class="form__item">
+                            <label class="form__label">Email</label>
+                            <input class="form__input form__input--readonly" type="email" value="{{ auth()->user()->email }}" readonly>
+                            <span class="form__help">Email cannot be changed for security reasons</span>
+                        </div>
+
+                        <div class="form__item" id="messageGroup">
                             <label class="form__label" for="message">Contact details</label>
                             <textarea class="form__input" id="message" name="message" placeholder="How to contact you">{{ old('message', auth()->user()->contact_details) }}</textarea>
                             <span class="form__error" id="messageError"></span>
@@ -73,25 +78,6 @@
                         </div>
                     </div>
 
-                    <!-- Email изменение -->
-                    <div class="form__section">
-                        <h2 class="form__section-title">Email Address</h2>
-                        <p class="form__section-description">To change your email, we'll send a confirmation link to your new address.</p>
-
-                        <div class="form__item" id="emailGroup">
-                            <label class="form__label" for="email">Email*</label>
-                            <input class="form__input" id="email" type="email" name="email" value="{{ old('email', auth()->user()->email) }}">
-                            <span class="form__error" id="emailError"></span>
-                        </div>
-
-                        <div class="form__item" id="currentPasswordForEmailGroup" style="display: none;">
-                            <label class="form__label" for="current_password_for_email">Current Password</label>
-                            <input class="form__input" id="current_password_for_email" type="password" name="current_password_for_email" placeholder="Enter current password to confirm email change">
-                            <span class="form__error" id="current_password_for_emailError"></span>
-                        </div>
-                    </div>
-
-                    <!-- Пароль изменение -->
                     <div class="form__section">
                         <h2 class="form__section-title">Change Password</h2>
                         <p class="form__section-description">Leave empty if you don't want to change your password.</p>

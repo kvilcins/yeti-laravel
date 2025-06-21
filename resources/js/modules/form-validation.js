@@ -63,28 +63,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isProfileForm) {
         const fields = {
             name: document.getElementById('name'),
-            email: document.getElementById('email'),
             contactDetails: document.getElementById('message'),
             password: document.getElementById('password'),
             passwordConfirm: document.getElementById('password_confirmation'),
             currentPassword: document.getElementById('current_password'),
-            currentPasswordForEmail: document.getElementById('current_password_for_email'),
             avatar: document.getElementById('avatar')
         };
 
         const originalData = {
             name: fields.name?.value.trim() || '',
-            email: fields.email?.value.trim() || '',
             contactDetails: fields.contactDetails?.value || ''
         };
 
         const showHideFields = () => {
-            const emailChanged = fields.email?.value.trim() !== originalData.email;
-            const emailPasswordGroup = document.getElementById('currentPasswordForEmailGroup');
-            if (emailPasswordGroup) {
-                emailPasswordGroup.style.display = emailChanged ? 'block' : 'none';
-            }
-
             const hasNewPassword = fields.password?.value.length > 0;
             const currentPasswordGroup = document.getElementById('currentPasswordGroup');
             const confirmPasswordGroup = document.getElementById('password_confirmationGroup');
@@ -100,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const checkForChanges = () => {
             const hasChanges =
                 fields.name?.value.trim() !== originalData.name ||
-                fields.email?.value.trim() !== originalData.email ||
                 fields.contactDetails?.value !== originalData.contactDetails ||
                 fields.password?.value.length > 0 ||
                 fields.avatar?.files[0];
@@ -181,7 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!response.ok) {
                         if (response.status === 422) {
                             return response.json().then(data => {
-                                // Показываем ошибки валидации
                                 Object.entries(data.errors).forEach(([field, messages]) => {
                                     const errorElement = document.getElementById(field + 'Error');
                                     const groupElement = document.getElementById(field + 'Group');
@@ -208,12 +197,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (fields.password) fields.password.value = '';
                         if (fields.passwordConfirm) fields.passwordConfirm.value = '';
                         if (fields.currentPassword) fields.currentPassword.value = '';
-                        if (fields.currentPasswordForEmail) fields.currentPasswordForEmail.value = '';
                         if (fields.avatar) fields.avatar.value = '';
 
-                        // Обновляем оригинальные данные
                         originalData.name = fields.name?.value.trim() || '';
-                        originalData.email = fields.email?.value.trim() || '';
                         originalData.contactDetails = fields.contactDetails?.value || '';
 
                         checkForChanges();
