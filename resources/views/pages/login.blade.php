@@ -11,7 +11,7 @@
                 @csrf
                 <h1 class="form__title h1">Login</h1>
 
-                <div class="form__item {{ $errors->has('email') ? 'form__item--invalid' : '' }}">
+                <div class="form__item {{ $errors->has('email') ? 'form__item--invalid' : '' }}" id="emailGroup">
                     <label class="form__label" for="email">E-mail*</label>
                     <input class="form__input"
                            id="email"
@@ -19,28 +19,20 @@
                            name="email"
                            placeholder="Enter e-mail"
                            value="{{ old('email') }}">
-                    <span class="form__error">
-                        @if($errors->has('email'))
-                            {{ $errors->first('email') }}
-                        @else
-                            Enter e-mail
-                        @endif
+                    <span class="form__error" id="emailError">
+                        @error('email'){{ $message }}@enderror
                     </span>
                 </div>
 
-                <div class="form__item form__item--last {{ $errors->has('password') ? 'form__item--invalid' : '' }}">
+                <div class="form__item form__item--last {{ $errors->has('password') ? 'form__item--invalid' : '' }}" id="passwordGroup">
                     <label class="form__label" for="password">Password*</label>
                     <input class="form__input"
                            id="password"
                            type="password"
                            name="password"
                            placeholder="Enter password">
-                    <span class="form__error">
-                        @if($errors->has('password'))
-                            {{ $errors->first('password') }}
-                        @else
-                            Enter password
-                        @endif
+                    <span class="form__error" id="passwordError">
+                        @error('password'){{ $message }}@enderror
                     </span>
                 </div>
 

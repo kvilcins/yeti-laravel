@@ -58,11 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputFileContainer = form.querySelector('.form__file-label');
     const fileInput = form.querySelector('input[type="file"]');
 
-    // Специальная логика для профиля
     const isProfileForm = form.id === 'profileForm';
 
     if (isProfileForm) {
-        // Поля профиля
         const fields = {
             name: document.getElementById('name'),
             email: document.getElementById('email'),
@@ -74,23 +72,19 @@ document.addEventListener('DOMContentLoaded', () => {
             avatar: document.getElementById('avatar')
         };
 
-        // Оригинальные значения
         const originalData = {
             name: fields.name?.value.trim() || '',
             email: fields.email?.value.trim() || '',
             contactDetails: fields.contactDetails?.value || ''
         };
 
-        // Показать/скрыть динамические поля
         const showHideFields = () => {
-            // Email изменился - показываем поле пароля для email
             const emailChanged = fields.email?.value.trim() !== originalData.email;
             const emailPasswordGroup = document.getElementById('currentPasswordForEmailGroup');
             if (emailPasswordGroup) {
                 emailPasswordGroup.style.display = emailChanged ? 'block' : 'none';
             }
 
-            // Введен новый пароль - показываем поля current password и confirmation
             const hasNewPassword = fields.password?.value.length > 0;
             const currentPasswordGroup = document.getElementById('currentPasswordGroup');
             const confirmPasswordGroup = document.getElementById('password_confirmationGroup');
@@ -103,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        // Проверка изменений
         const checkForChanges = () => {
             const hasChanges =
                 fields.name?.value.trim() !== originalData.name ||
@@ -118,13 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
             showHideFields();
         };
 
-        // Валидация паролей
         const validatePasswords = () => {
             const password = fields.password?.value || '';
             const passwordConfirm = fields.passwordConfirm?.value || '';
             let hasErrors = false;
 
-            // Очищаем ошибки пароля
             const passwordError = document.getElementById('passwordError');
             const passwordConfirmError = document.getElementById('password_confirmationError');
             const passwordGroup = document.getElementById('passwordGroup');
@@ -150,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return !hasErrors;
         };
 
-        // Добавляем обработчики для всех полей
         Object.values(fields).forEach(field => {
             if (field) {
                 field.addEventListener('input', checkForChanges);
@@ -158,15 +148,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Специальные обработчики для паролей
         fields.password?.addEventListener('blur', validatePasswords);
         fields.passwordConfirm?.addEventListener('blur', validatePasswords);
         fields.passwordConfirm?.addEventListener('input', validatePasswords);
 
-        // Инициализация
         checkForChanges();
 
-        // AJAX обработка формы профиля
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -174,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!validatePasswords()) return;
 
-            // Очищаем ошибки
             document.querySelectorAll('.form__error').forEach(error => error.textContent = '');
             document.querySelectorAll('.form__item--invalid').forEach(item =>
                 item.classList.remove('form__item--invalid')
@@ -214,13 +200,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data.success) {
                         window.modalNotification.success(data.message);
 
-                        // Обновляем аватар если есть
                         if (data.avatar_url) {
                             const avatarPreview = document.getElementById('avatarPreview');
                             if (avatarPreview) avatarPreview.src = data.avatar_url;
                         }
 
-                        // Сбрасываем поля и обновляем оригинальные данные
                         if (fields.password) fields.password.value = '';
                         if (fields.passwordConfirm) fields.passwordConfirm.value = '';
                         if (fields.currentPassword) fields.currentPassword.value = '';
@@ -246,7 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     } else {
-        // Обычные формы (не профиль)
         const checkFormForErrors = () => {
             let hasErrors = false;
             form.querySelectorAll('input, select, textarea').forEach(input => {
@@ -288,7 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
         submitButton.addEventListener('click', handleSubmitClick);
     }
 
-    // Общий обработчик файлов
     const handleFileInputChange = event => {
         const file = event.target.files[0];
         if (!file) return;

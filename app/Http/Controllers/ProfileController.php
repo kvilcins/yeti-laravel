@@ -53,15 +53,12 @@ class ProfileController extends Controller
         try {
             $validatedData = $request->validated();
 
-            // Обновляем основные данные
             $user->name = $validatedData['name'];
 
-            // Обновляем контактные данные если есть
             if (isset($validatedData['message'])) {
                 $user->contact_details = $validatedData['message'];
             }
 
-            // Проверяем изменение email
             $emailChanged = isset($validatedData['email']) && $validatedData['email'] !== $user->email;
 
             if ($emailChanged) {
@@ -71,12 +68,10 @@ class ProfileController extends Controller
                 $message = 'Profile updated successfully!';
             }
 
-            // Обновляем пароль если указан
             if (!empty($validatedData['password'])) {
                 $user->password = Hash::make($validatedData['password']);
             }
 
-            // Обрабатываем аватар
             $this->handleAvatarUpload($request, $user);
 
             $user->save();
@@ -98,10 +93,8 @@ class ProfileController extends Controller
 
     private function sendEmailVerification(User $user, string $newEmail)
     {
-        // Удаляем старые токены
         DB::table('email_verifications')->where('user_id', $user->id)->delete();
 
-        // Создаем новый токен
         $token = Str::random(60);
 
         DB::table('email_verifications')->insert([
@@ -113,10 +106,8 @@ class ProfileController extends Controller
             'updated_at' => now()
         ]);
 
-        // Создаем URL для подтверждения
         $verificationUrl = route('email.verify', ['token' => $token]);
 
-        // Отправляем письмо
         Mail::to($newEmail)->send(new \App\Mail\EmailVerification($user, $newEmail, $verificationUrl));
     }
 
