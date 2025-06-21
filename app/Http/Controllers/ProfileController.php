@@ -53,18 +53,71 @@ class ProfileController extends Controller
         try {
             $validatedData = $request->validated();
 
-            $this->updateUserData($user, $validatedData);
+            // Обновляем основные данные
+            $user->name = $validatedData['name'];
+
+            // Обновляем контактные данные если есть
+            if (isset($validatedData['message'])) {
+                $user->contact_details = $validatedData['message'];
+            }
+
+            // Проверяем изменение email
+            $emailChanged = isset($validatedData['email']) && $validatedData['email'] !== $user->email;
+
+            if ($emailChanged) {
+                $this->sendEmailVerification($user, $validatedData['email']);
+                $message = 'Profile updated! Please check your new email (' . $validatedData['email'] . ') to confirm the change.';
+            } else {
+                $message = 'Profile updated successfully!';
+            }
+
+            // Обновляем пароль если указан
+            if (!empty($validatedData['password'])) {
+                $user->password = Hash::make($validatedData['password']);
+            }
+
+            // Обрабатываем аватар
             $this->handleAvatarUpload($request, $user);
 
             $user->save();
 
-            return $this->successResponse($request, $user, 'Profile updated successfully!');
+            return $this->successResponse($request, $user, $message);
 
         } catch (ValidationException $e) {
             return $this->validationErrorResponse($request, $e);
         } catch (\Exception $e) {
+            \Log::error('Profile update error: ' . $e->getMessage(), [
+                'user_id' => $user->id,
+                'request_data' => $request->all(),
+                'stack_trace' => $e->getTraceAsString()
+            ]);
+
             return $this->errorResponse($request, 'An error occurred while updating the profile');
         }
+    }
+
+    private function sendEmailVerification(User $user, string $newEmail)
+    {
+        // Удаляем старые токены
+        DB::table('email_verifications')->where('user_id', $user->id)->delete();
+
+        // Создаем новый токен
+        $token = Str::random(60);
+
+        DB::table('email_verifications')->insert([
+            'user_id' => $user->id,
+            'new_email' => $newEmail,
+            'token' => $token,
+            'expires_at' => now()->addHours(24),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        // Создаем URL для подтверждения
+        $verificationUrl = route('email.verify', ['token' => $token]);
+
+        // Отправляем письмо
+        Mail::to($newEmail)->send(new \App\Mail\EmailVerification($user, $newEmail, $verificationUrl));
     }
 
     public function deleteAvatar(DeleteAvatarRequest $request)

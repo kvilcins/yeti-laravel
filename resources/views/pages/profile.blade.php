@@ -104,7 +104,7 @@
 
                         <div class="form__item" id="passwordGroup">
                             <label class="form__label" for="password">New Password</label>
-                            <input class="form__input" id="password" type="password" name="password" placeholder="Enter new password (min 8 characters)">
+                            <input class="form__input" id="password" type="password" name="password" placeholder="Enter new password (min 6 characters)">
                             <span class="form__error" id="passwordError"></span>
                         </div>
 

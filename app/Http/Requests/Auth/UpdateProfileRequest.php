@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 
 class UpdateProfileRequest extends FormRequest
@@ -17,7 +16,7 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'contact_details' => ['nullable', 'string', 'max:1000'],
+            'message' => ['nullable', 'string', 'max:1000'],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
 
             'email' => ['required', 'email', 'unique:users,email,' . auth()->id()],
@@ -61,13 +60,10 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name.required' => 'Please enter your name.',
+            'email.required' => 'Please enter your email.',
             'email.unique' => 'This email is already taken.',
-            'current_password_for_email.required_with' => 'Please enter your current password to change email.',
-            'current_password_for_email.current_password' => 'Current password is incorrect.',
-            'current_password.current_password' => 'Current password is incorrect.',
-            'password.required_with' => 'Please enter a new password.',
-            'password.different' => 'New password must be different from current password.',
-            'password.confirmed' => 'Password confirmation does not match.',
+            'password.min' => 'The password must be at least 6 characters.',
+            'password.confirmed' => 'The password confirmation does not match.',
         ];
     }
 }
