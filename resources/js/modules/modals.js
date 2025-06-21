@@ -67,93 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
         error = (message) => {
             this.show(message, 'error');
         }
-
-        showValidationErrors = (errors) => {
-            const errorMessages = Object.values(errors).flat();
-            this.error(errorMessages.join('\n'));
-        }
     }
 
     window.modalNotification = new ModalNotification();
-
-    const handleAjaxForm = (formSelector) => {
-        const form = document.querySelector(formSelector);
-        if (!form) return;
-
-        const clearFormErrors = () => {
-            document.querySelectorAll('.form__error').forEach(error => {
-                error.textContent = '';
-            });
-            document.querySelectorAll('.form__item--invalid').forEach(item => {
-                item.classList.remove('form__item--invalid');
-            });
-        }
-
-        const showFormValidationErrors = (errors) => {
-            for (const field in errors) {
-                const errorElement = document.getElementById(field + 'Error');
-                const groupElement = document.getElementById(field + 'Group');
-
-                if (errorElement) {
-                    errorElement.textContent = errors[field][0];
-                }
-                if (groupElement) {
-                    groupElement.classList.add('form__item--invalid');
-                }
-            }
-        }
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            clearFormErrors();
-
-            const formData = new FormData(form);
-            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    ...(csrfToken && { 'X-CSRF-TOKEN': csrfToken })
-                }
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        if (response.status === 422) {
-                            return response.json().then(data => {
-                                showFormValidationErrors(data.errors);
-                                throw new Error('Validation failed');
-                            });
-                        }
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        window.modalNotification.success(data.message);
-
-                        if (data.avatar_url) {
-                            const avatarPreview = document.getElementById('avatarPreview');
-                            if (avatarPreview) {
-                                avatarPreview.src = data.avatar_url;
-                            }
-                        }
-                    } else {
-                        window.modalNotification.error(data.message || 'Произошла ошибка');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-
-                    if (error.message !== 'Validation failed') {
-                        window.modalNotification.error('Произошла ошибка при отправке формы');
-                    }
-                });
-        });
-    }
 
     const handleAvatarPreview = () => {
         const avatarInput = document.getElementById('avatar');
@@ -173,11 +89,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    handleAjaxForm('#profileForm');
     handleAvatarPreview();
-
-    window.ModalHandler = {
-        handleAjaxForm,
-        handleAvatarPreview
-    };
 });

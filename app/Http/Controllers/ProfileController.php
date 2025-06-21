@@ -103,12 +103,10 @@ class ProfileController extends Controller
             return;
         }
 
-        // Remove old avatar
         if ($user->avatar) {
             Storage::delete('public/' . $user->avatar);
         }
 
-        // Store new avatar
         $user->avatar = $request->file('avatar')->store('avatars', 'public');
     }
 

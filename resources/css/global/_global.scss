@@ -127,7 +127,14 @@ p {
 
     &:disabled {
         background-color: $button-color-disabled;
+        border-color: $border-dark-gray;
+        color: $text-total-black;
         opacity: 0.2;
+        cursor: not-allowed;
+
+        &:hover {
+            background-color: $button-color-disabled;
+        }
     }
 
     &--big {
