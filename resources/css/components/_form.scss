@@ -162,3 +162,15 @@ select.form__input {
         border-color: $border;
     }
 }
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.form__submit:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+    color: #666;
+}

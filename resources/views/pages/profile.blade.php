@@ -15,14 +15,6 @@
         }
     @endphp
 
-    @if(session('success'))
-        <meta name="flash-success" content="{{ session('success') }}">
-    @endif
-
-    @if(session('error'))
-        <meta name="flash-error" content="{{ session('error') }}">
-    @endif
-
     <main>
         <div class="container">
             @if($is_auth)
@@ -89,7 +81,5 @@
             @endif
         </div>
     </main>
-
-    @include('modals.notification')
 
 @endsection

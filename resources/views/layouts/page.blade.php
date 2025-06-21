@@ -18,5 +18,6 @@
 
 @include('components.partials.footer')
 
+@include('modals.notification')
 </body>
 </html>

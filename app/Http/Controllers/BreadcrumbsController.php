@@ -5,104 +5,153 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Item;
 use App\Models\Category;
 
 class BreadcrumbsController extends Controller
 {
-    public function generateBreadcrumbs(Request $request)
+    private array $routeStructure = [
+        'profile.' => ['type' => 'page', 'title' => 'Profile'],
+        'profile.edit' => ['type' => 'page', 'title' => 'Edit Profile', 'parent' => 'profile.'],
+        'viewed.lots' => ['type' => 'page', 'title' => 'Viewed Lots'],
+        'lot.create' => ['type' => 'page', 'title' => 'Add Lot'],
+        'search' => ['type' => 'page', 'title' => 'Search'],
+        'catalog' => ['type' => 'page', 'title' => 'Catalog'],
+        'category.show' => ['type' => 'category', 'show_catalog' => true],
+        'lot.show' => ['type' => 'lot', 'show_catalog' => true],
+        'register' => ['type' => 'static', 'title' => 'Registration'],
+        'login' => ['type' => 'static', 'title' => 'Login'],
+    ];
+
+    public function generateBreadcrumbs(Request $request): array
     {
-        $breadcrumbs = [];
+        $breadcrumbs = [['title' => 'Home', 'url' => route('home')]];
         $currentRouteName = Route::currentRouteName();
         $routeParameters = $request->route()->parameters();
 
-        $breadcrumbs[] = ['title' => 'Home', 'url' => route('home')];
-
-        $this->addRouteBreadcrumbs($currentRouteName, $routeParameters, $breadcrumbs);
+        $this->buildBreadcrumbs($currentRouteName, $routeParameters, $breadcrumbs);
 
         return $breadcrumbs;
     }
 
-    /**
-     * Recursive adding of breadcrumbs based on route
-     */
-    private function addRouteBreadcrumbs($routeName, $routeParameters, &$breadcrumbs)
+    private function buildBreadcrumbs(string $routeName, array $routeParameters, array &$breadcrumbs): void
     {
-        if ($routeName !== 'catalog.all' && !in_array($routeName, [
-                'register',
-                'login',
-                'search',
-                'search.suggestions',
-                'viewed.lots',
-                'lot.create',
-                'profile',
-            ])) {
+        $config = $this->routeStructure[$routeName] ?? null;
+
+        if (!$config) {
+            $this->handlePageFromDatabase($routeName, $routeParameters, $breadcrumbs);
+            return;
+        }
+
+        if ($config['show_catalog'] ?? false) {
+            $catalogPage = $this->getPageByRoute('catalog');
             $breadcrumbs[] = [
-                'title' => 'Catalog',
-                'url' => route('catalog'),
+                'title' => $catalogPage?->title ?? 'Catalog',
+                'url' => route('catalog')
             ];
         }
 
-        if (isset($routeParameters['slug']) && $routeName == 'category.show') {
-            $category = Category::where('slug', $routeParameters['slug'])->first();
-            if ($category) {
-                $breadcrumbs[] = [
-                    'title' => $category->name,
-                    'url' => route('category.show', ['slug' => $category->slug]),
-                ];
-
-                if (isset($routeParameters['id'])) {
-                    $this->addLotBreadcrumbs($routeParameters['id'], $breadcrumbs);
-                }
-            }
+        if (isset($config['parent'])) {
+            $this->buildBreadcrumbs($config['parent'], $routeParameters, $breadcrumbs);
         }
 
-        elseif (isset($routeParameters['category_slug']) && isset($routeParameters['slug']) && $routeName == 'lot.show') {
-            $this->addLotBreadcrumbs($routeParameters['category_slug'], $routeParameters['slug'], $breadcrumbs);
-        }
-
-        else {
-            $page = Page::where('route', $routeName)->first();
-            if ($page) {
-                $breadcrumbs[] = [
-                    'title' => $page->title ?? $page->name,
-                    'url' => $this->generatePageUrl($page, $routeParameters),
-                ];
-            }
-        }
+        match ($config['type']) {
+            'page' => $this->addPageBreadcrumb($routeName, $config, $breadcrumbs),
+            'category' => $this->addCategoryBreadcrumb($routeParameters, $breadcrumbs),
+            'lot' => $this->addLotBreadcrumb($routeParameters, $breadcrumbs),
+            'static' => $this->addStaticBreadcrumb($routeName, $config, $breadcrumbs),
+        };
     }
 
-    /**
-     * Adding breadcrumbs for lot
-     */
-    private function addLotBreadcrumbs($categorySlug, $lotSlug, &$breadcrumbs)
+    private function addPageBreadcrumb(string $routeName, array $config, array &$breadcrumbs): void
     {
-        $category = Category::where('slug', $categorySlug)->first();
+        $page = $this->getPageByRoute($routeName);
+
+        $breadcrumbs[] = [
+            'title' => $page?->title ?? $config['title'],
+            'url' => route($routeName)
+        ];
+    }
+
+    private function addCategoryBreadcrumb(array $routeParameters, array &$breadcrumbs): void
+    {
+        $slug = $routeParameters['slug'] ?? null;
+        if (!$slug) return;
+
+        $category = $this->getCategoryBySlug($slug);
         if ($category) {
             $breadcrumbs[] = [
                 'title' => $category->name,
-                'url' => route('category.show', ['slug' => $category->slug]),
-            ];
-        }
-
-        $item = Item::where('slug', $lotSlug)->first();
-        if ($item) {
-            $breadcrumbs[] = [
-                'title' => $item->title,
-                'url' => route('lot.show', ['category_slug' => $category->slug, 'slug' => $item->slug]),
+                'url' => route('category.show', ['slug' => $category->slug])
             ];
         }
     }
 
-    /**
-     * Generate URL for page
-     */
-    private function generatePageUrl(Page $page, $routeParameters)
+    private function addLotBreadcrumb(array $routeParameters, array &$breadcrumbs): void
     {
-        if (Route::has($page->route)) {
-            return route($page->route, $routeParameters);
+        $categorySlug = $routeParameters['category_slug'] ?? null;
+        $lotSlug = $routeParameters['slug'] ?? null;
+
+        if (!$categorySlug || !$lotSlug) return;
+
+        $category = $this->getCategoryBySlug($categorySlug);
+        if ($category) {
+            $breadcrumbs[] = [
+                'title' => $category->name,
+                'url' => route('category.show', ['slug' => $category->slug])
+            ];
         }
 
-        return url($page->slug);
+        $item = $this->getItemBySlug($lotSlug);
+        if ($item) {
+            $breadcrumbs[] = [
+                'title' => $item->title,
+                'url' => route('lot.show', [
+                    'category_slug' => $categorySlug,
+                    'slug' => $item->slug
+                ])
+            ];
+        }
+    }
+
+    private function addStaticBreadcrumb(string $routeName, array $config, array &$breadcrumbs): void
+    {
+        $breadcrumbs[] = [
+            'title' => $config['title'],
+            'url' => route($routeName)
+        ];
+    }
+
+    private function handlePageFromDatabase(string $routeName, array $routeParameters, array &$breadcrumbs): void
+    {
+        $page = $this->getPageByRoute($routeName);
+        if ($page) {
+            $breadcrumbs[] = [
+                'title' => $page->title ?? $page->name,
+                'url' => route($routeName, $routeParameters)
+            ];
+        }
+    }
+
+    private function getPageByRoute(string $routeName): ?Page
+    {
+        return Cache::remember("page.route.{$routeName}", 3600, function () use ($routeName) {
+            return Page::where('route', $routeName)->first();
+        });
+    }
+
+    private function getCategoryBySlug(string $slug): ?Category
+    {
+        return Cache::remember("category.slug.{$slug}", 3600, function () use ($slug) {
+            return Category::where('slug', $slug)->first();
+        });
+    }
+
+    private function getItemBySlug(string $slug): ?Item
+    {
+        return Cache::remember("item.slug.{$slug}", 1800, function () use ($slug) {
+            return Item::where('slug', $slug)->first();
+        });
     }
 }

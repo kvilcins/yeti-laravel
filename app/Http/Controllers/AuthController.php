@@ -74,9 +74,7 @@ class AuthController extends Controller
             Auth::login($user);
             return redirect()->route('home')->with('success', 'You have successfully logged in!');
         } else {
-            return redirect()->back()->withErrors([
-                'email' => 'Invalid credentials.',
-            ]);
+            return redirect()->back()->with('error', 'Invalid credentials.');
         }
     }
 
