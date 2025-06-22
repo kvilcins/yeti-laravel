@@ -7,3 +7,4 @@ import './modules/fixed-scroll.js';
 import './modules/scroll-to-top.js';
 import './modules/modals.js';
 import './modules/delete-avatar.js';
+import './modules/tabs.js';

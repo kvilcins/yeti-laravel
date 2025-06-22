@@ -1,0 +1,544 @@
+.profile {
+    margin-top: 20px;
+}
+
+.profile__verification-warning {
+    background: $bg-13;
+    border: 1px solid $border-light-yellow;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.profile__verification-content {
+    text-align: center;
+}
+
+.profile__verification-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: $bg-14;
+    margin-bottom: 10px;
+}
+
+.profile__verification-text {
+    color: $bg-14;
+    margin-bottom: 15px;
+}
+
+.profile__verification-btn {
+    background: $bg-15;
+    color: $text-black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+
+    &:hover {
+        background: $bg-16;
+    }
+}
+
+.profile__nav {
+    display: flex;
+    border-bottom: 2px solid $border-light-gray;
+    margin-bottom: 30px;
+    gap: 5px;
+    overflow-x: auto;
+}
+
+.profile__nav-btn {
+    background: none;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: $text-7;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+
+    &:hover {
+        color: $text-black;
+        background-color: $bg-17;
+    }
+
+    &--active {
+        color: $button-color;
+        border-bottom-color: $border;
+        background-color: $bg-17;
+    }
+}
+
+.profile__content {
+    min-height: 400px;
+}
+
+.profile__panel {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+
+    &--active {
+        display: block;
+    }
+}
+
+.profile__title {
+    margin-bottom: 25px;
+    color: $text-black;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.profile__section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $border-light-gray;
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.profile__section-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: $text-black;
+}
+
+.profile__section-description {
+    color: $text-5;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.profile__field {
+    margin-bottom: 20px;
+
+    &--hidden {
+        display: none;
+    }
+}
+
+.profile__label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: $text-black;
+}
+
+.profile__input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid $border-simple-gray;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+
+    &:focus {
+        outline: none;
+        border-color: $border;
+    }
+
+    &--readonly {
+        background-color: $bg-11;
+        cursor: not-allowed;
+    }
+}
+
+.profile__file-input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.profile__file-label {
+    background: $button-color;
+    color: $text-white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.profile__avatar {
+    margin-top: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.profile__avatar-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid $border-simple-gray;
+}
+
+.profile__avatar-delete {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: $red;
+    color: $text-white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+
+    &:hover {
+        background: darken($red, 10%);
+    }
+}
+
+.profile__error {
+    color: $red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+.profile__help {
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+
+    &--success {
+        color: $green;
+    }
+
+    &--warning {
+        color: $yellow;
+    }
+
+    &--admin {
+        color: $yellow;
+        font-weight: bold;
+    }
+}
+
+.profile__submit-btn {
+    background: $button-color;
+    color: $text-white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background: $button-color-hover;
+    }
+}
+
+.profile__empty {
+    text-align: center;
+    padding: 60px 20px;
+    background: $bg-11;
+    border-radius: 8px;
+    border: 2px dashed $border-simple-gray;
+}
+
+.profile__empty-text {
+    font-size: 18px;
+    color: $text-5;
+    margin-bottom: 20px;
+}
+
+.profile__empty-btn {
+    background: $button-color;
+    color: $text-white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: 500;
+
+    &:hover {
+        background: $button-color-hover;
+    }
+}
+
+.profile__lots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.profile__lot-card {
+    border: 1px solid $border-light-gray;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: $bg-1;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    &--won {
+        border-color: $green;
+        background: linear-gradient(135deg, $bg-1 0%, lighten($green, 45%) 100%);
+    }
+}
+
+.profile__lot-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.profile__lot-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile__lot-status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    &--active {
+        background: $green;
+        color: $text-white;
+    }
+
+    &--inactive {
+        background: $bg-9;
+        color: $text-white;
+    }
+
+    &--completed {
+        background: $button-color;
+        color: $text-white;
+    }
+
+    &--won {
+        background: $yellow;
+        color: $text-black;
+    }
+}
+
+.profile__lot-info {
+    padding: 15px;
+}
+
+.profile__lot-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    overflow: hidden;
+    line-height: 1.4;
+}
+
+.profile__lot-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: $green;
+    margin-bottom: 5px;
+}
+
+.profile__lot-category {
+    font-size: 14px;
+    color: $text-5;
+    margin-bottom: 15px;
+}
+
+.profile__lot-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.profile__lot-form {
+    display: inline;
+}
+
+.profile__lot-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 500;
+    transition: background-color 0.3s;
+
+    &--view {
+        background: $button-color;
+        color: $text-white;
+
+        &:hover {
+            background: $button-color-hover;
+        }
+    }
+
+    &--edit {
+        background: $button-color-disabled;
+        color: $text-white;
+
+        &:hover {
+            background: darken($button-color-disabled, 10%);
+        }
+    }
+
+    &--activate {
+        background: $green;
+        color: $text-white;
+
+        &:hover {
+            background: darken($green, 10%);
+        }
+    }
+
+    &--deactivate {
+        background: $yellow;
+        color: $text-black;
+
+        &:hover {
+            background: darken($yellow, 10%);
+        }
+    }
+
+    &--delete {
+        background: $red;
+        color: $text-white;
+
+        &:hover {
+            background: darken($red, 10%);
+        }
+    }
+}
+
+.profile__bids-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.profile__bid-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid $border-light-gray;
+    border-radius: 8px;
+    background: $bg-1;
+    transition: box-shadow 0.2s;
+
+    &:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.profile__bid-lot {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.profile__bid-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 15px;
+}
+
+.profile__bid-title {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.profile__bid-category {
+    font-size: 14px;
+    color: $text-5;
+    margin: 0;
+}
+
+.profile__bid-details {
+    text-align: right;
+}
+
+.profile__bid-amount {
+    font-weight: bold;
+    color: $green;
+    margin: 0 0 5px 0;
+    font-size: 16px;
+}
+
+.profile__bid-time {
+    font-size: 14px;
+    color: $text-5;
+    margin: 0 0 10px 0;
+}
+
+.profile__bid-btn {
+    background: $button-color;
+    color: $text-white;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+
+    &:hover {
+        background: $button-color-hover;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .profile__nav-btn {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    .profile__lots-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile__bid-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .profile__bid-details {
+        text-align: left;
+        width: 100%;
+    }
+
+    .profile__lot-actions {
+        justify-content: center;
+    }
+}
