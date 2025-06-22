@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             this.init();
             this.checkLaravelFlashMessages();
+            this.createConfirmModal();
         }
 
         init = () => {
@@ -19,6 +20,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (e.key === 'Escape' && this.modal?.classList.contains('show')) {
                     this.hide();
                 }
+            });
+        }
+
+        createConfirmModal = () => {
+            if (document.getElementById('confirmModal')) return;
+
+            const confirmModalHTML = `
+                <div id="confirmModal" class="modal">
+                    <div class="modal__content modal__content--confirm">
+                        <div class="modal__header">
+                            <span class="modal__icon confirm">⚠</span>
+                            <h3 class="modal__title" id="confirmTitle">Confirm Action</h3>
+                        </div>
+                        <p class="modal__message" id="confirmMessage">Are you sure?</p>
+                        <div class="modal__actions">
+                            <button type="button" class="button button--secondary" id="confirmCancel">Cancel</button>
+                            <button type="button" class="button button--danger" id="confirmOk">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', confirmModalHTML);
+
+            this.confirmModal = document.getElementById('confirmModal');
+            this.confirmTitle = document.getElementById('confirmTitle');
+            this.confirmMessage = document.getElementById('confirmMessage');
+            this.confirmOk = document.getElementById('confirmOk');
+            this.confirmCancel = document.getElementById('confirmCancel');
+
+            this.confirmCancel.addEventListener('click', () => this.hideConfirm());
+            this.confirmModal.addEventListener('click', (e) => {
+                if (e.target === this.confirmModal) this.hideConfirm();
             });
         }
 
@@ -41,235 +75,326 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => this.hide(), 5000);
         }
 
+        confirm = (title, message, onConfirm, onCancel = null) => {
+            if (!this.confirmModal) return;
+
+            this.confirmTitle.textContent = title;
+            this.confirmMessage.textContent = message;
+            this.confirmModal.classList.add('show');
+
+            const handleConfirm = () => {
+                this.hideConfirm();
+                this.confirmOk.removeEventListener('click', handleConfirm);
+                if (onConfirm) onConfirm();
+            };
+
+            const handleCancel = () => {
+                this.hideConfirm();
+                this.confirmOk.removeEventListener('click', handleConfirm);
+                if (onCancel) onCancel();
+            };
+
+            this.confirmOk.addEventListener('click', handleConfirm);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && this.confirmModal.classList.contains('show')) {
+                    handleCancel();
+                }
+            }, { once: true });
+        }
+
         hide = () => this.modal?.classList.remove('show');
+        hideConfirm = () => this.confirmModal?.classList.remove('show');
         success = (message) => this.show(message, 'success');
         error = (message) => this.show(message, 'error');
     }
 
     window.modalNotification = new ModalNotification();
 
-    const form = document.querySelector('.form');
-    if (!form) return;
+    const profileForm = document.querySelector('.profile__form');
+    const profileNavBtns = document.querySelectorAll('.profile__nav-btn');
+    const profilePanels = document.querySelectorAll('.profile__panel');
 
-    const submitButton = form.querySelector('[type="submit"]');
-    const photoLabel = form.querySelector('label[for="lot-img"]');
-    const photoPreview = form.querySelector('.form__preview img');
-    const previewContainer = form.querySelector('.form__preview');
-    const inputFileContainer = form.querySelector('.form__file-label');
-    const fileInput = form.querySelector('input[type="file"]');
+    if (profileNavBtns.length > 0) {
+        profileNavBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabName = btn.getAttribute('data-tab');
 
-    const isProfileForm = form.id === 'profileForm';
+                profileNavBtns.forEach(b => b.classList.remove('profile__nav-btn--active'));
+                profilePanels.forEach(p => p.classList.remove('profile__panel--active'));
 
-    if (isProfileForm) {
-        const fields = {
-            name: document.getElementById('name'),
-            contactDetails: document.getElementById('message'),
-            password: document.getElementById('password'),
-            passwordConfirm: document.getElementById('password_confirmation'),
-            currentPassword: document.getElementById('current_password'),
-            avatar: document.getElementById('avatar')
-        };
+                btn.classList.add('profile__nav-btn--active');
 
-        const originalData = {
-            name: fields.name?.value.trim() || '',
-            contactDetails: fields.contactDetails?.value || ''
-        };
-
-        const showHideFields = () => {
-            const hasNewPassword = fields.password?.value.length > 0;
-            const currentPasswordGroup = document.getElementById('currentPasswordGroup');
-            const confirmPasswordGroup = document.getElementById('password_confirmationGroup');
-
-            if (currentPasswordGroup) {
-                currentPasswordGroup.style.display = hasNewPassword ? 'block' : 'none';
-            }
-            if (confirmPasswordGroup) {
-                confirmPasswordGroup.style.display = hasNewPassword ? 'block' : 'none';
-            }
-        };
-
-        const checkForChanges = () => {
-            const hasChanges =
-                fields.name?.value.trim() !== originalData.name ||
-                fields.contactDetails?.value !== originalData.contactDetails ||
-                fields.password?.value.length > 0 ||
-                fields.avatar?.files[0];
-
-            submitButton.disabled = !hasChanges;
-            submitButton.classList.toggle('button--disabled', !hasChanges);
-
-            showHideFields();
-        };
-
-        const validatePasswords = () => {
-            const password = fields.password?.value || '';
-            const passwordConfirm = fields.passwordConfirm?.value || '';
-            let hasErrors = false;
-
-            const passwordError = document.getElementById('passwordError');
-            const passwordConfirmError = document.getElementById('password_confirmationError');
-            const passwordGroup = document.getElementById('passwordGroup');
-            const passwordConfirmGroup = document.getElementById('password_confirmationGroup');
-
-            if (passwordError) passwordError.textContent = '';
-            if (passwordConfirmError) passwordConfirmError.textContent = '';
-            if (passwordGroup) passwordGroup.classList.remove('form__item--invalid');
-            if (passwordConfirmGroup) passwordConfirmGroup.classList.remove('form__item--invalid');
-
-            if (password && !passwordConfirm) {
-                if (passwordConfirmError) passwordConfirmError.textContent = 'Please confirm your password.';
-                if (passwordConfirmGroup) passwordConfirmGroup.classList.add('form__item--invalid');
-                hasErrors = true;
-            }
-
-            if (password && passwordConfirm && password !== passwordConfirm) {
-                if (passwordConfirmError) passwordConfirmError.textContent = 'The password confirmation does not match.';
-                if (passwordConfirmGroup) passwordConfirmGroup.classList.add('form__item--invalid');
-                hasErrors = true;
-            }
-
-            return !hasErrors;
-        };
-
-        Object.values(fields).forEach(field => {
-            if (field) {
-                field.addEventListener('input', checkForChanges);
-                field.addEventListener('change', checkForChanges);
-            }
+                const targetPanel = document.getElementById(tabName + '-tab');
+                if (targetPanel) {
+                    targetPanel.classList.add('profile__panel--active');
+                }
+            });
         });
+    }
 
-        fields.password?.addEventListener('blur', validatePasswords);
-        fields.passwordConfirm?.addEventListener('blur', validatePasswords);
-        fields.passwordConfirm?.addEventListener('input', validatePasswords);
-
-        checkForChanges();
-
+    const deleteButtons = document.querySelectorAll('form[onsubmit*="confirm"]');
+    deleteButtons.forEach(form => {
+        form.removeAttribute('onsubmit');
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            if (submitButton.disabled) return;
-
-            if (!validatePasswords()) return;
-
-            document.querySelectorAll('.form__error').forEach(error => error.textContent = '');
-            document.querySelectorAll('.form__item--invalid').forEach(item =>
-                item.classList.remove('form__item--invalid')
+            window.modalNotification.confirm(
+                'Delete Lot',
+                'Are you sure you want to delete this lot? This action cannot be undone.',
+                () => {
+                    form.submit();
+                }
             );
-
-            const formData = new FormData(form);
-            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-TOKEN': csrfToken || ''
-                }
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        if (response.status === 422) {
-                            return response.json().then(data => {
-                                Object.entries(data.errors).forEach(([field, messages]) => {
-                                    const errorElement = document.getElementById(field + 'Error');
-                                    const groupElement = document.getElementById(field + 'Group');
-
-                                    if (errorElement) errorElement.textContent = messages[0];
-                                    if (groupElement) groupElement.classList.add('form__item--invalid');
-                                });
-                                throw new Error('Validation failed');
-                            });
-                        }
-                        throw new Error('Network error');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        window.modalNotification.success(data.message);
-
-                        if (data.avatar_url) {
-                            const avatarPreview = document.getElementById('avatarPreview');
-                            if (avatarPreview) avatarPreview.src = data.avatar_url;
-                        }
-
-                        if (fields.password) fields.password.value = '';
-                        if (fields.passwordConfirm) fields.passwordConfirm.value = '';
-                        if (fields.currentPassword) fields.currentPassword.value = '';
-                        if (fields.avatar) fields.avatar.value = '';
-
-                        originalData.name = fields.name?.value.trim() || '';
-                        originalData.contactDetails = fields.contactDetails?.value || '';
-
-                        checkForChanges();
-                    } else {
-                        window.modalNotification.error(data.message || 'An error occurred');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    if (error.message !== 'Validation failed') {
-                        window.modalNotification.error('An error occurred while updating profile');
-                    }
-                });
         });
+    });
 
-    } else {
-        const checkFormForErrors = () => {
-            let hasErrors = false;
-            form.querySelectorAll('input, select, textarea').forEach(input => {
-                const isValid = input.checkValidity();
-                input.classList.toggle('form__item--invalid', !isValid);
+    if (!profileForm) return;
 
-                const formItem = input.closest('.form__item');
-                if (formItem) {
-                    const errorElem = formItem.querySelector('.form__error');
-                    if (errorElem) {
-                        errorElem.classList.toggle('form__error--visible', !isValid);
-                        if (!isValid) {
-                            errorElem.textContent = input.validationMessage;
-                        } else {
-                            errorElem.textContent = '';
-                        }
-                    }
-                }
+    const submitButton = profileForm.querySelector('[type="submit"]');
 
-                if (!isValid) hasErrors = true;
-            });
-
-            form.classList.toggle('form--invalid', hasErrors);
-            return hasErrors;
-        };
-
-        const handleSubmitClick = event => {
-            event.preventDefault();
-
-            const hasErrors = checkFormForErrors();
-
-            if (!hasErrors) {
-                form.submit();
-            } else if (fileInput && !fileInput.value) {
-                photoLabel?.classList.remove('hidden');
-            }
-        };
-
-        submitButton.addEventListener('click', handleSubmitClick);
-    }
-
-    const handleFileInputChange = event => {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = e => {
-            if (photoPreview) photoPreview.src = e.target.result;
-            if (previewContainer) previewContainer.classList.add('form__preview--visible');
-            if (inputFileContainer) inputFileContainer.classList.add('hidden');
-            if (photoLabel) photoLabel.classList.add('hidden');
-        };
-        reader.readAsDataURL(file);
+    const fields = {
+        name: document.getElementById('name'),
+        contactDetails: document.getElementById('message'),
+        password: document.getElementById('password'),
+        passwordConfirm: document.getElementById('password_confirmation'),
+        currentPassword: document.getElementById('current_password'),
+        avatar: document.getElementById('avatar')
     };
 
-    if (fileInput) fileInput.addEventListener('change', handleFileInputChange);
+    const originalData = {
+        name: fields.name?.value.trim() || '',
+        contactDetails: fields.contactDetails?.value || ''
+    };
+
+    const showHideFields = () => {
+        const hasNewPassword = fields.password?.value.length > 0;
+        const currentPasswordGroup = document.getElementById('currentPasswordGroup');
+        const confirmPasswordGroup = document.getElementById('password_confirmationGroup');
+
+        if (currentPasswordGroup) {
+            currentPasswordGroup.style.display = hasNewPassword ? 'block' : 'none';
+        }
+        if (confirmPasswordGroup) {
+            confirmPasswordGroup.style.display = hasNewPassword ? 'block' : 'none';
+        }
+    };
+
+    const checkForChanges = () => {
+        const hasChanges =
+            fields.name?.value.trim() !== originalData.name ||
+            fields.contactDetails?.value !== originalData.contactDetails ||
+            fields.password?.value.length > 0 ||
+            fields.avatar?.files[0];
+
+        submitButton.disabled = !hasChanges;
+        submitButton.classList.toggle('profile__submit-btn--disabled', !hasChanges);
+
+        showHideFields();
+    };
+
+    const validatePasswords = () => {
+        const password = fields.password?.value || '';
+        const passwordConfirm = fields.passwordConfirm?.value || '';
+        let hasErrors = false;
+
+        const passwordError = document.getElementById('passwordError');
+        const passwordConfirmError = document.getElementById('password_confirmationError');
+        const passwordGroup = document.getElementById('passwordGroup');
+        const passwordConfirmGroup = document.getElementById('password_confirmationGroup');
+
+        if (passwordError) passwordError.textContent = '';
+        if (passwordConfirmError) passwordConfirmError.textContent = '';
+        if (passwordGroup) passwordGroup.classList.remove('profile__field--invalid');
+        if (passwordConfirmGroup) passwordConfirmGroup.classList.remove('profile__field--invalid');
+
+        if (password && !passwordConfirm) {
+            if (passwordConfirmError) passwordConfirmError.textContent = 'Please confirm your password.';
+            if (passwordConfirmGroup) passwordConfirmGroup.classList.add('profile__field--invalid');
+            hasErrors = true;
+        }
+
+        if (password && passwordConfirm && password !== passwordConfirm) {
+            if (passwordConfirmError) passwordConfirmError.textContent = 'The password confirmation does not match.';
+            if (passwordConfirmGroup) passwordConfirmGroup.classList.add('profile__field--invalid');
+            hasErrors = true;
+        }
+
+        return !hasErrors;
+    };
+
+    const handleAvatarDelete = () => {
+        const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
+
+        if (deleteAvatarBtn) {
+            deleteAvatarBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                window.modalNotification.confirm(
+                    'Delete Avatar',
+                    'Are you sure you want to delete your avatar? This action cannot be undone.',
+                    () => {
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+                        fetch('/account/avatar', {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken,
+                                'Accept': 'application/json'
+                            }
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    const avatarPreview = document.getElementById('avatarPreview');
+                                    if (avatarPreview) avatarPreview.src = data.avatar_url;
+                                    deleteAvatarBtn.style.display = 'none';
+                                    window.modalNotification.success(data.message);
+                                } else {
+                                    window.modalNotification.error(data.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                window.modalNotification.error('Error deleting avatar');
+                            });
+                    }
+                );
+            });
+        }
+    };
+
+    const handleAvatarUpload = () => {
+        if (fields.avatar) {
+            fields.avatar.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                if (file.size > 5 * 1024 * 1024) {
+                    window.modalNotification.error('File size must be less than 5MB');
+                    e.target.value = '';
+                    return;
+                }
+
+                if (!file.type.startsWith('image/')) {
+                    window.modalNotification.error('Please select a valid image file');
+                    e.target.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const avatarPreview = document.getElementById('avatarPreview');
+                    const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
+
+                    if (avatarPreview) {
+                        avatarPreview.src = event.target.result;
+                    }
+                    if (deleteAvatarBtn) {
+                        deleteAvatarBtn.style.display = 'inline-block';
+                    }
+                };
+                reader.readAsDataURL(file);
+
+                checkForChanges();
+            });
+        }
+    };
+
+    Object.values(fields).forEach(field => {
+        if (field && field !== fields.avatar) {
+            field.addEventListener('input', checkForChanges);
+            field.addEventListener('change', checkForChanges);
+        }
+    });
+
+    fields.password?.addEventListener('blur', validatePasswords);
+    fields.passwordConfirm?.addEventListener('blur', validatePasswords);
+    fields.passwordConfirm?.addEventListener('input', validatePasswords);
+
+    handleAvatarDelete();
+    handleAvatarUpload();
+    checkForChanges();
+
+    profileForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        if (submitButton.disabled) return;
+
+        if (!validatePasswords()) return;
+
+        document.querySelectorAll('.profile__error').forEach(error => error.textContent = '');
+        document.querySelectorAll('.profile__field--invalid').forEach(item =>
+            item.classList.remove('profile__field--invalid')
+        );
+
+        const formData = new FormData(profileForm);
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+        const originalText = submitButton.textContent;
+        submitButton.disabled = true;
+        submitButton.textContent = 'Updating...';
+
+        fetch(profileForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': csrfToken || ''
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 422) {
+                        return response.json().then(data => {
+                            Object.entries(data.errors).forEach(([field, messages]) => {
+                                const errorElement = document.getElementById(field + 'Error');
+                                const groupElement = document.getElementById(field + 'Group');
+
+                                if (errorElement) errorElement.textContent = messages[0];
+                                if (groupElement) groupElement.classList.add('profile__field--invalid');
+                            });
+                            throw new Error('Validation failed');
+                        });
+                    }
+                    throw new Error('Network error');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    window.modalNotification.success(data.message);
+
+                    if (data.avatar_url) {
+                        const avatarPreview = document.getElementById('avatarPreview');
+                        const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
+
+                        if (avatarPreview) avatarPreview.src = data.avatar_url;
+                        if (deleteAvatarBtn) deleteAvatarBtn.style.display = 'inline-block';
+                    }
+
+                    if (fields.password) fields.password.value = '';
+                    if (fields.passwordConfirm) fields.passwordConfirm.value = '';
+                    if (fields.currentPassword) fields.currentPassword.value = '';
+                    if (fields.avatar) fields.avatar.value = '';
+
+                    originalData.name = fields.name?.value.trim() || '';
+                    originalData.contactDetails = fields.contactDetails?.value || '';
+
+                    checkForChanges();
+                } else {
+                    window.modalNotification.error(data.message || 'An error occurred');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                if (error.message !== 'Validation failed') {
+                    window.modalNotification.error('An error occurred while updating profile');
+                }
+            })
+            .finally(() => {
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            });
+    });
 });

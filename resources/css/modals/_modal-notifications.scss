@@ -1,0 +1,179 @@
+.modal {
+    display: none;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+
+    &.show {
+        display: flex;
+    }
+}
+
+.modal__content {
+    background: $bg-1;
+    border-radius: 8px;
+    padding: 20px;
+    min-width: 300px;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s ease-out;
+}
+
+.modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal__icon {
+    font-size: 24px;
+    font-weight: bold;
+
+    &.success {
+        color: $green;
+    }
+
+    &.error {
+        color: $red;
+    }
+}
+
+.modal__close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: $gray-2;
+
+    &:hover {
+        color: $bg-10;
+    }
+}
+
+.modal__message {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.modal__content--confirm {
+    max-width: 420px;
+    text-align: center;
+    animation: confirmSlideIn 0.3s ease;
+}
+
+.modal__content--confirm .modal__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.modal__title {
+    @include font($OpenSans-700);
+    font-size: 20px;
+    color: $text-black;
+    margin: 0;
+}
+
+.modal__icon.confirm {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, $bg-15, $bg-16);
+    color: $text-white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba($bg-15, 0.3);
+}
+
+.modal__actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.modal__actions .button {
+    min-width: 100px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+
+    &.button--secondary {
+        background: $bg-11;
+        color: $text-4;
+        border: 1px solid $border-light-gray;
+
+        &:hover {
+            background: $bg-12;
+            color: $text-1;
+        }
+    }
+
+    &.button--danger {
+        background: linear-gradient(135deg, $red, darken($red, 10%));
+        color: $text-white;
+        box-shadow: 0 4px 15px rgba($red, 0.3);
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba($red, 0.4);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes confirmSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .modal__content--confirm {
+        max-width: 90vw;
+        margin: 20px;
+    }
+
+    .modal__actions {
+        flex-direction: column;
+    }
+
+    .modal__actions .button {
+        width: 100%;
+    }
+}
