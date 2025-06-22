@@ -40,7 +40,7 @@ class ProfileController extends Controller
         $commonData = $this->dataController->getCommonData();
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
-        return view('pages.profile_edit', array_merge($commonData, [
+        return view('pages.profile', array_merge($commonData, [
             'user' => $user,
             'breadcrumbs' => $breadcrumbs
         ]));
@@ -59,15 +59,6 @@ class ProfileController extends Controller
                 $user->contact_details = $validatedData['message'];
             }
 
-            $emailChanged = isset($validatedData['email']) && $validatedData['email'] !== $user->email;
-
-            if ($emailChanged) {
-                $this->sendEmailVerification($user, $validatedData['email']);
-                $message = 'Profile updated! Please check your new email (' . $validatedData['email'] . ') to confirm the change.';
-            } else {
-                $message = 'Profile updated successfully!';
-            }
-
             if (!empty($validatedData['password'])) {
                 $user->password = Hash::make($validatedData['password']);
             }
@@ -76,7 +67,7 @@ class ProfileController extends Controller
 
             $user->save();
 
-            return $this->successResponse($request, $user, $message);
+            return $this->successResponse($request, $user, 'Profile updated successfully!');
 
         } catch (ValidationException $e) {
             return $this->validationErrorResponse($request, $e);
@@ -89,26 +80,6 @@ class ProfileController extends Controller
 
             return $this->errorResponse($request, 'An error occurred while updating the profile');
         }
-    }
-
-    private function sendEmailVerification(User $user, string $newEmail)
-    {
-        DB::table('email_verifications')->where('user_id', $user->id)->delete();
-
-        $token = Str::random(60);
-
-        DB::table('email_verifications')->insert([
-            'user_id' => $user->id,
-            'new_email' => $newEmail,
-            'token' => $token,
-            'expires_at' => now()->addHours(24),
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        $verificationUrl = route('email.verify', ['token' => $token]);
-
-        Mail::to($newEmail)->send(new \App\Mail\EmailVerification($user, $newEmail, $verificationUrl));
     }
 
     public function deleteAvatar(DeleteAvatarRequest $request)

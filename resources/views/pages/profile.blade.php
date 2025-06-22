@@ -3,10 +3,8 @@
 @section('title', 'Edit Profile')
 
 @section('content')
-
     @php
         $avatar = auth()->user()->avatar;
-
         if ($avatar) {
             $isPublic = str_starts_with($avatar, 'img/');
             $avatarUrl = $isPublic ? asset($avatar) : asset('storage/' . $avatar);
@@ -19,6 +17,20 @@
         <div class="container">
             @if($is_auth)
                 <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
+
+                @if(!auth()->user()->hasVerifiedEmail())
+                    <div class="verification-warning">
+                        <div class="verification-warning__content">
+                            <div class="h3">Email Verification Required</div>
+                            <p>To add lots and place bids, please verify your email address. Check your inbox for a verification link.</p>
+
+                            <form method="POST" action="{{ route('verification.send') }}">
+                                @csrf
+                                <button type="submit" class="button">Resend Verification Email</button>
+                            </form>
+                        </div>
+                    </div>
+                @endif
 
                 <form class="form form--profile" id="profileForm" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" novalidate>
                     @csrf
@@ -37,7 +49,11 @@
                         <div class="form__item">
                             <label class="form__label">Email</label>
                             <input class="form__input form__input--readonly" type="email" value="{{ auth()->user()->email }}" readonly>
-                            <span class="form__help">Email cannot be changed for security reasons</span>
+                            @if(auth()->user()->hasVerifiedEmail())
+                                <span class="form__help form__help--success">✓ Email verified</span>
+                            @else
+                                <span class="form__help form__help--warning">⚠ Email not verified</span>
+                            @endif
                         </div>
 
                         <div class="form__item" id="messageGroup">
@@ -55,22 +71,10 @@
                             <input class="form__input-file" type="file" name="avatar" id="avatar" accept="image/*">
 
                             <div class="form__preview form__preview--visible">
-                                <img
-                                    src="{{ $avatarUrl }}"
-                                    alt="Image preview"
-                                    class="form__preview-img"
-                                    id="avatarPreview"
-                                >
+                                <img src="{{ $avatarUrl }}" alt="Image preview" class="form__preview-img" id="avatarPreview">
 
                                 @if(auth()->user()->avatar)
-                                    <button
-                                        type="button"
-                                        class="form__delete-avatar"
-                                        id="deleteAvatarBtn"
-                                        title="Delete avatar"
-                                    >
-                                        ×
-                                    </button>
+                                    <button type="button" class="form__delete-avatar" id="deleteAvatarBtn" title="Delete avatar">×</button>
                                 @endif
                             </div>
 
@@ -108,5 +112,4 @@
             @endif
         </div>
     </main>
-
 @endsection

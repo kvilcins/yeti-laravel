@@ -14,7 +14,9 @@
 
             <nav class="main-header__user user-menu">
                 @if ($is_auth)
-                    <a class="user-menu__add-lot button button--primary" href="{{ route('lot.create') }}">Add Lot</a>
+                    @if(auth()->user()->hasVerifiedEmail())
+                        <a class="user-menu__add-lot button button--primary" href="{{ route('lot.create') }}">Add Lot</a>
+                    @endif
 
                     <div class="user-menu__avatar">
                         <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('img/default-avatar.jpg') }}"
@@ -72,7 +74,9 @@
                 @include('components.partials.nav')
 
                 @if($is_auth)
-                    <a href="{{ route('lot.create') }}" class="mobile-menu__link">Add Lot</a>
+                    @if(auth()->user()->hasVerifiedEmail())
+                        <a href="{{ route('lot.create') }}" class="mobile-menu__link">Add Lot</a>
+                    @endif
                     <a href="{{ route('profile.') }}" class="mobile-menu__link">Edit Profile</a>
                     <a href="{{ route('viewed.lots') }}" class="mobile-menu__link">Viewed Lots</a>
                     <form class="mobile-menu__form" action="{{ route('logout') }}" method="POST">

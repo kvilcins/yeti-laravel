@@ -31,7 +31,7 @@
                                     Min. bid <span>{{ formatPrice($lot->min_bid) }}</span>
                                 </div>
                             </div>
-                            @if($is_auth && $isLotActive)
+                            @if($is_auth && $isLotActive && auth()->user()->hasVerifiedEmail())
                                 <form class="lot-item__form" action="{{ route('bids.store', $lot->id) }}" method="post">
                                     @csrf
                                     <p class="lot-item__form-item">

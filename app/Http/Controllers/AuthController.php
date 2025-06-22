@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Controllers\DataController;
+use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
 {
@@ -35,15 +36,15 @@ class AuthController extends Controller
     {
         $validatedData = $request->validated();
 
-        if ($request->hasFile('avatar')) {
-            $avatarName = uniqid() . '.' . $request->file('avatar')->extension();
-            $request->file('avatar')->move(public_path('img'), $avatarName);
+        if ($request->hasFile('lot-img')) {
+            $avatarName = uniqid() . '.' . $request->file('lot-img')->extension();
+            $request->file('lot-img')->move(public_path('img'), $avatarName);
             $validatedData['avatar'] = 'img/' . $avatarName;
         } else {
             $validatedData['avatar'] = null;
         }
 
-        User::create([
+        $user = User::create([
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
             'name' => $validatedData['name'],
@@ -51,7 +52,10 @@ class AuthController extends Controller
             'avatar' => $validatedData['avatar'],
         ]);
 
-        return redirect()->route('login')->with('success', 'Account successfully registered!');
+        event(new Registered($user));
+
+        return redirect()->route('verification.notice')
+            ->with('success', 'Account created! Please check your email to verify your account.');
     }
 
     public function showLogin()
