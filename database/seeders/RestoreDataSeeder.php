@@ -10,6 +10,7 @@ use App\Models\Page;
 use Illuminate\Support\Facades\Config;
 use App\Models\Bid;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class RestoreDataSeeder extends Seeder
 {
@@ -50,6 +51,37 @@ class RestoreDataSeeder extends Seeder
             }
         }
 
+        $users = Config::get('userdata', []);
+
+        foreach ($users as $user) {
+            $existingUser = User::find($user['id']);
+            if (!$existingUser) {
+                User::create([
+                    'id' => $user['id'],
+                    'email' => $user['email'],
+                    'name' => $user['name'],
+                    'password' => $user['password'],
+                    'remember_token' => $user['remember_token'] ?? null,
+                    'email_verified_at' => $user['email_verified_at'] ?? null,
+                    'created_at' => $user['created_at'] ?? null,
+                    'updated_at' => $user['updated_at'] ?? null,
+                    'contact_details' => $user['contact_details'] ?? null,
+                    'avatar' => $user['avatar'] ?? null,
+                    'role' => $user['role'] ?? 'user',
+                ]);
+                echo "User {$user['name']} successfully restored.\n";
+            } else {
+                $existingUser->update([
+                    'email' => $user['email'],
+                    'name' => $user['name'],
+                    'contact_details' => $user['contact_details'] ?? null,
+                    'avatar' => $user['avatar'] ?? null,
+                    'role' => $user['role'] ?? 'user',
+                ]);
+                echo "User {$user['name']} updated.\n";
+            }
+        }
+
         $items = Config::get('items', []);
 
         if (empty($items)) {
@@ -72,43 +104,27 @@ class RestoreDataSeeder extends Seeder
                             'img' => $item['img'],
                             'category_id' => $category->id,
                             'timer' => $item['timer'] ?? null,
+                            'user_id' => $item['user_id'] ?? null,
+                            'status' => $item['status'] ?? 'active',
+                            'winner_id' => $item['winner_id'] ?? null,
                         ]);
                         echo "Item {$item['title']} successfully restored.\n";
                     } else {
                         echo "Category with id {$item['category_id']} not found for item {$item['title']}.\n";
                     }
                 } else {
-                    echo "Item with title {$item['title']} already exists, skipping.\n";
+                    $existingItem->update([
+                        'description' => $item['description'],
+                        'price' => $item['price'],
+                        'min_bid' => $item['min_bid'],
+                        'img' => $item['img'],
+                        'timer' => $item['timer'] ?? null,
+                        'user_id' => $item['user_id'] ?? null,
+                        'status' => $item['status'] ?? 'active',
+                        'winner_id' => $item['winner_id'] ?? null,
+                    ]);
+                    echo "Item {$item['title']} updated.\n";
                 }
-            }
-        }
-
-        $users = Config::get('userdata', []);
-
-        foreach ($users as $user) {
-            $existingUser = User::find($user['id']);
-            if (!$existingUser) {
-                User::create([
-                    'id' => $user['id'],
-                    'email' => $user['email'],
-                    'name' => $user['name'],
-                    'password' => $user['password'],
-                    'remember_token' => $user['remember_token'] ?? null,
-                    'email_verified_at' => $user['email_verified_at'] ?? null,
-                    'created_at' => $user['created_at'] ?? null,
-                    'updated_at' => $user['updated_at'] ?? null,
-                    'contact_details' => $user['contact_details'] ?? null,
-                    'avatar' => $user['avatar'] ?? null,
-                ]);
-                echo "User {$user['name']} successfully restored.\n";
-            } else {
-                $existingUser->update([
-                    'email' => $user['email'],
-                    'name' => $user['name'],
-                    'contact_details' => $user['contact_details'] ?? null,
-                    'avatar' => $user['avatar'] ?? null,
-                ]);
-                echo "User {$user['name']} updated.\n";
             }
         }
 

@@ -21,7 +21,8 @@ class SearchController extends Controller
     {
         $query = $request->input('query');
 
-        $suggestions = Item::where('title', 'LIKE', '%' . $query . '%')
+        $suggestions = Item::where('status', 'active')
+            ->where('title', 'LIKE', '%' . $query . '%')
             ->limit(5)
             ->get(['title']);
 
@@ -32,8 +33,12 @@ class SearchController extends Controller
     {
         $searchTerm = $request->input('search', '');
 
-        $results = Item::where('title', 'LIKE', '%' . $searchTerm . '%')
-            ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+        $results = Item::where('status', 'active')
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('title', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere('description', 'LIKE', '%' . $searchTerm . '%');
+            })
+            ->with('category')
             ->get();
 
         $commonData = $this->dataController->getCommonData();

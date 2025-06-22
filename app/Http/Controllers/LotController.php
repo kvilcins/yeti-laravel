@@ -24,7 +24,7 @@ class LotController extends Controller
     public function index()
     {
         $commonData = $this->dataController->getCommonData();
-        $lots = Item::all();
+        $lots = Item::where('status', 'active')->get();
 
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
@@ -34,7 +34,6 @@ class LotController extends Controller
     public function create()
     {
         $commonData = $this->dataController->getCommonData();
-
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
         return view('pages.add', array_merge($commonData, ['breadcrumbs' => $breadcrumbs]));
@@ -52,8 +51,7 @@ class LotController extends Controller
 
         $imageName = null;
         if ($request->hasFile('lot_img')) {
-            $imageName = uniqid() . '.' . $request->file('lot_img')->extension();
-            $request->file('lot_img')->move(public_path('img'), $imageName);
+            $imageName = $request->file('lot_img')->store('lots', 'public');
         }
 
         Item::create([
@@ -61,9 +59,10 @@ class LotController extends Controller
             'description' => $validatedData['message'],
             'price' => $validatedData['lot_rate'],
             'min_bid' => $validatedData['lot_step'],
-            'img' => $imageName ? 'img/' . $imageName : null,
+            'img' => $imageName,
             'category_id' => $category->id,
             'timer' => $validatedData['timer'],
+            'status' => 'active',
         ]);
 
         return redirect()->route('home')->with('success', 'Lot successfully added!');
@@ -76,6 +75,14 @@ class LotController extends Controller
         ]);
 
         $lot = Item::findOrFail($id);
+
+        if (!$lot->isActive()) {
+            return redirect()->back()->withErrors(['cost' => 'This lot is not active for bidding.']);
+        }
+
+        if ($lot->timer && Carbon::parse($lot->timer)->isPast()) {
+            return redirect()->back()->withErrors(['cost' => 'Bidding time has expired.']);
+        }
 
         $maxBid = $lot->bids()->max('bid_amount');
         $minBid = $lot->min_bid;
@@ -102,7 +109,7 @@ class LotController extends Controller
 
         $lot = Item::where('slug', $slug)
             ->where('category_id', $category->id)
-            ->with('category')
+            ->with(['category', 'user'])
             ->firstOrFail();
 
         if (!$lot) {
@@ -126,14 +133,16 @@ class LotController extends Controller
 
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
-        // Check if the lot is active
-        $isLotActive = Carbon::parse($lot->timer)->isFuture();
+        $isLotActive = $lot->isActive() && Carbon::parse($lot->timer)->isFuture();
+
+        $canManage = auth()->check() && (auth()->user()->isAdmin() || auth()->user()->isOwnerOf($lot));
 
         return view('pages.lot', array_merge($commonData, [
             'lot' => $lot,
             'bids' => $bids,
             'breadcrumbs' => $breadcrumbs,
             'isLotActive' => $isLotActive,
+            'canManage' => $canManage,
         ]));
     }
 }

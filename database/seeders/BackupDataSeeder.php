@@ -27,6 +27,9 @@ class BackupDataSeeder extends Seeder
                 'img' => $item['img'],
                 'category_id' => $item['category_id'],
                 'timer' => $item['timer'] ?? null,
+                'user_id' => $item['user_id'] ?? null,
+                'status' => $item['status'] ?? 'active',
+                'winner_id' => $item['winner_id'] ?? null,
             ];
         }, $items);
 
@@ -75,6 +78,7 @@ class BackupDataSeeder extends Seeder
                 'updated_at' => $user->updated_at ? $user->updated_at->toISOString() : null,
                 'contact_details' => $user->contact_details ?? null,
                 'avatar' => $user->avatar ?? null,
+                'role' => $user->role ?? 'user',
             ];
         })->toArray();
 

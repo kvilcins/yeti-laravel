@@ -13,6 +13,7 @@ use App\Http\Controllers\ViewedLotsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\LotManagementController;
 
 // Homepage
 Route::get('/', [MainController::class, 'index'])->name('home');
@@ -54,6 +55,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/add', [LotController::class, 'create'])->name('lot.create');
         Route::post('/add', [LotController::class, 'store'])->name('lot.store');
         Route::post('/{id}/bid', [LotController::class, 'placeBid'])->name('bids.store');
+    });
+
+    // Управление лотами (требует верификацию)
+    Route::prefix('lot')->group(function () {
+        Route::get('/{id}/edit', [LotManagementController::class, 'edit'])->name('lot.edit');
+        Route::put('/{id}', [LotManagementController::class, 'update'])->name('lot.update');
+        Route::patch('/{id}/toggle-status', [LotManagementController::class, 'toggleStatus'])->name('lot.toggle-status');
+        Route::delete('/{id}', [LotManagementController::class, 'destroy'])->name('lot.destroy');
     });
 });
 

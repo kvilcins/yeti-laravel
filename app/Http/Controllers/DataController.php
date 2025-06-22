@@ -33,10 +33,10 @@ class DataController extends Controller
 
             if ($category) {
                 $categoryName = $category->name;
-                $ads = Item::where('category_id', $category->id)->with('category')->get();
+                $ads = Item::where('category_id', $category->id)->where('status', 'active')->with('category')->get();
             }
         } else {
-            $ads = Item::with('category')->get();
+            $ads = Item::where('status', 'active')->with('category')->get();
         }
 
         $now = Carbon::now();

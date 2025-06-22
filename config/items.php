@@ -10,6 +10,9 @@
     'img' => '../img/lot-1.jpg',
     'category_id' => 1,
     'timer' => '2025-09-12 23:48:57',
+    'user_id' => 1,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   1 => 
   array (
@@ -25,6 +28,9 @@ just look at your board and smile - the sick graphics by Sean Cliver never leave
     'img' => '../img/lot-2.jpg',
     'category_id' => 1,
     'timer' => '2025-09-11 23:49:04',
+    'user_id' => 1,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   2 => 
   array (
@@ -41,6 +47,9 @@ just look at your board and smile - the awesome graphics by Sean Cliver never fa
     'img' => '../img/lot-3.jpg',
     'category_id' => 2,
     'timer' => '2025-10-02 23:49:09',
+    'user_id' => 1,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   3 => 
   array (
@@ -56,6 +65,9 @@ just look at your board and smile - the awesome graphics by Sean Cliver never fa
     'img' => '../img/lot-4.jpg',
     'category_id' => 3,
     'timer' => '2025-06-30 23:49:14',
+    'user_id' => 1,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   4 => 
   array (
@@ -71,6 +83,9 @@ just look at your board and smile - the awesome graphics by Sean Cliver never fa
     'img' => '../img/lot-5.jpg',
     'category_id' => 4,
     'timer' => '2025-11-13 23:49:18',
+    'user_id' => 1,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   5 => 
   array (
@@ -86,6 +101,9 @@ just look at your board and smile - the awesome graphics by Sean Cliver never fa
     'img' => '../img/lot-6.jpg',
     'category_id' => 6,
     'timer' => '2025-10-01 23:49:22',
+    'user_id' => 1,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   6 => 
   array (
@@ -113,6 +131,9 @@ Steel edges
     'img' => 'img/678d26e85dde6.jpg',
     'category_id' => 1,
     'timer' => '2025-10-17 23:49:26',
+    'user_id' => 1,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   7 => 
   array (
@@ -120,63 +141,66 @@ Steel edges
     'title' => 'Termit men\'s insulated jacket',
     'slug' => 'termit-jacket',
     'description' => 'Design Features
-Cut	
+Cut
 Regular
-Length	
+Length
 Medium
-Hood	
+Hood
 Non-detachable
-Closure	
+Closure
 Zipper
-Number of pockets	
+Number of pockets
 2
-Snow skirt	
+Snow skirt
 Non-detachable
 
 Functional Features
-Water-repellent treatment	
+Water-repellent treatment
 Yes
-Wind protection	
+Wind protection
 Yes
-Insulation	
+Insulation
 Synthetic
 
 General Characteristics
-Sport	
+Sport
 Snowboarding
-Gender	
+Gender
 Men
-Product authenticity guarantee	
+Product authenticity guarantee
 Yes
 
 Composition
-Upper material	
+Upper material
 100% polyester
-Insulation material	
+Insulation material
 100% polyester
-Lining material	
+Lining material
 100% polyester
 
 Additional Characteristics
-Insulation weight per m²	
+Insulation weight per m²
 100
-Manufacturer code	
+Manufacturer code
 124847
-Country of manufacture	
+Country of manufacture
 China
-Season	
+Season
 Winter
 
 Care Instructions
-Care recommendations	
+Care recommendations
 Gentle wash 30°C. Do not bleach. Tumble drying prohibited. Ironing prohibited. Dry cleaning prohibited.
-Additional information	
+Additional information
 Wash with special detergent. Do not soak.',
     'price' => 1999,
     'min_bid' => 100,
     'img' => 'img/678d27bc0229e.jpg',
     'category_id' => 4,
     'timer' => NULL,
+    'user_id' => 2,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   8 => 
   array (
@@ -190,6 +214,9 @@ Dry\'vex membrane protects against water penetration and wicks away excess heat 
     'img' => 'img/678d28009e8a9.jpg',
     'category_id' => 4,
     'timer' => '2025-11-19 23:49:31',
+    'user_id' => 2,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   9 => 
   array (
@@ -214,6 +241,9 @@ Baseplate is partially made from EVA foam and excellently absorbs impact loads d
     'img' => 'img/678d2843dc7d4.jpg',
     'category_id' => 2,
     'timer' => '2025-11-12 23:49:35',
+    'user_id' => 6,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   10 => 
   array (
@@ -238,6 +268,9 @@ Outer boot is made from durable material. Thanks to this, the model will last mo
     'img' => 'img/678d28d18c57d.jpg',
     'category_id' => 3,
     'timer' => NULL,
+    'user_id' => 6,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   11 => 
   array (
@@ -262,6 +295,9 @@ Velour padding, ventilated frame and silicone-coated strap guarantee comfortable
     'img' => 'img/678d293d7b705.jpg',
     'category_id' => 6,
     'timer' => NULL,
+    'user_id' => 1,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   12 => 
   array (
@@ -280,6 +316,9 @@ Special coating prevents the mask from fogging up.',
     'img' => 'img/679605dab4c82.jpg',
     'category_id' => 6,
     'timer' => '2025-08-22 22:35:45',
+    'user_id' => 2,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   13 => 
   array (
@@ -292,6 +331,9 @@ Special coating prevents the mask from fogging up.',
     'img' => 'img/683f3c75171d1.jpg',
     'category_id' => 3,
     'timer' => '2025-08-18 22:35:42',
+    'user_id' => 2,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   14 => 
   array (
@@ -304,6 +346,9 @@ Special coating prevents the mask from fogging up.',
     'img' => 'img/68527c37e6425.jpg',
     'category_id' => 4,
     'timer' => '2025-08-07 22:35:39',
+    'user_id' => 6,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   15 => 
   array (
@@ -316,6 +361,9 @@ Special coating prevents the mask from fogging up.',
     'min_bid' => 500,
     'img' => 'img/68527c37e6425.jpg',
     'category_id' => 4,
+    'user_id' => 1,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   16 => 
   array (
@@ -327,6 +375,9 @@ Special coating prevents the mask from fogging up.',
     'min_bid' => 500,
     'img' => 'img/683f52208745a.jpg',
     'category_id' => 6,
+    'user_id' => 2,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   17 => 
   array (
@@ -338,6 +389,9 @@ Special coating prevents the mask from fogging up.',
     'min_bid' => 1000,
     'img' => 'img/684ffc9078641.jpg',
     'category_id' => 1,
+    'user_id' => 6,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   18 => 
   array (
@@ -351,6 +405,9 @@ Special coating prevents the mask from fogging up.',
     'img' => 'img/68527c37e6425.jpg',
     'category_id' => 4,
     'timer' => NULL,
+    'user_id' => 1,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   19 => 
   array (
@@ -363,6 +420,9 @@ Special coating prevents the mask from fogging up.',
     'img' => 'img/683f52208745a.jpg',
     'category_id' => 6,
     'timer' => NULL,
+    'user_id' => 2,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
   20 => 
   array (
@@ -375,5 +435,8 @@ Special coating prevents the mask from fogging up.',
     'img' => 'img/684ffc9078641.jpg',
     'category_id' => 1,
     'timer' => NULL,
+    'user_id' => 6,
+    'status' => 'active',
+    'winner_id' => NULL,
   ),
 );

@@ -5,11 +5,17 @@ namespace App\Http\Requests\Lot;
 use Illuminate\Foundation\Http\FormRequest;
 use Carbon\Carbon;
 
-class StoreRequest extends FormRequest
+class UpdateLotRequest extends FormRequest
 {
     public function authorize()
     {
-        return true;
+        $lot = $this->route('id') ? \App\Models\Item::find($this->route('id')) : null;
+
+        if (!$lot) {
+            return false;
+        }
+
+        return auth()->user()->isAdmin() || auth()->user()->isOwnerOf($lot);
     }
 
     public function rules()
@@ -46,7 +52,7 @@ class StoreRequest extends FormRequest
             'category.required' => 'The category is required.',
             'message.required' => 'The description is required.',
             'lot_img.image' => 'The uploaded file must be an image.',
-            'lot_img.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg.',
+            'lot_img.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg, webp.',
             'lot_img.max' => 'The image may not be greater than 2MB.',
             'lot_rate.required' => 'The starting price is required.',
             'lot_rate.numeric' => 'The starting price must be a number.',

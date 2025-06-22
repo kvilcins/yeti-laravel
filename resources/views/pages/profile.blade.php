@@ -1,6 +1,6 @@
 @extends('layouts.internal')
 
-@section('title', 'Edit Profile')
+@section('title', 'Profile')
 
 @section('content')
     @php
@@ -32,6 +32,7 @@
                     </div>
                 @endif
 
+                <!-- Profile Edit Form -->
                 <form class="form form--profile" id="profileForm" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" novalidate>
                     @csrf
                     @method('PUT')
@@ -53,6 +54,9 @@
                                 <span class="form__help form__help--success">✓ Email verified</span>
                             @else
                                 <span class="form__help form__help--warning">⚠ Email not verified</span>
+                            @endif
+                            @if(auth()->user()->isAdmin())
+                                <span class="form__help form__help--admin">👑 Administrator</span>
                             @endif
                         </div>
 
@@ -86,29 +90,110 @@
                         <h2 class="form__section-title">Change Password</h2>
                         <p class="form__section-description">Leave empty if you don't want to change your password.</p>
 
-                        <div class="form__item" id="currentPasswordGroup" style="display: none;">
-                            <label class="form__label" for="current_password">Current Password*</label>
-                            <input class="form__input" id="current_password" type="password" name="current_password" placeholder="Enter current password">
-                            <span class="form__error" id="current_passwordError"></span>
-                        </div>
-
                         <div class="form__item" id="passwordGroup">
                             <label class="form__label" for="password">New Password</label>
                             <input class="form__input" id="password" type="password" name="password" placeholder="Enter new password (min 6 characters)">
                             <span class="form__error" id="passwordError"></span>
-                        </div>
-
-                        <div class="form__item" id="password_confirmationGroup" style="display: none;">
-                            <label class="form__label" for="password_confirmation">Confirm New Password*</label>
-                            <input class="form__input" id="password_confirmation" type="password" name="password_confirmation" placeholder="Repeat new password">
-                            <span class="form__error" id="password_confirmationError"></span>
                         </div>
                     </div>
 
                     <button type="submit" class="form__submit button">Save Changes</button>
                 </form>
 
+                <!-- My Lots Section -->
+                @if($userLots && $userLots->count() > 0)
+                    <section class="profile-section">
+                        <h2 class="h2">My Lots ({{ $userLots->count() }})</h2>
+                        <div class="lots-grid">
+                            @foreach($userLots as $lot)
+                                <div class="lot-card">
+                                    <div class="lot-card__image">
+                                        <img src="{{ asset($lot->img) }}" alt="{{ $lot->title }}">
+                                        <div class="lot-card__status lot-card__status--{{ $lot->status }}">
+                                            {{ ucfirst($lot->status) }}
+                                        </div>
+                                    </div>
+                                    <div class="lot-card__info">
+                                        <h3 class="lot-card__title">{{ $lot->title }}</h3>
+                                        <p class="lot-card__price">{{ formatPrice($lot->getCurrentPrice()) }}</p>
+                                        <p class="lot-card__category">{{ $lot->category->name }}</p>
+
+                                        <div class="lot-card__actions">
+                                            <a href="{{ route('lot.show', [$lot->category->slug, $lot->slug]) }}" class="button button--small">View</a>
+                                            <a href="{{ route('lot.edit', $lot->id) }}" class="button button--small button--secondary">Edit</a>
+
+                                            <form method="POST" action="{{ route('lot.toggle-status', $lot->id) }}" style="display: inline;">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="button button--small {{ $lot->status === 'active' ? 'button--warning' : 'button--success' }}">
+                                                    {{ $lot->status === 'active' ? 'Deactivate' : 'Activate' }}
+                                                </button>
+                                            </form>
+
+                                            @if(auth()->user()->isAdmin())
+                                                <form method="POST" action="{{ route('lot.destroy', $lot->id) }}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this lot?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="button button--small button--danger">Delete</button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </section>
+                @endif
+
+                <!-- My Bids Section -->
+                @if($userBids && $userBids->count() > 0)
+                    <section class="profile-section">
+                        <h2 class="h2">My Bids ({{ $userBids->count() }})</h2>
+                        <div class="bids-list">
+                            @foreach($userBids as $bid)
+                                <div class="bid-item">
+                                    <div class="bid-item__lot">
+                                        <img src="{{ asset($bid->lot->img) }}" alt="{{ $bid->lot->title }}">
+                                        <div class="bid-item__info">
+                                            <h4>{{ $bid->lot->title }}</h4>
+                                            <p class="bid-item__category">{{ $bid->lot->category->name }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="bid-item__details">
+                                        <p class="bid-item__amount">My bid: {{ formatPrice($bid->bid_amount) }}</p>
+                                        <p class="bid-item__time">{{ $bid->bid_time->format('d.m.Y H:i') }}</p>
+                                        <a href="{{ route('lot.show', [$bid->lot->category->slug, $bid->lot->slug]) }}" class="button button--small">View Lot</a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </section>
+                @endif
+
+                <!-- Won Lots Section -->
+                @if($wonLots && $wonLots->count() > 0)
+                    <section class="profile-section">
+                        <h2 class="h2">Won Lots ({{ $wonLots->count() }})</h2>
+                        <div class="lots-grid">
+                            @foreach($wonLots as $lot)
+                                <div class="lot-card lot-card--won">
+                                    <div class="lot-card__image">
+                                        <img src="{{ asset($lot->img) }}" alt="{{ $lot->title }}">
+                                        <div class="lot-card__status lot-card__status--won">Won</div>
+                                    </div>
+                                    <div class="lot-card__info">
+                                        <h3 class="lot-card__title">{{ $lot->title }}</h3>
+                                        <p class="lot-card__price">Winning bid: {{ formatPrice($lot->getCurrentPrice()) }}</p>
+                                        <a href="{{ route('lot.show', [$lot->category->slug, $lot->slug]) }}" class="button button--small">View</a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </section>
+                @endif
+
                 @include('components.bids')
+
             @endif
         </div>
     </main>

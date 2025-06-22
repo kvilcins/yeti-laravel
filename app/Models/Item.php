@@ -13,22 +13,59 @@ class Item extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'description', 'price', 'min_bid', 'img', 'category_id', 'timer'];
+    protected $fillable = [
+        'title',
+        'slug',
+        'description',
+        'price',
+        'min_bid',
+        'img',
+        'category_id',
+        'timer',
+        'user_id',
+        'status',
+        'winner_id'
+    ];
 
-    /**
-     * Relationship "item belongs to category".
-     */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    /**
-     * Relationship "item has many bids".
-     */
     public function bids(): HasMany
     {
         return $this->hasMany(Bid::class, 'lot_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function winner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'winner_id');
+    }
+
+    public function getHighestBid()
+    {
+        return $this->bids()->orderBy('bid_amount', 'desc')->first();
+    }
+
+    public function getCurrentPrice()
+    {
+        $highestBid = $this->getHighestBid();
+        return $highestBid ? $highestBid->bid_amount : $this->price;
+    }
+
+    public function isActive()
+    {
+        return $this->status === 'active';
+    }
+
+    public function isCompleted()
+    {
+        return $this->status === 'completed';
     }
 
     protected static function boot()
@@ -37,6 +74,9 @@ class Item extends Model
 
         static::creating(function ($model) {
             $model->slug = $model->slug ?? static::generateSlug($model->title);
+            if (auth()->check()) {
+                $model->user_id = auth()->id();
+            }
         });
 
         static::updating(function ($model) {

@@ -25,12 +25,18 @@ class ProfileController extends Controller
         $commonData = $this->dataController->getCommonData();
         $breadcrumbs = $this->breadcrumbsController->generateBreadcrumbs(request());
 
-        $userBids = Bid::where('user_id', $user->id)->get();
+        $userLots = $user->lots()->with('category')->orderBy('created_at', 'desc')->get();
+
+        $userBids = $user->bids()->with(['lot', 'lot.category'])->orderBy('bid_time', 'desc')->get();
+
+        $wonLots = $user->wonLots()->with('category')->get();
 
         return view('pages.profile', array_merge($commonData, [
             'breadcrumbs' => $breadcrumbs,
             'user' => $user,
+            'userLots' => $userLots,
             'userBids' => $userBids,
+            'wonLots' => $wonLots,
         ]));
     }
 
