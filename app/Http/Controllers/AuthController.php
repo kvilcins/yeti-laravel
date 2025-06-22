@@ -37,9 +37,7 @@ class AuthController extends Controller
         $validatedData = $request->validated();
 
         if ($request->hasFile('lot-img')) {
-            $avatarName = uniqid() . '.' . $request->file('lot-img')->extension();
-            $request->file('lot-img')->move(public_path('img'), $avatarName);
-            $validatedData['avatar'] = 'img/' . $avatarName;
+            $validatedData['avatar'] = $request->file('lot-img')->store('avatars', 'public');
         } else {
             $validatedData['avatar'] = null;
         }
