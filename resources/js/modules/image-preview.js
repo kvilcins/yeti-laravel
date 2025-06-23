@@ -4,7 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
             this.input = document.querySelector(inputSelector);
             if (!this.input) return;
 
-            this.preview = this.input.closest('.form__item').querySelector('.form__preview, .profile__avatar');
+            const formItem = this.input.closest('.form__item, .profile__field');
+            if (!formItem) return;
+
+            this.preview = formItem.querySelector('.form__preview, .profile__avatar');
             this.previewImg = this.preview?.querySelector('.form__preview-img, .profile__avatar-img');
             this.deleteBtn = this.preview?.querySelector('.form__delete-btn, .profile__avatar-delete');
 
@@ -16,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         init() {
+            if (!this.input || !this.preview || !this.previewImg) return;
+
             this.input.addEventListener('change', this.handleFileSelect.bind(this));
 
             if (this.deleteBtn) {
@@ -200,6 +205,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    new ImageUploadHandler('#avatar');
-    new ImageUploadHandler('#lot_img');
+    const avatarInput = document.querySelector('#avatar');
+    const lotInput = document.querySelector('#lot_img');
+
+    if (avatarInput) {
+        new ImageUploadHandler('#avatar');
+    }
+
+    if (lotInput) {
+        new ImageUploadHandler('#lot_img');
+    }
 });
