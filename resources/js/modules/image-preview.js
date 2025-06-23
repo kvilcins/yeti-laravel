@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.deleteBtn = this.preview?.querySelector('.form__delete-btn, .profile__avatar-delete');
 
             this.isProfileMode = this.input.closest('.profile__form');
+            this.isLotEditMode = this.input.closest('.form--add-lot');
             this.defaultAvatarUrl = '/img/default-avatar.jpg';
 
             this.init();
@@ -19,6 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (this.deleteBtn) {
                 this.deleteBtn.addEventListener('click', this.handleDelete.bind(this));
+
+                if (this.isLotEditMode && this.preview?.classList.contains('form__preview--visible')) {
+                    this.deleteBtn.style.display = 'flex';
+                }
             }
         }
 
@@ -36,6 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             this.displayPreview(file);
+
+            if (this.isLotEditMode) {
+                const deleteImageInput = document.getElementById('delete_image');
+                if (deleteImageInput) {
+                    deleteImageInput.value = '0';
+                }
+            }
         }
 
         validateFile(file) {
@@ -86,7 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.preview.appendChild(this.deleteBtn);
             }
 
-            this.deleteBtn.style.display = 'block';
+            if (this.deleteBtn) {
+                this.deleteBtn.style.display = 'flex';
+            }
         }
 
         handleDelete(e) {
@@ -94,6 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (this.isProfileMode) {
                 this.handleProfileDelete();
+            } else if (this.isLotEditMode) {
+                this.handleLotEditDelete();
             } else {
                 this.handleFormDelete();
             }
@@ -115,6 +131,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.input.value = '';
                 }
             }
+        }
+
+        handleLotEditDelete() {
+            const confirmMessage = 'Are you sure you want to delete this image?';
+
+            if (window.modalNotification) {
+                window.modalNotification.confirm(
+                    'Delete Image',
+                    confirmMessage,
+                    () => {
+                        this.removeLotImage();
+                    }
+                );
+            } else {
+                if (confirm(confirmMessage)) {
+                    this.removeLotImage();
+                }
+            }
+        }
+
+        removeLotImage() {
+            const deleteImageInput = document.getElementById('delete_image');
+            if (deleteImageInput) {
+                deleteImageInput.value = '1';
+            }
+
+            this.clearPreview();
+            this.input.value = '';
         }
 
         handleFormDelete() {

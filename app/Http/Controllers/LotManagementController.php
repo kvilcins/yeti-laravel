@@ -54,19 +54,34 @@ class LotManagementController extends Controller
         $lot->category_id = $category->id;
         $lot->timer = $validatedData['timer'];
 
-        if ($request->hasFile('lot_img')) {
-            if ($lot->img && file_exists(public_path($lot->img))) {
-                unlink(public_path($lot->img));
-            }
-
-            $imageName = uniqid() . '.' . $request->file('lot_img')->extension();
-            $request->file('lot_img')->move(public_path('img'), $imageName);
-            $lot->img = 'img/' . $imageName;
+        if ($request->has('delete_image') && $request->delete_image == '1') {
+            $this->removeLotImage($lot);
+        } elseif ($request->hasFile('lot_img')) {
+            $this->handleImageUpload($request, $lot);
         }
 
         $lot->save();
 
         return redirect()->route('profile.')->with('success', 'Lot updated successfully!');
+    }
+
+    private function handleImageUpload(Request $request, Item $lot): void
+    {
+        if ($lot->img && file_exists(public_path($lot->img))) {
+            unlink(public_path($lot->img));
+        }
+
+        $imageName = uniqid() . '.' . $request->file('lot_img')->extension();
+        $request->file('lot_img')->move(public_path('img'), $imageName);
+        $lot->img = 'img/' . $imageName;
+    }
+
+    private function removeLotImage(Item $lot): void
+    {
+        if ($lot->img && file_exists(public_path($lot->img))) {
+            unlink(public_path($lot->img));
+            $lot->img = null;
+        }
     }
 
     public function toggleStatus($id)

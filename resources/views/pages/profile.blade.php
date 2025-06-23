@@ -177,15 +177,7 @@
                                     @foreach($userBids as $bid)
                                         <div class="profile__bid-item">
                                             <div class="profile__bid-lot">
-                                                @php
-                                                    $imagePath = $bid->lot->img;
-                                                    if (str_starts_with($imagePath, 'img/')) {
-                                                        $imageUrl = asset($imagePath);
-                                                    } else {
-                                                        $imageUrl = asset('storage/' . $imagePath);
-                                                    }
-                                                @endphp
-                                                <img src="{{ $imageUrl }}" alt="{{ $bid->lot->title }}" class="profile__bid-img">
+                                                <img src="{{ $bid->lot->image_url }}" alt="{{ $bid->lot->title }}" class="profile__bid-img">
                                                 <div class="profile__bid-info">
                                                     <h4 class="profile__bid-title">{{ $bid->lot->title }}</h4>
                                                     <p class="profile__bid-category">{{ $bid->lot->category->name }}</p>

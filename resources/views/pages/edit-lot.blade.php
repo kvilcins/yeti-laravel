@@ -53,10 +53,12 @@
                         <span class="form__file-label">Upload</span>
                     </label>
                     <input class="form__input-file" type="file" name="lot_img" id="lot_img">
+                    <input type="hidden" name="delete_image" id="delete_image" value="0">
 
                     <div class="form__preview {{ $lot->img ? 'form__preview--visible' : '' }}">
                         @if($lot->img)
                             <img src="{{ $lot->image_url }}" alt="Current lot image" class="form__preview-img">
+                            <button type="button" class="form__delete-btn" id="deleteLotImageBtn" title="Delete image">×</button>
                         @else
                             <img src="" alt="Image preview" class="form__preview-img">
                         @endif
