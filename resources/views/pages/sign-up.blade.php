@@ -1,6 +1,6 @@
 @extends('layouts.internal')
 
-@section('title', 'Registration')
+@section('title', 'Sign-up')
 
 @section('content')
     <main>
@@ -43,17 +43,21 @@
                     </span>
                 </div>
 
-                <div class="form__item form__item--img {{ $errors->has('lot-img') ? 'form__item--invalid' : '' }}" id="avatarGroup">
-                    <label class="form__label" for="lot-img">
+                <div class="profile__field profile__field--file {{ $errors->has('avatar') ? 'profile__field--invalid' : '' }}" id="avatarGroup">
+                    <label class="profile__label" for="avatar">
                         Avatar
-                        <span class="form__file-label">Upload</span>
+                        <span class="profile__file-label">Upload</span>
                     </label>
-                    <input class="form__input-file" type="file" name="lot-img" id="lot-img">
-                    <div class="form__preview">
-                        <img src="" alt="Image preview" class="form__preview-img">
+
+                    <input class="profile__file-input" type="file" name="avatar" id="avatar" accept="image/*">
+
+                    <div class="profile__avatar profile__avatar--hidden" id="avatarContainer">
+                        <img src="" alt="Avatar preview" class="profile__avatar-img" id="avatarPreview">
+                        <button type="button" class="profile__avatar-delete profile__avatar-delete--hidden" id="deleteAvatarBtn" title="Remove avatar">×</button>
                     </div>
-                    <span class="form__error" id="avatarError">
-                        @error('lot-img'){{ $message }}@enderror
+
+                    <span class="profile__error" id="avatarError">
+                        @error('avatar'){{ $message }}@enderror
                     </span>
                 </div>
 

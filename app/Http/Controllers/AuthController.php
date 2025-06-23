@@ -36,8 +36,8 @@ class AuthController extends Controller
     {
         $validatedData = $request->validated();
 
-        if ($request->hasFile('lot-img')) {
-            $validatedData['avatar'] = $request->file('lot-img')->store('avatars', 'public');
+        if ($request->hasFile('avatar')) {
+            $validatedData['avatar'] = $request->file('avatar')->store('avatars', 'public');
         } else {
             $validatedData['avatar'] = null;
         }

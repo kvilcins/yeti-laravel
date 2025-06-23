@@ -660,6 +660,45 @@
     }
 }
 
+.profile__avatar-img--deleted {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    border-color: $red;
+}
+
+.profile__avatar-restore {
+    background: linear-gradient(135deg, $button-color, $button-color-hover);
+    color: $text-white;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba($button-color, 0.3);
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba($button-color, 0.4);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.profile__avatar--hidden {
+    display: none;
+}
+
+.profile__avatar-delete--hidden {
+    display: none;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

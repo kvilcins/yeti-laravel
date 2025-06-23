@@ -13,8 +13,8 @@
   array (
     'id' => 2,
     'slug' => 'add',
-    'name' => 'Add Lot',
-    'title' => 'Add Lot',
+    'name' => 'Add Item',
+    'title' => 'Add Item',
     'content' => NULL,
     'type' => 'default_value',
     'route' => 'lot.create',
@@ -23,8 +23,8 @@
   array (
     'id' => 3,
     'slug' => 'lot',
-    'name' => 'Lot',
-    'title' => 'Lot',
+    'name' => 'Item',
+    'title' => 'Item',
     'content' => '1',
     'type' => 'default_value',
     'route' => 'default_value',
@@ -43,8 +43,8 @@
   array (
     'id' => 5,
     'slug' => 'register',
-    'name' => 'Registration',
-    'title' => 'Registration',
+    'name' => 'Sign up',
+    'title' => 'Sign up',
     'content' => NULL,
     'type' => 'default_value',
     'route' => 'register',

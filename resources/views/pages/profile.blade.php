@@ -22,7 +22,7 @@
                     <div class="profile__verification-warning">
                         <div class="profile__verification-content">
                             <div class="profile__verification-title">Email Verification Required</div>
-                            <p class="profile__verification-text">To add lots and place bids, please verify your email address. Check your inbox for a verification link.</p>
+                            <p class="profile__verification-text">To add items and place bids, please verify your email address. Check your inbox for a verification link.</p>
 
                             <form method="POST" action="{{ route('verification.send') }}">
                                 @csrf

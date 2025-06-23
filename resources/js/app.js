@@ -1,4 +1,3 @@
-import './modules/form-validation.js';
 import './modules/viewed-lots.js';
 import './modules/search-suggestions.js';
 import './modules/menu-dropdown.js';
@@ -6,5 +5,6 @@ import './modules/mobile-menu.js';
 import './modules/fixed-scroll.js';
 import './modules/scroll-to-top.js';
 import './modules/modals.js';
-import './modules/delete-avatar.js';
 import './modules/tabs.js';
+import './modules/avatar-preview.js';
+import './modules/form-validation.js';

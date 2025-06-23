@@ -9,7 +9,7 @@
                 <h1 class="h1">Verify Your Email Address</h1>
 
                 <div class="verification-content">
-                    <p>Before you can add lots and place bids, please verify your email address.</p>
+                    <p>Before you can add items and place bids, please verify your email address.</p>
                     <p>We've sent a verification link to <strong>{{ auth()->user()->email }}</strong></p>
                     <p>If you didn't receive the email, click the button below to request another.</p>
 

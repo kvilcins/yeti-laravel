@@ -185,7 +185,8 @@ document.addEventListener('DOMContentLoaded', () => {
             fields.name?.value.trim() !== originalData.name ||
             fields.contactDetails?.value !== originalData.contactDetails ||
             fields.password?.value.length > 0 ||
-            fields.avatar?.files[0];
+            fields.avatar?.files[0] ||
+            avatarMarkedForDeletion;
 
         submitButton.disabled = !hasChanges;
         submitButton.classList.toggle('profile__submit-btn--disabled', !hasChanges);
@@ -223,52 +224,120 @@ document.addEventListener('DOMContentLoaded', () => {
         return !hasErrors;
     };
 
+    const getDefaultAvatarUrl = () => {
+        const baseUrl = window.location.origin;
+        return `${baseUrl}/img/default-avatar.jpg`;
+    };
+
+    let avatarMarkedForDeletion = false;
+
     const handleAvatarDelete = () => {
         const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
 
         if (deleteAvatarBtn) {
-            deleteAvatarBtn.addEventListener('click', function(e) {
-                e.preventDefault();
+            deleteAvatarBtn.removeEventListener('click', handleDeleteClick);
+            deleteAvatarBtn.addEventListener('click', handleDeleteClick);
+        }
 
-                window.modalNotification.confirm(
-                    'Delete Avatar',
-                    'Are you sure you want to delete your avatar? This action cannot be undone.',
-                    () => {
-                        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        function handleDeleteClick(e) {
+            e.preventDefault();
+            e.stopPropagation();
 
-                        fetch('/account/avatar', {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': csrfToken,
-                                'Accept': 'application/json'
-                            }
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    const avatarPreview = document.getElementById('avatarPreview');
-                                    if (avatarPreview) avatarPreview.src = data.avatar_url;
-                                    deleteAvatarBtn.style.display = 'none';
-                                    window.modalNotification.success(data.message);
-                                } else {
-                                    window.modalNotification.error(data.message);
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                window.modalNotification.error('Error deleting avatar');
-                            });
+            window.modalNotification.confirm(
+                'Delete Avatar',
+                'Are you sure you want to delete your avatar? Changes will be saved when you submit the form.',
+                () => {
+                    avatarMarkedForDeletion = true;
+
+                    const avatarPreview = document.getElementById('avatarPreview');
+                    if (avatarPreview) {
+                        avatarPreview.src = getDefaultAvatarUrl();
+                        avatarPreview.style.opacity = '0.5';
+                        avatarPreview.style.filter = 'grayscale(100%)';
                     }
-                );
+
+                    deleteAvatarBtn.style.display = 'none';
+
+                    const restoreBtn = createRestoreButton();
+                    deleteAvatarBtn.parentNode.appendChild(restoreBtn);
+
+                    if (fields.avatar) {
+                        fields.avatar.value = '';
+                    }
+
+                    checkForChanges();
+                }
+            );
+        }
+
+        function createRestoreButton() {
+            let restoreBtn = document.getElementById('restoreAvatarBtn');
+            if (restoreBtn) {
+                restoreBtn.remove();
+            }
+
+            restoreBtn = document.createElement('button');
+            restoreBtn.type = 'button';
+            restoreBtn.id = 'restoreAvatarBtn';
+            restoreBtn.className = 'profile__avatar-restore';
+            restoreBtn.textContent = 'Restore';
+            restoreBtn.title = 'Restore avatar';
+
+            restoreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                restoreAvatar();
             });
+
+            return restoreBtn;
+        }
+
+        function restoreAvatar() {
+            avatarMarkedForDeletion = false;
+
+            const avatarPreview = document.getElementById('avatarPreview');
+            const deleteBtn = document.getElementById('deleteAvatarBtn');
+            const restoreBtn = document.getElementById('restoreAvatarBtn');
+
+            if (avatarPreview) {
+                avatarPreview.src = avatarPreview.dataset.originalSrc || avatarPreview.src;
+                avatarPreview.style.opacity = '1';
+                avatarPreview.style.filter = 'none';
+            }
+
+            if (deleteBtn) {
+                deleteBtn.style.display = 'inline-block';
+            }
+
+            if (restoreBtn) {
+                restoreBtn.remove();
+            }
+
+            checkForChanges();
         }
     };
 
     const handleAvatarUpload = () => {
         if (fields.avatar) {
+            const avatarPreview = document.getElementById('avatarPreview');
+            if (avatarPreview && !avatarPreview.dataset.originalSrc) {
+                avatarPreview.dataset.originalSrc = avatarPreview.src;
+            }
+
             fields.avatar.addEventListener('change', function(e) {
                 const file = e.target.files[0];
-                if (!file) return;
+
+                if (!file) {
+                    if (avatarMarkedForDeletion) {
+                        const avatarPreview = document.getElementById('avatarPreview');
+                        if (avatarPreview) {
+                            avatarPreview.src = getDefaultAvatarUrl();
+                            avatarPreview.classList.add('profile__avatar-img--deleted');
+                        }
+                    } else {
+                        restoreOriginalAvatar();
+                    }
+                    return;
+                }
 
                 if (file.size > 5 * 1024 * 1024) {
                     window.modalNotification.error('File size must be less than 5MB');
@@ -282,22 +351,54 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
+                avatarMarkedForDeletion = false;
+
                 const reader = new FileReader();
                 reader.onload = function(event) {
                     const avatarPreview = document.getElementById('avatarPreview');
                     const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
+                    const restoreBtn = document.getElementById('restoreAvatarBtn');
 
                     if (avatarPreview) {
                         avatarPreview.src = event.target.result;
+                        avatarPreview.classList.remove('profile__avatar-img--deleted');
                     }
+
                     if (deleteAvatarBtn) {
                         deleteAvatarBtn.style.display = 'inline-block';
+                    }
+
+                    if (restoreBtn) {
+                        restoreBtn.remove();
                     }
                 };
                 reader.readAsDataURL(file);
 
                 checkForChanges();
             });
+        }
+
+        function restoreOriginalAvatar() {
+            const avatarPreview = document.getElementById('avatarPreview');
+            const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
+            const restoreBtn = document.getElementById('restoreAvatarBtn');
+
+            if (avatarPreview && avatarPreview.dataset.originalSrc) {
+                avatarPreview.src = avatarPreview.dataset.originalSrc;
+                avatarPreview.style.opacity = '1';
+                avatarPreview.style.filter = 'none';
+            }
+
+            if (deleteAvatarBtn) {
+                deleteAvatarBtn.style.display = 'inline-block';
+            }
+
+            if (restoreBtn) {
+                restoreBtn.remove();
+            }
+
+            avatarMarkedForDeletion = false;
+            checkForChanges();
         }
     };
 
@@ -312,9 +413,9 @@ document.addEventListener('DOMContentLoaded', () => {
     fields.passwordConfirm?.addEventListener('blur', validatePasswords);
     fields.passwordConfirm?.addEventListener('input', validatePasswords);
 
-    handleAvatarDelete();
-    handleAvatarUpload();
     checkForChanges();
+    handleAvatarUpload();
+    handleAvatarDelete();
 
     profileForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -329,6 +430,11 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         const formData = new FormData(profileForm);
+
+        if (avatarMarkedForDeletion) {
+            formData.append('delete_avatar', '1');
+        }
+
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
         const originalText = submitButton.textContent;
@@ -368,15 +474,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data.avatar_url) {
                         const avatarPreview = document.getElementById('avatarPreview');
                         const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
+                        const restoreBtn = document.getElementById('restoreAvatarBtn');
 
-                        if (avatarPreview) avatarPreview.src = data.avatar_url;
-                        if (deleteAvatarBtn) deleteAvatarBtn.style.display = 'inline-block';
+                        if (avatarPreview) {
+                            avatarPreview.src = data.avatar_url;
+                            avatarPreview.dataset.originalSrc = data.avatar_url;
+                            avatarPreview.classList.remove('profile__avatar-img--deleted');
+                        }
+
+                        if (deleteAvatarBtn) {
+                            deleteAvatarBtn.style.display = data.avatar_url.includes('default-avatar') ? 'none' : 'inline-block';
+                        }
+
+                        if (restoreBtn) {
+                            restoreBtn.remove();
+                        }
                     }
 
                     if (fields.password) fields.password.value = '';
                     if (fields.passwordConfirm) fields.passwordConfirm.value = '';
                     if (fields.currentPassword) fields.currentPassword.value = '';
                     if (fields.avatar) fields.avatar.value = '';
+
+                    avatarMarkedForDeletion = false;
 
                     originalData.name = fields.name?.value.trim() || '';
                     originalData.contactDetails = fields.contactDetails?.value || '';

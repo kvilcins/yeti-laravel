@@ -58,7 +58,7 @@
     'id' => 1,
     'email' => 'kvilcins@mail.ru',
     'name' => 'Kate',
-    'password' => '$2y$12$8VGRdznxilinX7OaQOxWyuSamjth4rODqRluSeN2DTmmrjenqqtZO',
+    'password' => '$2y$12$./ra4/2XPRFQZPU2AOn1VuNen11ZrBuPVaO26PFWfWkFa9IQRMkSm',
     'remember_token' => NULL,
     'email_verified_at' => 
     \Illuminate\Support\Carbon::__set_state(array(
@@ -88,9 +88,9 @@
        'timezone' => 'UTC',
     )),
     'created_at' => '2025-06-22T10:32:46.000000Z',
-    'updated_at' => '2025-06-22T10:47:13.000000Z',
+    'updated_at' => '2025-06-23T10:12:10.000000Z',
     'contact_details' => '@katie',
-    'avatar' => 'avatars/2a0CHZytCqLNxikJM8E0Qtn9VnCatht7IwkvQyYv.webp',
+    'avatar' => 'avatars/yp2UDHNXAhXtK5IDtV21NuMZVsvQRzaIpYSCLPJz.webp',
     'role' => 'admin',
   ),
   3 => 
@@ -102,9 +102,9 @@
     'remember_token' => NULL,
     'email_verified_at' => NULL,
     'created_at' => '2025-06-22T11:53:26.000000Z',
-    'updated_at' => '2025-06-22T11:53:26.000000Z',
+    'updated_at' => '2025-06-22T20:17:43.000000Z',
     'contact_details' => '111111',
-    'avatar' => 'avatars/jJ67fkrKyvwTLhq0ZEm40KMb4BnV89e81g4QluLB.webp',
+    'avatar' => 'avatars/XuiOAfBrJihqFT2rwPFWGAd9F6KCBqohMsQOWz0j.webp',
     'role' => 'user',
   ),
 );

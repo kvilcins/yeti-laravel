@@ -8,7 +8,7 @@
             <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
             @include('components.lots', [
-                'lots__title' => 'Open Lots'
+                'lots__title' => 'Open Items'
             ])
         </div>
     </main>

@@ -69,7 +69,11 @@ class ProfileController extends Controller
                 $user->password = Hash::make($validatedData['password']);
             }
 
-            $this->handleAvatarUpload($request, $user);
+            if ($request->has('delete_avatar') && $request->delete_avatar == '1') {
+                $this->removeUserAvatar($user);
+            } else {
+                $this->handleAvatarUpload($request, $user);
+            }
 
             $user->save();
 

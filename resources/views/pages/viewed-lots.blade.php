@@ -13,7 +13,7 @@
                 </div>
 
                 @if ($viewedLotsData->isEmpty())
-                    <p>No viewed lots.</p>
+                    <p>No viewed items.</p>
                 @else
                     <ul class="lots__list">
                         @foreach ($viewedLotsData as $ad)

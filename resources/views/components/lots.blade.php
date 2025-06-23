@@ -1,6 +1,6 @@
 @php
     $lots__tag = $lots__tag ?? 'h1';
-    $lots__title = $lots__title ?? 'Open Lots';
+    $lots__title = $lots__title ?? 'Open Items';
 @endphp
 
 <section class="lots">

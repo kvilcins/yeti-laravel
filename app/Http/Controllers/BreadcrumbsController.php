@@ -14,13 +14,13 @@ class BreadcrumbsController extends Controller
     private array $routeStructure = [
         'profile.' => ['type' => 'page', 'title' => 'Profile'],
         'profile.edit' => ['type' => 'page', 'title' => 'Edit Profile', 'parent' => 'profile.'],
-        'viewed.lots' => ['type' => 'page', 'title' => 'Viewed Lots'],
-        'lot.create' => ['type' => 'page', 'title' => 'Add Lot'],
+        'viewed.lots' => ['type' => 'page', 'title' => 'Viewed Items'],
+        'lot.create' => ['type' => 'page', 'title' => 'Add Item'],
         'search' => ['type' => 'page', 'title' => 'Search'],
         'catalog' => ['type' => 'page', 'title' => 'Catalog'],
         'category.show' => ['type' => 'category', 'show_catalog' => true],
         'lot.show' => ['type' => 'lot', 'show_catalog' => true],
-        'register' => ['type' => 'static', 'title' => 'Registration'],
+        'register' => ['type' => 'static', 'title' => 'Sign up'],
         'login' => ['type' => 'static', 'title' => 'Login'],
     ];
 

@@ -7,7 +7,7 @@
             </a>
 
             <form class="main-header__search search-form" method="get" action="{{ route('search') }}">
-                <input type="search" name="search" id="search-input" placeholder="Search lot" autocomplete="off" class="search-form__input">
+                <input type="search" name="search" id="search-input" placeholder="Search items" autocomplete="off" class="search-form__input">
                 <ul id="search-suggestions" class="search-form__suggestions"></ul>
                 <button type="button" id="search-button" class="search-form__button">Find</button>
             </form>
@@ -32,7 +32,7 @@
                                 <a href="{{ route('profile.') }}" class="user-menu__link">Edit Profile</a>
                             </li>
                             <li class="user-menu__item">
-                                <a href="{{ route('viewed.lots') }}" class="user-menu__link">Viewed Lots</a>
+                                <a href="{{ route('viewed.lots') }}" class="user-menu__link">Viewed Items</a>
                             </li>
                             <li class="user-menu__item">
                                 <button form="logout-form" type="submit" class="user-menu__link">Logout</button>
@@ -53,7 +53,7 @@
                             <a href="{{ route('login') }}" class="user-menu__link">Login</a>
                         </li>
                         <li class="user-menu__item">
-                            <a href="{{ route('register') }}" class="user-menu__link">Register</a>
+                            <a href="{{ route('register') }}" class="user-menu__link">Sign up</a>
                         </li>
                     </ul>
                 @endif
@@ -78,14 +78,14 @@
                         <a href="{{ route('lot.create') }}" class="mobile-menu__link">Add Lot</a>
                     @endif
                     <a href="{{ route('profile.') }}" class="mobile-menu__link">Edit Profile</a>
-                    <a href="{{ route('viewed.lots') }}" class="mobile-menu__link">Viewed Lots</a>
+                    <a href="{{ route('viewed.lots') }}" class="mobile-menu__link">Viewed Items</a>
                     <form class="mobile-menu__form" action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="button">Logout</button>
                     </form>
                 @else
                     <a href="{{ route('login') }}" class="mobile-menu__link">Login</a>
-                    <a href="{{ route('register') }}" class="mobile-menu__link">Register</a>
+                    <a href="{{ route('register') }}" class="mobile-menu__link">Sign up</a>
                 @endif
             </div>
 

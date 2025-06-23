@@ -18,6 +18,7 @@ class UpdateProfileRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'message' => ['nullable', 'string', 'max:1000'],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
+            'delete_avatar' => ['nullable', 'string', 'in:1'], // Добавить эту строку
 
             'current_password' => [
                 'nullable',

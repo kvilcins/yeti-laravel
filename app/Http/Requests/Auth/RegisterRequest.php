@@ -28,7 +28,7 @@ class RegisterRequest extends FormRequest
             'password' => ['required', 'string', 'min:6'],
             'name' => ['required', 'string', 'max:255'],
             'message' => ['required', 'string'],
-            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'], // ИСПРАВИТЬ ЭТУ СТРОКУ
         ];
     }
 
