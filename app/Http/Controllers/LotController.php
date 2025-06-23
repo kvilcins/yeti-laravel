@@ -76,6 +76,10 @@ class LotController extends Controller
 
         $lot = Item::findOrFail($id);
 
+        if ($lot->user_id === auth()->id()) {
+            return redirect()->back()->withErrors(['cost' => 'You cannot bid on your own item.']);
+        }
+
         if (!$lot->isActive()) {
             return redirect()->back()->withErrors(['cost' => 'This lot is not active for bidding.']);
         }

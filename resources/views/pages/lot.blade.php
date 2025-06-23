@@ -71,7 +71,7 @@
                                     Min. bid <span>{{ formatPrice($lot->min_bid) }}</span>
                                 </div>
                             </div>
-                            @if($is_auth && $isLotActive && auth()->user()->hasVerifiedEmail() && $lot->status === 'active')
+                            @if($is_auth && $isLotActive && auth()->user()->hasVerifiedEmail() && $lot->status === 'active' && $lot->user_id !== auth()->id())
                                 <form class="lot-item__form" action="{{ route('bids.store', $lot->id) }}" method="post">
                                     @csrf
                                     <p class="lot-item__form-item">
@@ -80,6 +80,8 @@
                                     </p>
                                     <button type="submit" class="button">Place bid</button>
                                 </form>
+                            @elseif($is_auth && $lot->user_id === auth()->id())
+                                <p class="lot-item__expired-message">You cannot bid on your own item</p>
                             @elseif($lot->status !== 'active')
                                 <p class="lot-item__expired-message">This lot is {{ $lot->status }}</p>
                             @elseif(!$isLotActive)
