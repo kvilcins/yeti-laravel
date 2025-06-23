@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Cocur\Slugify\Slugify;
+use Illuminate\Support\Facades\Storage;
 
 class Item extends Model
 {
@@ -92,6 +93,12 @@ class Item extends Model
         static::updating(function ($model) {
             if ($model->isDirty('title')) {
                 $model->slug = static::generateSlug($model->title);
+            }
+        });
+
+        static::deleting(function ($item) {
+            if ($item->img && !str_starts_with($item->img, 'img/')) {
+                Storage::delete('public/' . $item->img);
             }
         });
     }

@@ -67,19 +67,21 @@ class LotManagementController extends Controller
 
     private function handleImageUpload(Request $request, Item $lot): void
     {
-        if ($lot->img && file_exists(public_path($lot->img))) {
-            unlink(public_path($lot->img));
+        if (!$request->hasFile('lot_img')) {
+            return;
         }
 
-        $imageName = uniqid() . '.' . $request->file('lot_img')->extension();
-        $request->file('lot_img')->move(public_path('img'), $imageName);
-        $lot->img = 'img/' . $imageName;
+        if ($lot->img && !str_starts_with($lot->img, 'img/')) {
+            Storage::delete('public/' . $lot->img);
+        }
+
+        $lot->img = $request->file('lot_img')->store('lots', 'public');
     }
 
     private function removeLotImage(Item $lot): void
     {
-        if ($lot->img && file_exists(public_path($lot->img))) {
-            unlink(public_path($lot->img));
+        if ($lot->img && !str_starts_with($lot->img, 'img/')) {
+            Storage::delete('public/' . $lot->img);
             $lot->img = null;
         }
     }
