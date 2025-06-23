@@ -110,12 +110,19 @@ class LotManagementController extends Controller
             abort(403, 'Only administrators can delete lots');
         }
 
-        if ($lot->img && file_exists(public_path($lot->img))) {
-            unlink(public_path($lot->img));
+        if ($lot->img && !str_starts_with($lot->img, 'img/')) {
+            Storage::delete('public/' . $lot->img);
         }
 
         $lot->delete();
 
-        return redirect()->back()->with('success', 'Lot deleted successfully!');
+        if (request()->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Lot deleted successfully!'
+            ]);
+        }
+
+        return redirect()->route('profile.')->with('success', 'Lot deleted successfully!');
     }
 }
