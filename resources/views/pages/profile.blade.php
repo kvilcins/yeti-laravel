@@ -207,21 +207,25 @@
                                     @foreach($wonLots as $lot)
                                         <div class="profile__lot-card profile__lot-card--won">
                                             <div class="profile__lot-image">
-                                                @php
-                                                    $imagePath = $lot->img;
-                                                    if (str_starts_with($imagePath, 'img/')) {
-                                                        $imageUrl = asset($imagePath);
-                                                    } else {
-                                                        $imageUrl = asset('storage/' . $imagePath);
-                                                    }
-                                                @endphp
-                                                <img src="{{ $imageUrl }}" alt="{{ $lot->title }}" class="profile__lot-img">
-                                                <div class="profile__lot-status profile__lot-status--won">Won</div>
+                                                <img src="{{ $lot->image_url }}" alt="{{ $lot->title }}" class="profile__lot-img">
+                                                <div class="profile__lot-status profile__lot-status--won">🏆 Won</div>
                                             </div>
                                             <div class="profile__lot-info">
                                                 <h3 class="profile__lot-title">{{ $lot->title }}</h3>
                                                 <p class="profile__lot-price">Winning bid: {{ formatPrice($lot->getCurrentPrice()) }}</p>
-                                                <a href="{{ route('lot.show', [$lot->category->slug, $lot->slug]) }}" class="profile__lot-btn profile__lot-btn--view">View</a>
+                                                <p class="profile__lot-category">{{ $lot->category->name }}</p>
+                                                <p class="profile__lot-date">Won on: {{ \Carbon\Carbon::parse($lot->timer)->format('d.m.Y H:i') }}</p>
+
+                                                @if($lot->user->contact_details)
+                                                    <div class="profile__lot-contact">
+                                                        <strong>Seller contact:</strong>
+                                                        <p>{{ $lot->user->contact_details }}</p>
+                                                    </div>
+                                                @endif
+
+                                                <div class="profile__lot-actions">
+                                                    <a href="{{ route('lot.show', [$lot->category->slug, $lot->slug]) }}" class="profile__lot-btn profile__lot-btn--view">View Details</a>
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach
