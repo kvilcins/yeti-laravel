@@ -66,9 +66,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-// Routes for authenticated users (не требуют верификацию)
+// Routes for authenticated users
 Route::middleware('auth')->group(function () {
-    // User profile (можно редактировать без верификации)
+    // User profile
     Route::prefix('account')->name('profile.')->group(function () {
         Route::get('/', [ProfileController::class, 'show'])->name('');
         Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
@@ -76,7 +76,10 @@ Route::middleware('auth')->group(function () {
         Route::delete('/avatar', [ProfileController::class, 'deleteAvatar'])->name('avatar.delete');
     });
 
-    // Viewed lots (можно просматривать без верификации)
+    // Bids management
+    Route::delete('/bids/{id}', [BidController::class, 'destroy'])->name('bids.destroy');
+
+    // Viewed lots
     Route::get('/viewed-lots', [ViewedLotsController::class, 'index'])->name('viewed.lots');
 });
 

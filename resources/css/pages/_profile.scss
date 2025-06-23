@@ -699,6 +699,30 @@
     display: none !important;
 }
 
+.profile__bid-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.profile__bid-form {
+    display: inline;
+}
+
+.profile__bid-btn--delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+
+    &:hover {
+        background-color: #c82333;
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

@@ -186,7 +186,18 @@
                                             <div class="profile__bid-details">
                                                 <p class="profile__bid-amount">My bid: {{ formatPrice($bid->bid_amount) }}</p>
                                                 <p class="profile__bid-time">{{ $bid->bid_time->format('d.m.Y H:i') }}</p>
-                                                <a href="{{ route('lot.show', [$bid->lot->category->slug, $bid->lot->slug]) }}" class="profile__bid-btn">View Lot</a>
+                                                <div class="profile__bid-actions">
+                                                    <a href="{{ route('lot.show', [$bid->lot->category->slug, $bid->lot->slug]) }}" class="profile__bid-btn">View Lot</a>
+
+                                                    @if(auth()->user()->isAdmin() || $bid->user_id === auth()->id())
+                                                        <form method="POST" action="{{ route('bids.destroy', $bid->id) }}" class="profile__bid-form" onsubmit="return confirm('Are you sure you want to delete this bid?')">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <input type="hidden" name="from_profile" value="1">
+                                                            <button type="submit" class="profile__bid-btn profile__bid-btn--delete">Delete Bid</button>
+                                                        </form>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach

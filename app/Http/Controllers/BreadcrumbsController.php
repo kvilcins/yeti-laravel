@@ -16,6 +16,7 @@ class BreadcrumbsController extends Controller
         'profile.edit' => ['type' => 'page', 'title' => 'Edit Profile', 'parent' => 'profile.'],
         'viewed.lots' => ['type' => 'page', 'title' => 'Viewed Items'],
         'lot.create' => ['type' => 'page', 'title' => 'Add Item'],
+        'lot.edit' => ['type' => 'page', 'title' => 'Edit Item', 'parent' => 'profile.'],
         'search' => ['type' => 'page', 'title' => 'Search'],
         'catalog' => ['type' => 'page', 'title' => 'Catalog'],
         'category.show' => ['type' => 'category', 'show_catalog' => true],
@@ -64,13 +65,19 @@ class BreadcrumbsController extends Controller
         };
     }
 
-    private function addPageBreadcrumb(string $routeName, array $config, array &$breadcrumbs): void
+    private function addPageBreadcrumb(string $routeName, array $config, array &$breadcrumbs, array $routeParameters = []): void
     {
         $page = $this->getPageByRoute($routeName);
 
+        try {
+            $url = route($routeName, $routeParameters);
+        } catch (\Exception $e) {
+            $url = '#';
+        }
+
         $breadcrumbs[] = [
             'title' => $page?->title ?? $config['title'],
-            'url' => route($routeName)
+            'url' => $url
         ];
     }
 
