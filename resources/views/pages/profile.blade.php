@@ -3,15 +3,6 @@
 @section('title', 'Profile')
 
 @section('content')
-    @php
-        $avatar = auth()->user()->avatar;
-        if ($avatar) {
-            $isPublic = str_starts_with($avatar, 'img/');
-            $avatarUrl = $isPublic ? asset($avatar) : asset('storage/' . $avatar);
-        } else {
-            $avatarUrl = asset('img/default-avatar.jpg');
-        }
-    @endphp
 
     <main>
         <div class="container">
@@ -90,7 +81,7 @@
                                         <input class="profile__file-input" type="file" name="avatar" id="avatar" accept="image/*">
 
                                         <div class="profile__avatar">
-                                            <img src="{{ $avatarUrl }}" alt="Avatar preview" class="profile__avatar-img" id="avatarPreview">
+                                            <img src="{{ auth()->user()->avatar_url }}" alt="Avatar preview" class="profile__avatar-img" id="avatarPreview">
 
                                             @if(auth()->user()->avatar)
                                                 <button type="button" class="profile__avatar-delete" id="deleteAvatarBtn" title="Delete avatar">×</button>

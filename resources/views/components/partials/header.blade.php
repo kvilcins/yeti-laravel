@@ -19,7 +19,7 @@
                     @endif
 
                     <div class="user-menu__avatar">
-                        <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('img/default-avatar.jpg') }}"
+                        <img src="{{ auth()->user()->avatar_url }}"
                              width="40"
                              height="40"
                              alt="User"

@@ -128,7 +128,7 @@ class ProfileController extends Controller
             return;
         }
 
-        if ($user->avatar) {
+        if ($user->avatar && !str_starts_with($user->avatar, 'img/')) {
             Storage::delete('public/' . $user->avatar);
         }
 
@@ -140,7 +140,7 @@ class ProfileController extends Controller
      */
     private function removeUserAvatar(User $user): void
     {
-        if ($user->avatar) {
+        if ($user->avatar && !str_starts_with($user->avatar, 'img/')) {
             Storage::delete('public/' . $user->avatar);
             $user->avatar = null;
         }

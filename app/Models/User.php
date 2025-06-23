@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -30,6 +31,27 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            if ($user->avatar && !str_starts_with($user->avatar, 'img/')) {
+                Storage::delete('public/' . $user->avatar);
+            }
+        });
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        if ($this->avatar) {
+            $isPublic = str_starts_with($this->avatar, 'img/');
+            return $isPublic ? asset($this->avatar) : asset('storage/' . $this->avatar);
+        }
+
+        return asset('img/default-avatar.jpg');
+    }
 
     public function isAdmin()
     {
