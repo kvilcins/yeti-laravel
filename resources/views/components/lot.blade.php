@@ -1,14 +1,6 @@
 <li class="lots__item lot">
     <div class="lot__image">
-        @php
-            $imagePath = $ad->img;
-            if (str_starts_with($imagePath, 'img/')) {
-                $imageUrl = asset($imagePath);
-            } else {
-                $imageUrl = asset('storage/' . $imagePath);
-            }
-        @endphp
-        <img src="{{ $imageUrl }}" width="350" height="260" alt="{{ $ad->title }}">
+        <img src="{{ $ad->image_url }}" width="350" height="260" alt="{{ $ad->title }}">
 
         <div class="lot__status lot__status--{{ $ad->status ?? 'active' }}">
             {{ ucfirst($ad->status ?? 'active') }}

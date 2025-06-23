@@ -43,15 +43,7 @@
                 <div class="lot-item__content">
                     <div class="lot-item__left">
                         <div class="lot-item__image">
-                            @php
-                                $imagePath = $lot->img;
-                                if (str_starts_with($imagePath, 'img/')) {
-                                    $imageUrl = asset($imagePath);
-                                } else {
-                                    $imageUrl = asset('storage/' . $imagePath);
-                                }
-                            @endphp
-                            <img src="{{ $imageUrl }}" alt="{{ $lot->title }}">
+                            <img src="{{ $lot->image_url }}" alt="{{ $lot->title }}">
                         </div>
                         <p class="lot-item__category">Category: <span>{{ $lot->category->name }}</span></p>
                         <p class="lot-item__owner">Owner: <span>{{ $lot->user->name }}</span></p>

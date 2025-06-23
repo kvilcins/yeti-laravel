@@ -47,6 +47,16 @@ class Item extends Model
         return $this->belongsTo(User::class, 'winner_id');
     }
 
+    public function getImageUrlAttribute()
+    {
+        if ($this->img) {
+            $isPublic = str_starts_with($this->img, 'img/');
+            return $isPublic ? asset($this->img) : asset('storage/' . $this->img);
+        }
+
+        return asset('img/noimage.jpg');
+    }
+
     public function getHighestBid()
     {
         return $this->bids()->orderBy('bid_amount', 'desc')->first();

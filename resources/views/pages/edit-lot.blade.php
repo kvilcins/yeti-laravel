@@ -56,15 +56,7 @@
 
                     <div class="form__preview {{ $lot->img ? 'form__preview--visible' : '' }}">
                         @if($lot->img)
-                            @php
-                                $imagePath = $lot->img;
-                                if (str_starts_with($imagePath, 'img/')) {
-                                    $imageUrl = asset($imagePath);
-                                } else {
-                                    $imageUrl = asset('storage/' . $imagePath);
-                                }
-                            @endphp
-                            <img src="{{ $imageUrl }}" alt="Current lot image" class="form__preview-img">
+                            <img src="{{ $lot->image_url }}" alt="Current lot image" class="form__preview-img">
                         @else
                             <img src="" alt="Image preview" class="form__preview-img">
                         @endif

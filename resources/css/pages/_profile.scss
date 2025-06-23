@@ -696,7 +696,7 @@
 }
 
 .profile__avatar-delete--hidden {
-    display: none;
+    display: none !important;
 }
 
 @keyframes fadeIn {

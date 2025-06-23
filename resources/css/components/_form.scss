@@ -162,3 +162,39 @@ select.form__input {
         border-color: $border;
     }
 }
+
+.form__delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.form__delete-btn:hover {
+    background: rgba(220, 38, 38, 0.9);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.6);
+}
+
+.form__delete-btn:active {
+    transform: scale(0.95);
+}
+
+.form__preview {
+    position: relative;
+}

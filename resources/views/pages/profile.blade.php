@@ -127,15 +127,7 @@
                                     @foreach($userLots as $lot)
                                         <div class="profile__lot-card">
                                             <div class="profile__lot-image">
-                                                @php
-                                                    $imagePath = $lot->img;
-                                                    if (str_starts_with($imagePath, 'img/')) {
-                                                        $imageUrl = asset($imagePath);
-                                                    } else {
-                                                        $imageUrl = asset('storage/' . $imagePath);
-                                                    }
-                                                @endphp
-                                                <img src="{{ $imageUrl }}" alt="{{ $lot->title }}" class="profile__lot-img">
+                                                <img src="{{ $lot->image_url }}" alt="{{ $lot->title }}" class="profile__lot-img">
                                                 <div class="profile__lot-status profile__lot-status--{{ $lot->status }}">
                                                     {{ ucfirst($lot->status) }}
                                                 </div>

@@ -6,5 +6,5 @@ import './modules/fixed-scroll.js';
 import './modules/scroll-to-top.js';
 import './modules/modals.js';
 import './modules/tabs.js';
-import './modules/avatar-preview.js';
+import './modules/image-preview.js';
 import './modules/form-validation.js';
