@@ -28,7 +28,6 @@ class GenerateSitemap extends Command
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
             ->setPriority(1.0));
 
-        // Other static pages
         $staticPages = [
             route('home') => ['frequency' => Url::CHANGE_FREQUENCY_DAILY, 'priority' => 1.0],
         ];
