@@ -14,6 +14,15 @@ class BackupDataSeeder extends Seeder
 {
     public function run()
     {
+        $this->backupItems();
+        $this->backupCategories();
+        $this->backupUsers();
+        $this->backupPages();
+        $this->backupBids();
+    }
+
+    private function backupItems()
+    {
         $items = Item::all()->toArray();
 
         $formattedItems = array_map(function($item) {
@@ -33,15 +42,23 @@ class BackupDataSeeder extends Seeder
             ];
         }, $items);
 
-        $existingItems = Config::get('items', []);
+        $configPath = config_path('items.php');
+        $existingItems = file_exists($configPath) ? include $configPath : [];
+
+        if (!is_array($existingItems)) {
+            $existingItems = [];
+        }
 
         $mergedItems = array_merge($existingItems, $formattedItems);
         $mergedItems = $this->removeDuplicates($mergedItems, 'id');
 
-        Config::set('items', $mergedItems);
+        file_put_contents($configPath, '<?php return ' . var_export($mergedItems, true) . ';');
 
-        file_put_contents(config_path('items.php'), '<?php return ' . var_export($mergedItems, true) . ';');
+        echo "Items backup completed: " . count($mergedItems) . " items\n";
+    }
 
+    private function backupCategories()
+    {
         $categories = Category::all()->toArray();
 
         $formattedCategories = array_map(function($category) {
@@ -53,18 +70,24 @@ class BackupDataSeeder extends Seeder
             ];
         }, $categories);
 
-        $existingCategories = Config::get('categories', []);
+        $configPath = config_path('categories.php');
+        $existingCategories = file_exists($configPath) ? include $configPath : [];
+
+        if (!is_array($existingCategories)) {
+            $existingCategories = [];
+        }
 
         $mergedCategories = array_merge($existingCategories, $formattedCategories);
         $mergedCategories = $this->removeDuplicates($mergedCategories, 'id');
 
-        Config::set('categories', $mergedCategories);
+        file_put_contents($configPath, '<?php return ' . var_export($mergedCategories, true) . ';');
 
-        file_put_contents(config_path('categories.php'), '<?php return ' . var_export($mergedCategories, true) . ';');
+        echo "Categories backup completed: " . count($mergedCategories) . " categories\n";
+    }
 
+    private function backupUsers()
+    {
         $users = User::all();
-
-        $existingUsers = Config::get('userdata', []);
 
         $formattedUsers = $users->map(function($user) {
             return [
@@ -82,13 +105,23 @@ class BackupDataSeeder extends Seeder
             ];
         })->toArray();
 
+        $configPath = config_path('userdata.php');
+        $existingUsers = file_exists($configPath) ? include $configPath : [];
+
+        if (!is_array($existingUsers)) {
+            $existingUsers = [];
+        }
+
         $mergedUsers = array_merge($existingUsers, $formattedUsers);
         $mergedUsers = $this->removeDuplicates($mergedUsers, 'id');
 
-        Config::set('userdata', $mergedUsers);
+        file_put_contents($configPath, '<?php return ' . var_export($mergedUsers, true) . ';');
 
-        file_put_contents(config_path('userdata.php'), '<?php return ' . var_export($mergedUsers, true) . ';');
+        echo "Users backup completed: " . count($mergedUsers) . " users\n";
+    }
 
+    private function backupPages()
+    {
         $pages = Page::all()->toArray();
 
         $formattedPages = array_map(function($page) {
@@ -103,7 +136,8 @@ class BackupDataSeeder extends Seeder
             ];
         }, $pages);
 
-        $existingPages = Config::get('pages', []);
+        $configPath = config_path('pages.php');
+        $existingPages = file_exists($configPath) ? include $configPath : [];
 
         if (!is_array($existingPages)) {
             $existingPages = [];
@@ -112,10 +146,13 @@ class BackupDataSeeder extends Seeder
         $mergedPages = array_merge($existingPages, $formattedPages);
         $mergedPages = $this->removeDuplicates($mergedPages, 'id');
 
-        Config::set('pages', $mergedPages);
+        file_put_contents($configPath, '<?php return ' . var_export($mergedPages, true) . ';');
 
-        file_put_contents(config_path('pages.php'), '<?php return ' . var_export($mergedPages, true) . ';');
+        echo "Pages backup completed: " . count($mergedPages) . " pages\n";
+    }
 
+    private function backupBids()
+    {
         $bids = Bid::all()->toArray();
 
         $formattedBids = array_map(function ($bid) {
@@ -130,15 +167,19 @@ class BackupDataSeeder extends Seeder
             ];
         }, $bids);
 
-        $existingBids = Config::get('bids', []);
+        $configPath = config_path('bids.php');
+        $existingBids = file_exists($configPath) ? include $configPath : [];
+
+        if (!is_array($existingBids)) {
+            $existingBids = [];
+        }
 
         $mergedBids = array_merge($existingBids, $formattedBids);
         $mergedBids = $this->removeDuplicates($mergedBids, 'id');
 
-        Config::set('bids', $mergedBids);
+        file_put_contents($configPath, '<?php return ' . var_export($mergedBids, true) . ';');
 
-        file_put_contents(config_path('bids.php'), '<?php return ' . var_export($mergedBids, true) . ';');
-
+        echo "Bids backup completed: " . count($mergedBids) . " bids\n";
     }
 
     private function removeDuplicates($array, $key)

@@ -69,7 +69,7 @@
                 </div>
 
                 <div class="form__item {{ $errors->has('lot_step') ? 'form__item--invalid' : '' }}" id="lot_stepGroup">
-                    <label class="form__label" for="lot_step">Bid Step</label>
+                    <label class="form__label" for="lot_step">Min. bid</label>
                     <input class="form__input" id="lot_step" type="number" name="lot_step" placeholder="0" value="{{ old('lot_step') }}">
                     <span class="form__error" id="lot_stepError">
                         @error('lot_step'){{ $message }}@enderror

@@ -351,50 +351,56 @@ Special coating prevents the mask from fogging up.',
   ),
   15 => 
   array (
-    'id' => 23,
-    'title' => 'Airhole Full Hinge balaclava',
-    'slug' => 'airhole-full-hinge-balaclava
-',
-    'description' => 'Comfortable Airhole balaclava with signature breathing hole designed for winter sports. The model reliably protects the face from snow and headwind.',
-    'price' => 4699,
-    'min_bid' => 500,
-    'img' => 'img/68527c37e6425.jpg',
-    'category_id' => 4,
+    'id' => 16,
+    'title' => 'OutdoorMaster Suni Ski Helmet',
+    'slug' => 'outdoormaster-suni-ski-helmet',
+    'description' => 'Superior Protection: OutdoorMaster Ski Helmet is made with high-strength ABS shell and high-density EPS core, ensuring durability and impact resistance. It complies with ASTM F2040-18 certification standards, providing reliable safety protection.
+2 Sizes: M (55-58 cm, 600 g) and L (58-61 cm, 610 g). Snowboard helmet is equipped with an adjustable dial and straps to ensure a proper fit for various head shapes.
+Stay Comfortable: Snowboard helmet features a goggle strap holder, a removable and washable velvet liner and ear pads, ear pads compatible with Bluetooth headphones, 6 ventilation holes. It offers a comfortable wearing experience.
+Versatile Helmet: Includes a visor to effectively block sunlight and reduce wind resistance, making it ideal for skiing, biking, skateboarding, and other activities.
+What You Get: 1 x OutdoorMaster Ski Helmet and dedicated customer service. If you have any questions or issues with the helmet, Please feel free to contact us. We are here to assist you.',
+    'price' => 40,
+    'min_bid' => 40,
+    'img' => 'lots/gT7MIP15WopGIlzC9RGMjBvgR5JF0SEyIRTiS600.webp',
+    'category_id' => 6,
+    'timer' => '2025-10-04 00:00:00',
     'user_id' => 1,
     'status' => 'active',
     'winner_id' => NULL,
   ),
   16 => 
   array (
-    'id' => 25,
+    'id' => 17,
     'title' => 'Uvex Wanted helmet',
     'slug' => 'helmet-uvex-wanted',
     'description' => 'All-mountain helmet with deep fit Uvex wanted. Durable Hardshell external construction and shock-absorbing EPS inner layer guarantee maximum protection. Lining with additional insulation in the neck area for comfort during riding. Adjustable ventilation maintains optimal microclimate inside the helmet.',
-    'price' => 12999,
-    'min_bid' => 500,
-    'img' => 'img/683f52208745a.jpg',
+    'price' => 100,
+    'min_bid' => 100,
+    'img' => 'lots/KPoeqOwfMz7BFYh3mnyeGuEO7eyvLflM9YC4KHHP.jpg',
     'category_id' => 6,
+    'timer' => '2025-06-25 00:00:00',
     'user_id' => 2,
     'status' => 'active',
     'winner_id' => NULL,
   ),
   17 => 
   array (
-    'id' => 26,
+    'id' => 18,
     'title' => 'Snowboard Termit Savage',
     'slug' => 'snowboard-termit-savage',
     'description' => 'Savage snowboard from Termit — the perfect choice for freeride enthusiasts. Reliable all-mountain board suitable for riding on high slopes, excellently handles high-speed descents on groomed runs and floats in light powder.',
-    'price' => 27999,
-    'min_bid' => 1000,
-    'img' => 'img/684ffc9078641.jpg',
+    'price' => 259,
+    'min_bid' => 259,
+    'img' => 'lots/QM8YFrrZbOWKcdmcXOvXHpyxse2zrrPZ2vE920F2.jpg',
     'category_id' => 1,
+    'timer' => '2025-06-25 00:00:00',
     'user_id' => 6,
     'status' => 'active',
     'winner_id' => NULL,
   ),
   18 => 
   array (
-    'id' => 16,
+    'id' => 19,
     'title' => 'Airhole Full Hinge balaclava',
     'slug' => 'airhole-full-hinge-balaclava
 ',
@@ -410,52 +416,7 @@ Special coating prevents the mask from fogging up.',
   ),
   19 => 
   array (
-    'id' => 17,
-    'title' => 'Uvex Wanted helmet',
-    'slug' => 'helmet-uvex-wanted',
-    'description' => 'All-mountain helmet with deep fit Uvex wanted. Durable Hardshell external construction and shock-absorbing EPS inner layer guarantee maximum protection. Lining with additional insulation in the neck area for comfort during riding. Adjustable ventilation maintains optimal microclimate inside the helmet.',
-    'price' => 100,
-    'min_bid' => 100,
-    'img' => 'lots/KPoeqOwfMz7BFYh3mnyeGuEO7eyvLflM9YC4KHHP.jpg',
-    'category_id' => 6,
-    'timer' => '2025-06-25 00:00:00',
-    'user_id' => 2,
-    'status' => 'active',
-    'winner_id' => NULL,
-  ),
-  20 => 
-  array (
-    'id' => 18,
-    'title' => 'Snowboard Termit Savage',
-    'slug' => 'snowboard-termit-savage',
-    'description' => 'Savage snowboard from Termit — the perfect choice for freeride enthusiasts. Reliable all-mountain board suitable for riding on high slopes, excellently handles high-speed descents on groomed runs and floats in light powder.',
-    'price' => 259,
-    'min_bid' => 259,
-    'img' => 'lots/QM8YFrrZbOWKcdmcXOvXHpyxse2zrrPZ2vE920F2.jpg',
-    'category_id' => 1,
-    'timer' => '2025-06-25 00:00:00',
-    'user_id' => 6,
-    'status' => 'active',
-    'winner_id' => NULL,
-  ),
-  21 => 
-  array (
     'id' => 20,
-    'title' => 'Snowboard Head True 2.0',
-    'slug' => 'snowboard-head-true-2-0',
-    'description' => 'The updated directional hybrid board of medium rigidity is suitable for riders who want to progress, increase speed and improve the quality of riding. The camber-like shape of the model is more practical: the central area of the board is completely flat and strongly elevated above the contact points. This guarantees high accuracy of driving, the ability to pump the board well, while better feeling the edge in the batter on the plane.',
-    'price' => 400,
-    'min_bid' => 400,
-    'img' => NULL,
-    'category_id' => 1,
-    'timer' => '2025-06-23 00:00:00',
-    'user_id' => 1,
-    'status' => 'completed',
-    'winner_id' => 7,
-  ),
-  22 => 
-  array (
-    'id' => 19,
     'title' => 'Rossignol Cobra Snowboard Bindings',
     'slug' => 'rossignol-cobra-snowboard-bindings',
     'description' => 'Powerful Cobra M/L bindings for the most precise board control.
@@ -473,22 +434,55 @@ DURABILITY Reliable polyurethane base increases product durability.',
     'status' => 'active',
     'winner_id' => NULL,
   ),
-  23 => 
+  20 => 
   array (
     'id' => 21,
-    'title' => 'Rossignol Cobra Snowboard Bindings',
-    'slug' => 'rossignol-cobra-snowboard-bindings',
-    'description' => 'Powerful Cobra M/L bindings for the most precise board control.
-
-PRECISE ENERGY TRANSFER Asymmetric highback fits snugly against the boot and transfers energy to the board, 2.5° base angle for a more natural stance and efficient control.
-CUSHIONING Dual-density padding under the foot absorbs impacts and vibrations.
-SECURE FIXATION Features anatomical 3D straps, lightweight and reliable aluminum buckles for secure fixation.
-DURABILITY Reliable polyurethane base increases product durability.',
-    'price' => 300,
-    'min_bid' => 10,
-    'img' => 'lots/zpHZTfU9Y7t7SYbgiTgaAyBvsk7m8k0k9L064ZRm.jpg',
-    'category_id' => 2,
-    'timer' => '2025-10-05 00:00:00',
+    'title' => 'Snowboard Head True 2.0',
+    'slug' => 'snowboard-head-true-2-0',
+    'description' => 'The updated directional hybrid board of medium rigidity is suitable for riders who want to progress, increase speed and improve the quality of riding. The camber-like shape of the model is more practical: the central area of the board is completely flat and strongly elevated above the contact points. This guarantees high accuracy of driving, the ability to pump the board well, while better feeling the edge in the batter on the plane.',
+    'price' => 400,
+    'min_bid' => 400,
+    'img' => NULL,
+    'category_id' => 1,
+    'timer' => '2025-06-23 00:00:00',
+    'user_id' => 1,
+    'status' => 'completed',
+    'winner_id' => 7,
+  ),
+  21 => 
+  array (
+    'id' => 22,
+    'title' => 'Burton Men\'s Process Snowboard',
+    'slug' => 'burton-men-s-process-snowboard',
+    'description' => 'Twin Shape is perfectly symmetrical for a balanced ride whether you\'re riding regular or switch; Twin Flex is perfectly symmetrical from tip to tail
+PurePop Camber Bend features subtle flat zones to amplify pop; Super Fly II 700G Core uses stronger and lighter woods for added pop and strength
+Dualzone EGD increases edge-hold and response using engineered wood grain along the toe and heel edges; Triax Fiberglass provides versatile flex and response on every ride
+Sintered Base is highly porous for added durability and superior wax absorption; The Channel Board Mount dials-in your stance and works with all major bindings
+3-YEAR WARRANTY All 2014 and newer Burton snowboards with The Channel mounting system (such as the one you are looking at here) are backed by a three-year warranty from date of purchase.',
+    'price' => 357,
+    'min_bid' => 357,
+    'img' => 'lots/oScaBO16C0GyqN2nVLJiuzUwVcC1oDJIdRkJ6uxR.jpg',
+    'category_id' => 1,
+    'timer' => '2025-09-07 00:00:00',
+    'user_id' => 1,
+    'status' => 'active',
+    'winner_id' => NULL,
+  ),
+  22 => 
+  array (
+    'id' => 23,
+    'title' => 'MOERDENG Women\'s Waterproof Ski Jacket',
+    'slug' => 'moerdeng-women-s-waterproof-ski-jacket',
+    'description' => 'Waterproof: Professional waterproof jacket. The outer fabric is waterproof and quick dry. All the zipper design can effectively resisting the water or rain, also can fights for bad weather, always keep your body dry and comfortable
+Windproof: 1) Adjustable hook & loop fastener cuffs help seal in warmth. 2) Internal drawcord hem, detachable and adjustable storm hood help to keep wind out. 3) Wear resisting soft shell is highly windproof.
+Professional waterproof coated, fluff lining and durable fabric guarantees the best heat retention, Relaxed-fit style with quick-dry material.
+Multipurpose：Downhill Skiing, Snowboarding, Snowsports and other winter outdoor sports.
+Size notes: Jacket offers a standard fit. Please choose by US size.',
+    'price' => 56,
+    'min_bid' => 56,
+    'img' => 'lots/xtxjlpdTFsU3N1KdS4FvR8GkpLngUx9KuITp4BDc.jpg',
+    'category_id' => 4,
+    'timer' => '2025-08-31 00:00:00',
     'user_id' => 1,
     'status' => 'active',
     'winner_id' => NULL,
