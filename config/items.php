@@ -302,7 +302,7 @@ Velour padding, ventilated frame and silicone-coated strap guarantee comfortable
   array (
     'id' => 13,
     'title' => 'Uvex Splash ski goggles',
-    'slug' => 'maska-gornolyzhnaya-uvex-splash',
+    'slug' => 'uvex-splash-ski-goggles',
     'description' => 'Lightweight mask for riding in cloudy weather from Uvex.
 
 UV PROTECTION
@@ -323,7 +323,7 @@ Special coating prevents the mask from fogging up.',
   array (
     'id' => 14,
     'title' => 'Nitro Team TLS snowboard boots',
-    'slug' => 'snoubordicheskie-botinki-nitro-team-tls',
+    'slug' => 'nitro-team-tls-snowboard-boots',
     'description' => 'Stiff Nitro boots for advanced and professional riders. Suitable for all-mountain riding and backcountry. Removable tongue stiffener allows you to adjust stiffness to your riding style.',
     'price' => 100,
     'min_bid' => 20,
@@ -338,7 +338,7 @@ Special coating prevents the mask from fogging up.',
   array (
     'id' => 15,
     'title' => 'Airhole Balaclava Full Hinge',
-    'slug' => 'balaklava-airhole-balaclava-full-hinge',
+    'slug' => 'airhole-balaclava-full-hinge',
     'description' => 'Comfortable Airhole balaclava with signature breathing hole designed for winter sports. The model reliably protects the face from snow and headwind.',
     'price' => 4699,
     'min_bid' => 500,
@@ -382,7 +382,7 @@ Special coating prevents the mask from fogging up.',
   array (
     'id' => 26,
     'title' => 'Snowboard Termit Savage',
-    'slug' => 'snoubord-termit-savage',
+    'slug' => 'snowboard-termit-savage',
     'description' => 'Savage snowboard from Termit — the perfect choice for freeride enthusiasts. Reliable all-mountain board suitable for riding on high slopes, excellently handles high-speed descents on groomed runs and floats in light powder.',
     'price' => 27999,
     'min_bid' => 1000,
@@ -427,7 +427,7 @@ Special coating prevents the mask from fogging up.',
   array (
     'id' => 18,
     'title' => 'Snowboard Termit Savage',
-    'slug' => 'snoubord-termit-savage',
+    'slug' => 'snowboard-termit-savage',
     'description' => 'Savage snowboard from Termit — the perfect choice for freeride enthusiasts. Reliable all-mountain board suitable for riding on high slopes, excellently handles high-speed descents on groomed runs and floats in light powder.',
     'price' => 27999,
     'min_bid' => 1000,
@@ -440,22 +440,27 @@ Special coating prevents the mask from fogging up.',
   ),
   21 => 
   array (
-    'id' => 19,
-    'title' => 'test',
-    'slug' => 'test',
-    'description' => 'test',
-    'price' => 333,
-    'min_bid' => 22,
-    'img' => 'img/6857f7c1decdb.webp',
-    'category_id' => 1,
-    'timer' => '2025-07-06 00:00:00',
-    'user_id' => 3,
-    'status' => 'inactive',
+    'id' => 20,
+    'title' => 'Rossignol Cobra Snowboard Bindings',
+    'slug' => 'rossignol-cobra-snowboard-bindings',
+    'description' => 'Powerful Cobra M/L bindings for the most precise board control.
+
+PRECISE ENERGY TRANSFER Asymmetric highback fits snugly against the boot and transfers energy to the board, 2.5° base angle for a more natural stance and efficient control.
+CUSHIONING Dual-density padding under the foot absorbs impacts and vibrations.
+SECURE FIXATION Features anatomical 3D straps, lightweight and reliable aluminum buckles for secure fixation.
+DURABILITY Reliable polyurethane base increases product durability.',
+    'price' => 300,
+    'min_bid' => 10,
+    'img' => 'lots/zpHZTfU9Y7t7SYbgiTgaAyBvsk7m8k0k9L064ZRm.jpg',
+    'category_id' => 2,
+    'timer' => '2025-10-05 00:00:00',
+    'user_id' => 1,
+    'status' => 'active',
     'winner_id' => NULL,
   ),
   22 => 
   array (
-    'id' => 20,
+    'id' => 19,
     'title' => 'Snowboard Head True 2.0',
     'slug' => 'snowboard-head-true-2-0',
     'description' => 'The updated directional hybrid board of medium rigidity is suitable for riders who want to progress, increase speed and improve the quality of riding. The camber-like shape of the model is more practical: the central area of the board is completely flat and strongly elevated above the contact points. This guarantees high accuracy of driving, the ability to pump the board well, while better feeling the edge in the batter on the plane.',
@@ -471,14 +476,19 @@ Special coating prevents the mask from fogging up.',
   23 => 
   array (
     'id' => 21,
-    'title' => 'Test lot',
-    'slug' => 'test-lot',
-    'description' => 'Description',
-    'price' => 100,
+    'title' => 'Rossignol Cobra Snowboard Bindings',
+    'slug' => 'rossignol-cobra-snowboard-bindings',
+    'description' => 'Powerful Cobra M/L bindings for the most precise board control.
+
+PRECISE ENERGY TRANSFER Asymmetric highback fits snugly against the boot and transfers energy to the board, 2.5° base angle for a more natural stance and efficient control.
+CUSHIONING Dual-density padding under the foot absorbs impacts and vibrations.
+SECURE FIXATION Features anatomical 3D straps, lightweight and reliable aluminum buckles for secure fixation.
+DURABILITY Reliable polyurethane base increases product durability.',
+    'price' => 300,
     'min_bid' => 10,
-    'img' => NULL,
-    'category_id' => 1,
-    'timer' => '2025-06-25 00:00:00',
+    'img' => 'lots/zpHZTfU9Y7t7SYbgiTgaAyBvsk7m8k0k9L064ZRm.jpg',
+    'category_id' => 2,
+    'timer' => '2025-10-05 00:00:00',
     'user_id' => 1,
     'status' => 'active',
     'winner_id' => NULL,

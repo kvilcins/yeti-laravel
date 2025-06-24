@@ -84,6 +84,10 @@
     max-width: 160px;
 }
 
+.user-menu__button {
+    color: $text-white;
+}
+
 @media screen and (max-width: 1023px) {
 
     .main-header__wrapper {
@@ -94,6 +98,11 @@
         width: 100%;
         padding: 10px;
 
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .user-menu__link {
         font-size: 12px;
         line-height: 15px;
     }

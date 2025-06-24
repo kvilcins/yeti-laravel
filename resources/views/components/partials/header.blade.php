@@ -35,7 +35,7 @@
                                 <a href="{{ route('viewed.lots') }}" class="user-menu__link">Viewed Items</a>
                             </li>
                             <li class="user-menu__item">
-                                <button form="logout-form" type="submit" class="user-menu__link">Logout</button>
+                                <button form="logout-form" type="submit" class="user-menu__button button">Logout</button>
                             </li>
                         </ul>
                     </div>

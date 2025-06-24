@@ -42,10 +42,6 @@
             </div>
 
             <div class="lot__timer-section">
-                <div class="lot__timer timer">
-                    {{ lot_time_left($ad->timer) }}
-                </div>
-
                 @php
                     $now = \Carbon\Carbon::now();
                     $created = \Carbon\Carbon::parse($ad->created_at ?? $now);
@@ -54,6 +50,17 @@
                     $remaining = $now->diffInMinutes($ends);
                     $progress = $total > 0 ? max(0, min(100, (($total - $remaining) / $total) * 100)) : 0;
                 @endphp
+
+                @if($ad->timer && \Carbon\Carbon::parse($ad->timer)->isPast())
+                    <div class="lot__timer lot__ended timer">
+                        {{ lot_time_left($ad->timer) }}
+                    </div>
+                @else
+                    <div class="lot__timer timer">
+                        {{ lot_time_left($ad->timer) }}
+                    </div>
+                @endif
+
                 <div class="lot__progress">
                     <div class="lot__progress-bar" style="width: {{ $progress }}%"></div>
                 </div>
@@ -62,9 +69,6 @@
 
         <div class="lot__meta">
             <span class="lot__owner">by {{ $ad->user->name ?? 'Unknown' }}</span>
-            @if($ad->timer && \Carbon\Carbon::parse($ad->timer)->isPast())
-                <span class="lot__ended">Auction ended</span>
-            @endif
         </div>
     </div>
 </li>

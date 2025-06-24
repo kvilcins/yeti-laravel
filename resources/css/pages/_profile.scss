@@ -208,6 +208,10 @@
     margin-top: 10px;
     position: relative;
     display: inline-block;
+
+    &.form__preview--visible {
+        display: block;
+    }
 }
 
 .profile__avatar-img {
