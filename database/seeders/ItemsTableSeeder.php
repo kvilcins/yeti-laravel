@@ -14,7 +14,6 @@ class ItemsTableSeeder extends Seeder
     {
         $items = config('items', []);
 
-        // Получаем первого пользователя как владельца по умолчанию для существующих лотов
         $defaultUser = User::first();
 
         foreach ($items as $item) {
@@ -33,9 +32,9 @@ class ItemsTableSeeder extends Seeder
                         'category_id' => $category->id,
                         'slug' => $item['slug'],
                         'timer' => $item['timer'] ?? null,
-                        'user_id' => $item['user_id'] ?? $defaultUser->id, // Добавляем владельца
-                        'status' => $item['status'] ?? 'active', // Добавляем статус
-                        'winner_id' => $item['winner_id'] ?? null, // Добавляем победителя
+                        'user_id' => $item['user_id'] ?? $defaultUser->id,
+                        'status' => $item['status'] ?? 'active',
+                        'winner_id' => $item['winner_id'] ?? null,
                     ]
                 );
             }

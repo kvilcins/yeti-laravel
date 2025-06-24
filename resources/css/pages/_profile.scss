@@ -3,11 +3,12 @@
 }
 
 .profile__verification-warning {
+    padding: 20px;
+    margin-bottom: 30px;
+
     background: linear-gradient(135deg, $bg-13, lighten($bg-13, 5%));
     border: 1px solid $border-light-yellow;
     border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 30px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
@@ -16,76 +17,93 @@
 }
 
 .profile__verification-title {
+    @include font($OpenSans-600);
     font-size: 18px;
-    font-weight: 600;
     color: $bg-14;
+
     margin-bottom: 10px;
 }
 
 .profile__verification-text {
     color: $bg-14;
+
     margin-bottom: 15px;
 }
 
 .profile__verification-btn {
-    background: linear-gradient(135deg, $bg-15, $bg-16);
+    @include font($OpenSans-600);
     color: $text-black;
-    border: none;
+
     padding: 10px 20px;
+
+    background: linear-gradient(135deg, $bg-15, $bg-16);
+    border: none;
     border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba($bg-15, 0.3);
+
+    cursor: pointer;
+    transition: all 0.3s ease;
 
     &:hover {
         background: linear-gradient(135deg, $bg-16, darken($bg-16, 10%));
-        transform: translateY(-2px);
         box-shadow: 0 6px 15px rgba($bg-15, 0.4);
+
+        transform: translateY(-2px);
     }
 }
 
 .profile__nav {
     display: flex;
-    border-bottom: 2px solid $border-light-gray;
-    margin-bottom: 30px;
     gap: 5px;
-    overflow-x: auto;
-    background: linear-gradient(135deg, rgba($bg-6, 0.3), rgba($button-color, 0.02));
-    border-radius: 12px 12px 0 0;
+
+    margin-bottom: 30px;
     padding: 5px;
+
+    background: linear-gradient(135deg, rgba($bg-6, 0.3), rgba($button-color, 0.02));
+    border-bottom: 2px solid $border-light-gray;
+    border-radius: 12px 12px 0 0;
+    overflow-x: auto;
 }
 
 .profile__nav-btn {
+    @include font($OpenSans-500);
+    font-size: 16px;
+    color: $text-7;
+
+    position: relative;
+
+    padding: 15px 20px;
+
     background: none;
     border: none;
-    padding: 15px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    color: $text-7;
     border-radius: 8px 8px 0 0;
-    transition: all 0.3s ease;
+
     white-space: nowrap;
-    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
 
     &:hover {
         color: $text-black;
+
         background: rgba($bg-1, 0.8);
     }
 
     &--active {
+        @include font($OpenSans-600);
         color: $button-color;
+
         background: $bg-1;
-        font-weight: 600;
 
         &::after {
             content: '';
+
             position: absolute;
             bottom: -2px;
             left: 0;
             right: 0;
+
             height: 3px;
+
             background: linear-gradient(90deg, $button-color, $button-color-hover);
             border-radius: 2px 2px 0 0;
         }
@@ -98,6 +116,7 @@
 
 .profile__panel {
     display: none;
+
     animation: fadeIn 0.3s ease-in-out;
 
     &--active {
@@ -106,15 +125,17 @@
 }
 
 .profile__title {
-    margin-bottom: 25px;
-    color: $text-black;
+    @include font($OpenSans-600);
     font-size: 24px;
-    font-weight: 600;
+    color: $text-black;
+
+    margin-bottom: 25px;
 }
 
 .profile__section {
     margin-bottom: 30px;
     padding-bottom: 20px;
+
     border-bottom: 1px solid $border-light-gray;
 
     &:last-child {
@@ -124,14 +145,16 @@
 
 .profile__section-title {
     font-size: 18px;
-    margin-bottom: 15px;
     color: $text-black;
+
+    margin-bottom: 15px;
 }
 
 .profile__section-description {
-    color: $text-5;
-    margin-bottom: 20px;
     font-size: 14px;
+    color: $text-5;
+
+    margin-bottom: 20px;
 }
 
 .profile__field {
@@ -154,113 +177,192 @@
 }
 
 .profile__label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
+    @include font($OpenSans-500);
     color: $text-black;
+
+    display: block;
+
+    margin-bottom: 8px;
 }
 
 .profile__input {
+    font-size: 16px;
+
     width: 100%;
     padding: 12px 15px;
+
     border: 1px solid $border-simple-gray;
     border-radius: 8px;
-    font-size: 16px;
+
     transition: all 0.3s ease;
 
     &:focus {
-        outline: none;
         border-color: $border;
         box-shadow: 0 0 0 3px rgba($button-color, 0.1);
+
+        outline: none;
     }
 
     &--readonly {
         background-color: $bg-11;
+
         cursor: not-allowed;
     }
 }
 
 .profile__file-input {
     position: absolute;
-    opacity: 0;
+
     width: 1px;
     height: 1px;
+
+    opacity: 0;
 }
 
 .profile__file-label {
-    background: linear-gradient(135deg, $button-color, $button-color-hover);
-    color: $text-white;
-    padding: 6px 12px;
-    border-radius: 6px;
     font-size: 12px;
+    color: $text-white;
+
+    padding: 6px 12px;
     margin-left: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+
+    background: linear-gradient(135deg, $button-color, $button-color-hover);
+    border-radius: 6px;
     box-shadow: 0 2px 8px rgba($button-color, 0.3);
 
+    cursor: pointer;
+    transition: all 0.3s ease;
+
     &:hover {
-        transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba($button-color, 0.4);
+
+        transform: translateY(-1px);
     }
 }
 
 .profile__avatar {
-    margin-top: 10px;
     position: relative;
-    display: inline-block;
 
-    &.form__preview--visible {
+    display: inline-block;
+    margin-top: 10px;
+
+    &--visible {
         display: block;
+    }
+
+    &--hidden {
+        display: none;
     }
 }
 
 .profile__avatar-img {
     width: 100px;
     height: 100px;
+
+    border: 3px solid $border-simple-gray;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid $border-simple-gray;
+
     transition: all 0.3s ease;
 
     &:hover {
         transform: scale(1.05);
     }
+
+    &--deleted {
+        border-color: $red;
+
+        opacity: 0.5;
+        filter: grayscale(100%);
+    }
 }
 
 .profile__avatar-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     position: absolute;
     top: -5px;
     right: -5px;
-    background: linear-gradient(135deg, $red, darken($red, 10%));
-    color: $text-white;
-    border: none;
-    border-radius: 50%;
+    z-index: 2;
+
     width: 25px;
     height: 25px;
-    cursor: pointer;
-    font-size: 14px;
+
+    @include font($OpenSans-700);
+    font-size: 16px;
     line-height: 1;
-    box-shadow: 0 2px 8px rgba($red, 0.3);
+    color: $text-white;
+
+    background: linear-gradient(135deg, $red, darken($red, 10%));
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba($red, 0.4);
+
+    cursor: pointer;
     transition: all 0.3s ease;
 
     &:hover {
         background: linear-gradient(135deg, darken($red, 10%), darken($red, 20%));
+        box-shadow: 0 4px 12px rgba($red, 0.6);
+
         transform: scale(1.1);
-        box-shadow: 0 4px 12px rgba($red, 0.4);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+
+    &--hidden {
+        display: none !important;
+    }
+}
+
+.profile__avatar-restore {
+    @include font($OpenSans-600);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: $text-white;
+
+    padding: 4px 8px;
+    margin-left: 5px;
+
+    background: linear-gradient(135deg, $button-color, $button-color-hover);
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba($button-color, 0.3);
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba($button-color, 0.4);
+
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
     }
 }
 
 .profile__error {
-    color: $red;
     font-size: 14px;
-    margin-top: 5px;
+    color: $red;
+
     display: block;
+
+    margin-top: 5px;
 }
 
 .profile__help {
     font-size: 14px;
-    margin-top: 5px;
+
     display: block;
+
+    margin-top: 5px;
 
     &--success {
         color: $green;
@@ -271,29 +373,33 @@
     }
 
     &--admin {
+        @include font($OpenSans-700);
         color: $yellow;
-        font-weight: bold;
     }
 }
 
 .profile__submit-btn {
-    background: $button-color;
-    color: $text-white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 8px;
+    @include font($OpenSans-600);
     font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    color: $text-white;
+
+    padding: 12px 30px;
+
+    background: $button-color;
+    border: none;
+    border-radius: 8px;
     box-shadow: 0 4px 15px rgba($button-color, 0.3);
+
+    cursor: pointer;
+    transition: all 0.3s ease;
 
     &:hover:not(:disabled) {
         background: $button-color-hover;
-        transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba($button-color, 0.4);
+
+        transform: translateY(-2px);
     }
 
     &:active:not(:disabled) {
@@ -302,58 +408,72 @@
 
     &--disabled,
     &:disabled {
-        background: $button-color-disabled;
         color: rgba($text-white, 0.6);
+
+        background: $button-color-disabled;
+        box-shadow: none;
+
         cursor: not-allowed;
         transform: none;
-        box-shadow: none;
 
         &:hover {
             background: $button-color-disabled;
-            transform: none;
             box-shadow: none;
+
+            transform: none;
         }
     }
 }
 
 .profile__empty {
     text-align: center;
+
     padding: 60px 20px;
-    background: linear-gradient(135deg, $bg-11, $bg-1);
-    border-radius: 12px;
-    border: 2px dashed $border-simple-gray;
     margin: 20px 0;
+
+    background: linear-gradient(135deg, $bg-11, $bg-1);
+    border: 2px dashed $border-simple-gray;
+    border-radius: 12px;
 
     &::before {
         content: "📭";
         display: block;
+
         font-size: 48px;
+
         margin-bottom: 16px;
+
         opacity: 0.5;
     }
 }
 
 .profile__empty-text {
+    @include font($OpenSans-500);
     font-size: 18px;
     color: $text-5;
+
     margin-bottom: 20px;
-    font-weight: 500;
 }
 
 .profile__empty-btn {
-    background: linear-gradient(135deg, $button-color, $button-color-hover);
-    color: $text-white;
+    @include font($OpenSans-600);
     text-decoration: none;
-    padding: 12px 24px;
-    border-radius: 8px;
+    color: $text-white;
+
     display: inline-block;
-    font-weight: 600;
-    transition: all 0.3s ease;
+
+    padding: 12px 24px;
+
+    background: linear-gradient(135deg, $button-color, $button-color-hover);
+    border-radius: 8px;
     box-shadow: 0 4px 15px rgba($button-color, 0.3);
 
+    transition: all 0.3s ease;
+
     &:hover {
-        transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba($button-color, 0.4);
+
+        transform: translateY(-2px);
     }
 }
 
@@ -364,52 +484,60 @@
 }
 
 .profile__lot-card {
+    background: $bg-1;
     border: 1px solid $border-light-gray;
     border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    background: $bg-1;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+
+    transition: all 0.3s ease;
 
     &:hover {
-        transform: translateY(-4px);
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+        transform: translateY(-4px);
+
+        .profile__lot-img {
+            transform: scale(1.05);
+        }
     }
 
     &--won {
-        border-color: $green;
         background: linear-gradient(135deg, $bg-1 0%, lighten($green, 45%) 100%);
+        border-color: $green;
         box-shadow: 0 4px 15px rgba($green, 0.2);
     }
 }
 
 .profile__lot-image {
     position: relative;
+
     height: 200px;
+
     overflow: hidden;
 }
 
 .profile__lot-img {
     width: 100%;
     height: 100%;
+
     object-fit: cover;
     transition: transform 0.3s ease;
 }
 
-.profile__lot-card:hover .profile__lot-img {
-    transform: scale(1.05);
-}
-
 .profile__lot-status {
+    @include font($OpenSans-600);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
     position: absolute;
     top: 10px;
     right: 10px;
+
     padding: 4px 8px;
+
     border-radius: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(10px);
 
@@ -439,38 +567,41 @@
 }
 
 .profile__lot-title {
+    @include font($OpenSans-600);
     font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
     line-height: 1.4;
     color: $text-black;
+
+    margin-bottom: 8px;
+
+    overflow: hidden;
 }
 
 .profile__lot-price {
+    @include font($OpenSans-700);
     font-size: 18px;
-    font-weight: bold;
     color: $green;
+
     margin-bottom: 5px;
 }
 
 .profile__lot-category {
     font-size: 13px;
     color: $text-5;
-    margin-bottom: 15px;
-    background: $bg-6;
-    padding: 4px 8px;
-    border-radius: 12px;
+
     display: inline-block;
+
+    padding: 4px 8px;
+    margin-bottom: 15px;
+
+    background: $bg-6;
+    border-radius: 12px;
 }
 
 .profile__lot-actions {
     display: flex;
-    gap: 8px;
     flex-wrap: wrap;
+    gap: 8px;
 }
 
 .profile__lot-form {
@@ -478,70 +609,84 @@
 }
 
 .profile__lot-btn {
-    padding: 6px 12px;
+    @include font($OpenSans-600);
     font-size: 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    font-weight: 600;
-    transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    text-decoration: none;
+
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
 
     &--view {
-        background: linear-gradient(135deg, $button-color, $button-color-hover);
         color: $text-white;
+
+        background: linear-gradient(135deg, $button-color, $button-color-hover);
         box-shadow: 0 2px 8px rgba($button-color, 0.3);
 
         &:hover {
-            transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba($button-color, 0.4);
+
+            transform: translateY(-1px);
         }
     }
 
     &--edit {
-        background: linear-gradient(135deg, $button-color-disabled, darken($button-color-disabled, 5%));
         color: $text-white;
+
+        background: linear-gradient(135deg, $button-color-disabled, darken($button-color-disabled, 5%));
         box-shadow: 0 2px 8px rgba($button-color-disabled, 0.3);
 
         &:hover {
-            transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba($button-color-disabled, 0.4);
+
+            transform: translateY(-1px);
         }
     }
 
     &--activate {
-        background: linear-gradient(135deg, $green, darken($green, 5%));
         color: $text-white;
+
+        background: linear-gradient(135deg, $green, darken($green, 5%));
         box-shadow: 0 2px 8px rgba($green, 0.3);
 
         &:hover {
-            transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba($green, 0.4);
+
+            transform: translateY(-1px);
         }
     }
 
     &--deactivate {
-        background: linear-gradient(135deg, $yellow, darken($yellow, 5%));
         color: $text-black;
+
+        background: linear-gradient(135deg, $yellow, darken($yellow, 5%));
         box-shadow: 0 2px 8px rgba($yellow, 0.3);
 
         &:hover {
-            transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba($yellow, 0.4);
+
+            transform: translateY(-1px);
         }
     }
 
     &--delete {
-        background: linear-gradient(135deg, $red, darken($red, 5%));
         color: $text-white;
+
+        background: linear-gradient(135deg, $red, darken($red, 5%));
         box-shadow: 0 2px 8px rgba($red, 0.3);
 
         &:hover {
-            transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba($red, 0.4);
+
+            transform: translateY(-1px);
         }
     }
 }
@@ -555,49 +700,59 @@
 .profile__bid-item {
     display: flex;
     align-items: center;
+
     padding: 20px;
+
+    background: $bg-1;
     border: 1px solid $border-light-gray;
     border-radius: 12px;
-    background: $bg-1;
-    transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
+    transition: all 0.3s ease;
+
     &:hover {
-        transform: translateY(-2px);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+
+        transform: translateY(-2px);
     }
 }
 
 .profile__bid-lot {
     display: flex;
     align-items: center;
+
     flex: 1;
 }
 
 .profile__bid-img {
     width: 60px;
     height: 60px;
-    object-fit: cover;
-    border-radius: 8px;
     margin-right: 15px;
+
+    border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
 }
 
 .profile__bid-title {
-    margin: 0 0 5px 0;
+    @include font($OpenSans-600);
     font-size: 16px;
-    font-weight: 600;
     color: $text-black;
+
+    margin: 0 0 5px 0;
 }
 
 .profile__bid-category {
     font-size: 13px;
     color: $text-5;
-    margin: 0;
-    background: $bg-6;
-    padding: 2px 6px;
-    border-radius: 8px;
+
     display: inline-block;
+
+    padding: 2px 6px;
+    margin: 0;
+
+    background: $bg-6;
+    border-radius: 8px;
 }
 
 .profile__bid-details {
@@ -605,147 +760,88 @@
 }
 
 .profile__bid-amount {
-    font-weight: bold;
-    color: $green;
-    margin: 0 0 5px 0;
+    @include font($OpenSans-700);
     font-size: 16px;
+    color: $green;
+
+    margin: 0 0 5px 0;
 }
 
 .profile__bid-time {
     font-size: 13px;
     color: $text-5;
+
     margin: 0 0 10px 0;
-}
-
-.profile__bid-btn {
-    background: linear-gradient(135deg, $button-color, $button-color-hover);
-    color: $text-white;
-    text-decoration: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba($button-color, 0.3);
-
-    &:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba($button-color, 0.4);
-    }
-}
-
-.profile__avatar-delete {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: $red;
-    color: $text-white;
-    border: none;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba($red, 0.4);
-    transition: all 0.3s ease;
-    z-index: 2;
-
-    &:hover {
-        background: darken($red, 15%);
-        transform: scale(1.1);
-        box-shadow: 0 4px 12px rgba($red, 0.6);
-    }
-
-    &:active {
-        transform: scale(0.95);
-    }
-}
-
-.profile__avatar-img--deleted {
-    opacity: 0.5;
-    filter: grayscale(100%);
-    border-color: $red;
-}
-
-.profile__avatar-restore {
-    background: linear-gradient(135deg, $button-color, $button-color-hover);
-    color: $text-white;
-    border: none;
-    border-radius: 6px;
-    padding: 4px 8px;
-    cursor: pointer;
-    font-size: 12px;
-    margin-left: 5px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba($button-color, 0.3);
-
-    &:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba($button-color, 0.4);
-    }
-
-    &:active {
-        transform: translateY(0);
-    }
-}
-
-.profile__avatar--hidden {
-    display: none;
-}
-
-.profile__avatar-delete--hidden {
-    display: none !important;
 }
 
 .profile__bid-actions {
     display: flex;
-    gap: 10px;
     align-items: center;
+    gap: 10px;
 }
 
 .profile__bid-form {
     display: inline;
 }
 
-.profile__bid-btn--delete {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
+.profile__bid-btn {
+    @include font($OpenSans-600);
     font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    color: $text-white;
+
+    padding: 6px 12px;
+
+    background: linear-gradient(135deg, $button-color, $button-color-hover);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba($button-color, 0.3);
+
+    transition: all 0.3s ease;
 
     &:hover {
-        background-color: #c82333;
+        box-shadow: 0 4px 12px rgba($button-color, 0.4);
+
+        transform: translateY(-1px);
+    }
+
+    &--delete {
+        font-size: 12px;
+        color: $text-white;
+
+        padding: 6px 12px;
+
+        background-color: $red;
+        border: none;
+        border-radius: 4px;
+
+        cursor: pointer;
+
+        &:hover {
+            background-color: darken($red, 10%);
+        }
     }
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
+
         transform: translateY(10px);
     }
     to {
         opacity: 1;
+
         transform: translateY(0);
     }
 }
 
 @media screen and (max-width: 768px) {
     .profile__nav-btn {
-        padding: 12px 15px;
         font-size: 14px;
+
+        padding: 12px 15px;
     }
 
     .profile__lots-grid {
@@ -760,6 +856,7 @@
 
     .profile__bid-details {
         text-align: left;
+
         width: 100%;
     }
 

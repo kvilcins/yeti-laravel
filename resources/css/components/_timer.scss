@@ -1,24 +1,27 @@
 .timer {
-    padding: 4px 8px 5px 23px;
-    height: 26px;
-    max-width: fit-content;
-
     font-size: 13px;
     line-height: 18px;
     color: $text-white;
 
     position: relative;
+
+    height: 26px;
+    max-width: fit-content;
+    padding: 4px 8px 5px 23px;
+
     background-color: $bg-9;
     border-radius: 2px;
 
     &::before {
         content: "";
-        width: 12px;
-        height: 12px;
 
         position: absolute;
         top: 8px;
         left: 9px;
+
+        width: 12px;
+        height: 12px;
+
         background: url("../img/timer.svg") 0 0 no-repeat;
     }
 
@@ -27,10 +30,11 @@
     }
 
     &--win {
+        color: $text-1;
+
         padding: 6px 8px 5px 8px;
 
         background-color: $bg-1;
-        color: $text-1;
 
         &::before {
             display: none;

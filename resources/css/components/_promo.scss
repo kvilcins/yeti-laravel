@@ -1,6 +1,7 @@
 .promo {
     padding-top: 58px;
     margin-bottom: 50px;
+
     background: url("../img/promo-bg.png") -39px 17px no-repeat;
 }
 
@@ -17,25 +18,27 @@
     display: flex;
     flex-wrap: wrap;
 
+    position: relative;
+
     width: 542px;
     padding: 0;
     margin: 0;
 
     list-style: none;
-    position: relative;
 }
 
 .promo__link {
     @include font($PTSans-700);
+    color: $link-color;
+
+    display: block;
+
+    position: relative;
 
     width: 180px;
     height: 70px;
     padding: 12px 20px;
 
-    color: $link-color;
-
-    position: relative;
-    display: block;
     background-color: $bg-1;
     background-repeat: no-repeat;
     box-sizing: border-box;
@@ -55,92 +58,88 @@
 
     &:hover,
     &:focus {
-        transform: scale(1.05);
-        border: none;
         z-index: 2;
-        box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.03);
+
+        border: none;
+        box-shadow: $promo-link-shadow;
+
+        transform: scale(1.05);
     }
 }
 
-.promo__item--boards {
-
-    .promo__link {
-        background-image: url("../img/category-1.jpg");
-        background-position: 146px 8px;
+.promo__item {
+    &--boards {
+        .promo__link {
+            background-image: url("../img/category-1.jpg");
+            background-position: 146px 8px;
+        }
     }
-}
 
-.promo__item--attachment {
-
-    .promo__link {
-        background-image: url("../img/category-2.jpg");
-        background-position: 133px 12px;
+    &--attachment {
+        .promo__link {
+            background-image: url("../img/category-2.jpg");
+            background-position: 133px 12px;
+        }
     }
-}
 
-.promo__item--boots {
-
-    .promo__link {
-        background-image: url("../img/category-3.jpg");
-        background-position: 144px 14px;
+    &--boots {
+        .promo__link {
+            background-image: url("../img/category-3.jpg");
+            background-position: 144px 14px;
+        }
     }
-}
 
-.promo__item--clothing {
-
-    .promo__link {
-        background-image: url("../img/category-4.jpg");
-        background-position: 127px 12px;
+    &--clothing {
+        .promo__link {
+            background-image: url("../img/category-4.jpg");
+            background-position: 127px 12px;
+        }
     }
-}
 
-.promo__item--tools {
-
-    .promo__link {
-        background-image: url("../img/category-5.jpg");
-        background-position: 123px 13px;
+    &--tools {
+        .promo__link {
+            background-image: url("../img/category-5.jpg");
+            background-position: 123px 13px;
+        }
     }
-}
 
-.promo__item--other {
-
-    .promo__link {
-        background-image: url("../img/category-6.jpg");
-        background-position: 132px 2px;
+    &--other {
+        .promo__link {
+            background-image: url("../img/category-6.jpg");
+            background-position: 132px 2px;
+        }
     }
 }
 
 @media screen and (max-width: 1369px) {
-
     .promo {
         background-position: -141px 17px;
     }
 }
 
 @media screen and (max-width: 1023px) {
-
     .promo {
         background-position: -430px 17px;
     }
 }
 
 @media screen and (max-width: 767px) {
-
     .promo {
-        background-position: -614px 17px;
-
         padding: 40px 0 35px;
+
+        background-position: -614px 17px;
     }
 
     .promo__list {
         flex-direction: column;
+
         width: 100%;
     }
 
     .promo__item {
-
         .promo__link {
             width: 100%;
+
             background-position: 90%;
         }
     }

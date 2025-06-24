@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             this.init();
             this.checkLaravelFlashMessages();
-            this.createConfirmModal();
+            this.initConfirmModal();
         }
 
         init = () => {
@@ -17,38 +17,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (e.target === this.modal) this.hide();
             });
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && this.modal?.classList.contains('show')) {
+                if (e.key === 'Escape' && this.modal?.classList.contains('modal--show')) {
                     this.hide();
                 }
             });
         }
 
-        createConfirmModal = () => {
-            if (document.getElementById('confirmModal')) return;
-
-            const confirmModalHTML = `
-                <div id="confirmModal" class="modal">
-                    <div class="modal__content modal__content--confirm">
-                        <div class="modal__header">
-                            <span class="modal__icon confirm">⚠</span>
-                            <h3 class="modal__title" id="confirmTitle">Confirm Action</h3>
-                        </div>
-                        <p class="modal__message" id="confirmMessage">Are you sure?</p>
-                        <div class="modal__actions">
-                            <button type="button" class="button button--secondary" id="confirmCancel">Cancel</button>
-                            <button type="button" class="button button--danger" id="confirmOk">Confirm</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            document.body.insertAdjacentHTML('beforeend', confirmModalHTML);
-
+        initConfirmModal = () => {
             this.confirmModal = document.getElementById('confirmModal');
             this.confirmTitle = document.getElementById('confirmTitle');
             this.confirmMessage = document.getElementById('confirmMessage');
             this.confirmOk = document.getElementById('confirmOk');
             this.confirmCancel = document.getElementById('confirmCancel');
+
+            if (!this.confirmModal) return;
 
             this.confirmCancel.addEventListener('click', () => this.hideConfirm());
             this.confirmModal.addEventListener('click', (e) => {
@@ -68,9 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!this.modal) return;
 
             this.message.textContent = message;
-            this.icon.className = `modal__icon ${type}`;
+            this.icon.className = `modal__icon modal__icon--${type}`;
             this.icon.textContent = type === 'success' ? '✓' : '✗';
-            this.modal.classList.add('show');
+            this.modal.classList.add('modal--show');
 
             setTimeout(() => this.hide(), 5000);
         }
@@ -80,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             this.confirmTitle.textContent = title;
             this.confirmMessage.textContent = message;
-            this.confirmModal.classList.add('show');
+            this.confirmModal.classList.add('modal--show');
 
             const handleConfirm = () => {
                 this.hideConfirm();
@@ -97,14 +79,14 @@ document.addEventListener('DOMContentLoaded', () => {
             this.confirmOk.addEventListener('click', handleConfirm);
 
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && this.confirmModal.classList.contains('show')) {
+                if (e.key === 'Escape' && this.confirmModal.classList.contains('modal--show')) {
                     handleCancel();
                 }
             }, { once: true });
         }
 
-        hide = () => this.modal?.classList.remove('show');
-        hideConfirm = () => this.confirmModal?.classList.remove('show');
+        hide = () => this.modal?.classList.remove('modal--show');
+        hideConfirm = () => this.confirmModal?.classList.remove('modal--show');
         success = (message) => this.show(message, 'success');
         error = (message) => this.show(message, 'error');
     }
@@ -239,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteAvatarBtn.addEventListener('click', handleDeleteClick);
         }
 
-        function handleDeleteClick(e) {
+        const handleDeleteClick = (e) => {
             e.preventDefault();
             e.stopPropagation();
 
@@ -268,9 +250,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     checkForChanges();
                 }
             );
-        }
+        };
 
-        function createRestoreButton() {
+        const createRestoreButton = () => {
             let restoreBtn = document.getElementById('restoreAvatarBtn');
             if (restoreBtn) {
                 restoreBtn.remove();
@@ -283,15 +265,15 @@ document.addEventListener('DOMContentLoaded', () => {
             restoreBtn.textContent = 'Restore';
             restoreBtn.title = 'Restore avatar';
 
-            restoreBtn.addEventListener('click', function(e) {
+            restoreBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 restoreAvatar();
             });
 
             return restoreBtn;
-        }
+        };
 
-        function restoreAvatar() {
+        const restoreAvatar = () => {
             avatarMarkedForDeletion = false;
 
             const avatarPreview = document.getElementById('avatarPreview');
@@ -313,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             checkForChanges();
-        }
+        };
     };
 
     const handleAvatarUpload = () => {
@@ -323,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 avatarPreview.dataset.originalSrc = avatarPreview.src;
             }
 
-            fields.avatar.addEventListener('change', function(e) {
+            fields.avatar.addEventListener('change', (e) => {
                 const file = e.target.files[0];
 
                 if (!file) {
@@ -354,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 avatarMarkedForDeletion = false;
 
                 const reader = new FileReader();
-                reader.onload = function(event) {
+                reader.onload = (event) => {
                     const avatarPreview = document.getElementById('avatarPreview');
                     const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
                     const restoreBtn = document.getElementById('restoreAvatarBtn');
@@ -378,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        function restoreOriginalAvatar() {
+        const restoreOriginalAvatar = () => {
             const avatarPreview = document.getElementById('avatarPreview');
             const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
             const restoreBtn = document.getElementById('restoreAvatarBtn');
@@ -399,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             avatarMarkedForDeletion = false;
             checkForChanges();
-        }
+        };
     };
 
     Object.values(fields).forEach(field => {

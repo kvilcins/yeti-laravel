@@ -1,15 +1,17 @@
 .verification-page {
+    text-align: center;
+
     max-width: 600px;
     margin: 0 auto;
-    text-align: center;
     padding: 40px 20px;
 }
 
 .verification-content {
-    background: #f8f9fa;
-    padding: 30px;
-    border-radius: 8px;
     margin-top: 20px;
+    padding: 30px;
+
+    background: $bg-17;
+    border-radius: 8px;
 
     p {
         margin-bottom: 15px;
@@ -27,7 +29,6 @@
 }
 
 .verification-warning__content {
-
     form {
         display: inline;
     }
@@ -36,19 +37,22 @@
 .verification-actions {
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid #dee2e6;
+
+    border-top: 1px solid $border-light-gray;
 
     form {
         display: inline;
     }
 
     .link {
+        font-size: 14px;
+        text-decoration: none;
+        color: $text-7;
+
         background: none;
         border: none;
+
         cursor: pointer;
-        color: #6c757d;
-        text-decoration: none;
-        font-size: 14px;
 
         &:hover {
             text-decoration: underline;

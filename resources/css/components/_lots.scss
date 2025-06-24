@@ -2,60 +2,74 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 20px;
+
     margin: 0;
     padding: 0;
+
     list-style: none;
 }
 
 .lot {
-    background-color: $bg-1;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
     position: relative;
 
+    background-color: $bg-1;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    transition: all 0.3s ease;
+
     &:hover {
-        transform: translateY(-4px);
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+        transform: translateY(-4px);
 
         .lot__overlay {
             opacity: 1;
             visibility: visible;
         }
 
-        .lot__image img {
-            transform: scale(1.05);
+        .lot__image {
+            img {
+                transform: scale(1.05);
+            }
         }
     }
 }
 
 .lot__image {
+    position: relative;
+
     width: 100%;
     height: 260px;
-    overflow: hidden;
-    position: relative;
+
     border-bottom: 1px solid $border-light-gray;
+    overflow: hidden;
 
     img {
+        display: block;
+
         width: 100%;
         height: 100%;
+
         object-fit: cover;
-        display: block;
         transition: transform 0.3s ease;
     }
 }
 
 .lot__status {
+    @include font($OpenSans-600);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
     position: absolute;
     top: 12px;
     right: 12px;
+
     padding: 4px 8px;
+
     border-radius: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -76,48 +90,58 @@
 }
 
 .lot__category-badge {
+    font-size: 11px;
+    font-weight: 500;
+    color: $text-4;
+
     position: absolute;
     top: 12px;
     left: 12px;
-    background: rgba($bg-1, 0.95);
-    color: $text-4;
+
     padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 500;
-    backdrop-filter: blur(10px);
+
+    background: rgba($bg-1, 0.95);
     border: 1px solid rgba($border-light-gray, 0.3);
+    border-radius: 6px;
+    backdrop-filter: blur(10px);
 }
 
 .lot__overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+
     background: rgba($text-black, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    backdrop-filter: blur(5px);
+
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
 }
 
 .lot__quick-view {
-    background: $button-color;
-    color: $text-white;
-    padding: 12px 24px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 500;
+    @include font($OpenSans-500);
     font-size: 14px;
+    text-decoration: none;
+    color: $text-white;
+
+    padding: 12px 24px;
+
+    background: $button-color;
+    border-radius: 8px;
+
     transform: translateY(10px);
     transition: all 0.3s ease;
 
     &:hover {
         background: $button-color-hover;
+
         transform: translateY(0);
     }
 }
@@ -135,8 +159,9 @@
     @include font($OpenSans-600);
     font-size: 18px;
     line-height: 1.4;
-    color: $text-black;
     text-decoration: none;
+    color: $text-black;
+
     overflow: hidden;
     transition: color 0.3s ease;
 
@@ -164,11 +189,12 @@
 }
 
 .lot__price-label {
+    @include font($OpenSans-500);
     font-size: 12px;
-    color: $text-5;
-    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    color: $text-5;
+
     margin-bottom: 2px;
 }
 
@@ -184,12 +210,14 @@
 }
 
 .lot__bids-count {
-    background: $bg-6;
-    color: $button-color;
-    padding: 4px 8px;
-    border-radius: 4px;
+    @include font($OpenSans-600);
     font-size: 12px;
-    font-weight: 600;
+    color: $button-color;
+
+    padding: 4px 8px;
+
+    background: $bg-6;
+    border-radius: 4px;
 }
 
 .lot__timer-section {
@@ -199,14 +227,15 @@
 }
 
 .lot__timer {
+    @include font($OpenSans-500);
     font-size: 14px;
     color: $text-4;
-    font-weight: 500;
 }
 
 .lot__progress {
     width: 100%;
     height: 4px;
+
     background: $bg-11;
     border-radius: 2px;
     overflow: hidden;
@@ -214,8 +243,10 @@
 
 .lot__progress-bar {
     height: 100%;
+
     background: linear-gradient(90deg, $button-color, $button-color-hover);
     border-radius: 2px;
+
     transition: width 0.3s ease;
 }
 
@@ -223,23 +254,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     margin-top: 16px;
     padding-top: 16px;
+
     border-top: 1px solid $border-light-gray;
 }
 
 .lot__owner {
     font-size: 13px;
-    color: $text-5;
     font-style: italic;
+    color: $text-5;
 }
 
 .lot__ended {
-    background: $red !important;
-    color: $text-white;
+    @include font($OpenSans-600);
     font-size: 11px;
-    font-weight: 600;
     text-transform: uppercase;
+    color: $text-white;
+
+    background: $red !important;
 }
 
 @media screen and (max-width: 1369px) {

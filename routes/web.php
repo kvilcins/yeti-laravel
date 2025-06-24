@@ -29,7 +29,7 @@ Route::middleware('guest')->group(function () {
 // Logout (available only to authenticated users)
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
-// Email verification routes (только для авторизованных)
+// Email verification routes
 Route::middleware('auth')->group(function () {
     Route::get('/email/verify', function () {
         $dataController = new \App\Http\Controllers\DataController();
@@ -50,14 +50,14 @@ Route::middleware('auth')->group(function () {
 
 // Routes requiring email verification
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Lots (требуют верификацию)
+    // Lots
     Route::prefix('lots')->group(function () {
         Route::get('/add', [LotController::class, 'create'])->name('lot.create');
         Route::post('/add', [LotController::class, 'store'])->name('lot.store');
         Route::post('/{id}/bid', [LotController::class, 'placeBid'])->name('bids.store');
     });
 
-    // Управление лотами (требует верификацию)
+    // Items control
     Route::prefix('lot')->group(function () {
         Route::get('/{id}/edit', [LotManagementController::class, 'edit'])->name('lot.edit');
         Route::put('/{id}', [LotManagementController::class, 'update'])->name('lot.update');

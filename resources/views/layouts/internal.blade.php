@@ -17,5 +17,7 @@
 @include('components.partials.footer')
 
 @include('modals.notification')
+
+@include('modals.confirm')
 </body>
 </html>

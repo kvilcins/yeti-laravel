@@ -14,19 +14,18 @@ class CreateBidsTable extends Migration
     public function up()
     {
         Schema::create('bids', function (Blueprint $table) {
-            $table->id(); // Автоматический ID
-            $table->unsignedBigInteger('lot_id'); // ID связанного лота (товара)
-            $table->unsignedBigInteger('user_id'); // ID пользователя, сделавшего ставку
-            $table->decimal('bid_amount', 10, 2); // Сумма ставки
-            $table->timestamp('bid_time')->useCurrent(); // Время ставки
-            $table->timestamps(); // Для created_at и updated_at
-            
-            // Внешние ключи
+            $table->id();
+            $table->unsignedBigInteger('lot_id');
+            $table->unsignedBigInteger('user_id');
+            $table->decimal('bid_amount', 10, 2);
+            $table->timestamp('bid_time')->useCurrent();
+            $table->timestamps();
+
             $table->foreign('lot_id')->references('id')->on('items')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

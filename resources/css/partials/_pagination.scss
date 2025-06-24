@@ -1,22 +1,25 @@
 .pagination-list {
     @include font($PTSans-700);
     font-size: 16px;
+    text-align: center;
 
     display: flex;
 
     margin: 30px 0 120px 0;
     padding: 22px 20px;
 
-    list-style: none;
-    text-align: center;
     background-color: $bg-1;
+
+    list-style: none;
 }
 
 .pagination-item {
     margin-right: 5px;
 
-    & a {
+    a,
+    span {
         color: $text-4;
+
         padding: 5px 10px;
 
         &:hover {
@@ -28,19 +31,20 @@
         }
     }
 
-    &-prev {
+    &--prev {
         margin-right: auto;
     }
 
-    &-next {
+    &--next {
         margin-left: auto;
         margin-right: 0;
     }
 
-    &-active {
-        & a {
+    &--active {
+        a {
             color: $text-1;
-            background-color: rgba(135, 146, 150, 0.1);
+
+            background-color: $pagination-active-bg;
 
             &:hover {
                 color: $text-1;
@@ -48,6 +52,18 @@
 
             &:active {
                 color: $text-1;
+            }
+        }
+    }
+
+    &--disabled {
+        span {
+            color: $text-6;
+
+            cursor: default;
+
+            &:hover {
+                color: $text-6;
             }
         }
     }

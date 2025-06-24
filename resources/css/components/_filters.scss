@@ -1,9 +1,14 @@
 .filters {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    padding: 20px;
+    margin: 50px 0;
+
     background: $bg-17;
     border: 1px solid $border-light-gray;
     border-radius: 8px;
-    padding: 20px;
-    margin: 50px 0;
 }
 
 .filters__form {
@@ -15,58 +20,67 @@
 .filters__row {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     align-items: end;
+    gap: 20px;
 }
 
 .filters__group {
     display: flex;
     flex-direction: column;
+
     min-width: 150px;
 
     &--actions {
         flex-direction: row;
         gap: 10px;
+
         min-width: auto;
     }
 }
 
 .filters__label {
     @include font($PTSans-600);
-    margin-bottom: 5px;
-    color: $text-1;
     font-size: 14px;
+    color: $text-1;
+
+    margin-bottom: 5px;
 }
 
 .filters__select {
     @include font($PTSans-400);
-    padding: 8px 12px;
-    border: 1px solid $border-gray;
-    border-radius: 4px;
     font-size: 14px;
-    background: $bg-1;
     color: $text-1;
 
+    padding: 8px 12px;
+
+    background: $bg-1;
+    border: 1px solid $border-gray;
+    border-radius: 4px;
+
     &:focus {
-        outline: none;
         border-color: $button-color;
-        box-shadow: 0 0 0 2px rgba(69, 171, 222, 0.25);
+        box-shadow: $box-shadow;
+
+        outline: none;
     }
 }
 
 .filters__input {
     @include font($PTSans-400);
-    padding: 8px 12px;
-    border: 1px solid $border-gray;
-    border-radius: 4px;
     font-size: 14px;
-    background: $bg-1;
     color: $text-1;
 
+    padding: 8px 12px;
+
+    background: $bg-1;
+    border: 1px solid $border-gray;
+    border-radius: 4px;
+
     &:focus {
-        outline: none;
         border-color: $button-color;
-        box-shadow: 0 0 0 2px rgba(69, 171, 222, 0.25);
+        box-shadow: $box-shadow;
+
+        outline: none;
     }
 
     &--price {
@@ -87,15 +101,19 @@
 
 .filters__btn {
     @include font($PTSans-700);
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    color: $text-white;
+
     padding: 8px 16px;
+
+    background: transparent;
     border: none;
     border-radius: 3px;
-    font-size: 14px;
-    text-decoration: none;
-    text-align: center;
+
     cursor: pointer;
     transition: all 0.2s;
-    color: $text-white;
 
     &--apply {
         background: $button-color;
@@ -119,7 +137,6 @@
 }
 
 @media screen and (max-width: 767px) {
-
     .filters {
         padding: 15px;
     }
@@ -134,7 +151,6 @@
     }
 
     .filters__input {
-
         &--price {
             flex: 1;
         }

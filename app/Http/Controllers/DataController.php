@@ -65,7 +65,6 @@ class DataController extends Controller
 
         $status_filter = request('status', 'active');
         if ($status_filter === 'all') {
-            // Показать все статусы
         } else {
             $query->where('status', $status_filter);
         }

@@ -15,12 +15,14 @@
     @include font($OpenSans-400);
     font-size: 13px;
 
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
 
     padding: 10px 20px;
+
     background-color: $bg-1;
     border-bottom: 1px solid $border-light-blue;
 
@@ -30,6 +32,7 @@
 
     > div {
         width: 25%;
+
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -42,21 +45,13 @@
 
 .history__price {
     @include font($OpenSans-600);
-    color: $text-1;
     text-align: right;
+    color: $text-1;
 }
 
 .history__time {
-    color: $text-5;
     text-align: right;
-}
-
-.history__item {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #eee;
+    color: $text-5;
 }
 
 .history__delete-form {
@@ -64,20 +59,24 @@
 }
 
 .history__delete-btn {
-    background: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    font-size: 16px;
-    line-height: 1;
     display: flex;
     align-items: center;
     justify-content: center;
 
+    width: 24px;
+    height: 24px;
+
+    font-size: 16px;
+    line-height: 1;
+    color: $text-white;
+
+    background: $red;
+    border: none;
+    border-radius: 50%;
+
+    cursor: pointer;
+
     &:hover {
-        background: #c82333;
+        background: darken($red, 10%);
     }
 }

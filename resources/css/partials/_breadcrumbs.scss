@@ -13,29 +13,31 @@
     align-items: center;
     gap: 10px;
 
-    &:not(:first-child)::before {
-        content: "›";
-        color: $text-6;
+    &:not(:first-child) {
+        &::before {
+            content: "›";
+            color: $text-6;
+        }
     }
 
-    & a {
-        color: $text-2;
+    &--active {
+        color: $text-7;
+
+        pointer-events: none;
+        cursor: default;
+    }
+
+    a {
         text-decoration: none;
+        color: $text-2;
 
         &:hover {
             text-decoration: underline;
         }
     }
-
-    &.active {
-        color: $text-7;
-        pointer-events: none;
-        cursor: default;
-    }
 }
 
 @media screen and (max-width: 767px) {
-
     .breadcrumb-item {
         line-height: 16px;
     }

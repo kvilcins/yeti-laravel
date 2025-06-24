@@ -12,12 +12,12 @@
     flex-wrap: wrap;
 
     padding: 30px 0;
+
     list-style: none;
 }
 
 .nav__item {
-
-    & a {
+    a {
         @include font($PTSans-700);
         color: $text-2;
 
@@ -26,17 +26,22 @@
 
         &::before {
             content: "";
+
+            position: absolute;
+            bottom: 0;
+
             width: calc(100% - 20px);
             height: 3px;
 
-            display: none;
-            position: absolute;
-            bottom: 0;
             background-color: $bg-12;
+
+            display: none;
         }
 
-        &:hover::before {
-            display: block;
+        &:hover {
+            &::before {
+                display: block;
+            }
         }
 
         &:active {
@@ -45,12 +50,12 @@
     }
 
     &--current {
-
-        & a {
-            color: rgba(37, 67, 78, 0.6);
+        a {
+            color: $nav-current-color;
 
             &::before {
                 display: block;
+
                 background-color: $bg-3;
             }
         }
@@ -58,7 +63,6 @@
 }
 
 @media screen and (max-width: 767px) {
-
     .nav__categories {
         display: none;
     }
