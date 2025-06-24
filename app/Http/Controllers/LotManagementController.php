@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\Lot\StoreRequest;
+use App\Http\Requests\Lot\UpdateLotRequest;
 use Illuminate\Support\Facades\Storage;
 
 class LotManagementController extends Controller
@@ -32,7 +33,7 @@ class LotManagementController extends Controller
         ]));
     }
 
-    public function update(StoreRequest $request, $id)
+    public function update(UpdateLotRequest $request, $id)
     {
         $lot = Item::findOrFail($id);
 
@@ -52,7 +53,12 @@ class LotManagementController extends Controller
         $lot->price = $validatedData['lot_rate'];
         $lot->min_bid = $validatedData['lot_step'];
         $lot->category_id = $category->id;
-        $lot->timer = $validatedData['timer'];
+
+        if ($request->filled('timer')) {
+            $lot->timer = $validatedData['timer'];
+        } else {
+            $lot->timer = null;
+        }
 
         if ($request->has('delete_image') && $request->delete_image == '1') {
             $this->removeLotImage($lot);

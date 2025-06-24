@@ -137,6 +137,10 @@
 .profile__field {
     margin-bottom: 20px;
 
+    &--file {
+        margin-bottom: 0;
+    }
+
     &--hidden {
         display: none;
     }

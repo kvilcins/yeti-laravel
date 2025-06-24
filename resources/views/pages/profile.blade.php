@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <main>
+    <main class="account">
         <div class="container">
             @if($is_auth)
                 <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
@@ -133,7 +133,7 @@
                                                 </div>
                                             </div>
                                             <div class="profile__lot-info">
-                                                <h3 class="profile__lot-title">{{ $lot->title }}</h3>
+                                                <div class="profile__lot-title h3">{{ $lot->title }}</div>
                                                 <p class="profile__lot-price">{{ formatPrice($lot->getCurrentPrice()) }}</p>
                                                 <p class="profile__lot-category">{{ $lot->category->name }}</p>
 
@@ -179,7 +179,7 @@
                                             <div class="profile__bid-lot">
                                                 <img src="{{ $bid->lot->image_url }}" alt="{{ $bid->lot->title }}" class="profile__bid-img">
                                                 <div class="profile__bid-info">
-                                                    <h4 class="profile__bid-title">{{ $bid->lot->title }}</h4>
+                                                    <div class="profile__bid-title">{{ $bid->lot->title }}</div>
                                                     <p class="profile__bid-category">{{ $bid->lot->category->name }}</p>
                                                 </div>
                                             </div>

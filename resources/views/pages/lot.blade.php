@@ -3,7 +3,7 @@
 @section('title', $lot->title)
 
 @section('content')
-    <main>
+    <main class="lot-page">
         <div class="container">
             <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 

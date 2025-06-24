@@ -27,7 +27,7 @@ class UpdateLotRequest extends FormRequest
             'lot_img' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
             'lot_rate' => ['required', 'numeric', 'min:0'],
             'lot_step' => ['required', 'numeric', 'min:0'],
-            'timer' => ['required', 'date', 'after:today'],
+            'timer' => ['nullable', 'date', 'after:today'],
         ];
     }
 
@@ -58,7 +58,6 @@ class UpdateLotRequest extends FormRequest
             'lot_rate.numeric' => 'The starting price must be a number.',
             'lot_step.required' => 'The bid step is required.',
             'lot_step.numeric' => 'The bid step must be a number.',
-            'timer.required' => 'The end date is required.',
             'timer.date' => 'The end date must be a valid date.',
             'timer.after' => 'The end date must be a date after today.',
         ];
@@ -66,7 +65,7 @@ class UpdateLotRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        if ($this->has('timer')) {
+        if ($this->has('timer') && $this->filled('timer')) {
             $this->merge([
                 'timer' => Carbon::parse($this->input('timer'))->startOfDay()->format('Y-m-d H:i:s'),
             ]);

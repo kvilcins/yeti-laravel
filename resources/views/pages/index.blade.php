@@ -3,7 +3,7 @@
 @section('title', 'Homepage')
 
 @section('content')
-    <main>
+    <main class="main">
         <div class="container">
             <section class="promo">
                 <h1 class="promo__title h1">Need snowboard gear?</h1>

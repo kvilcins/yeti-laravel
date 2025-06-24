@@ -3,7 +3,7 @@
 @section('title', 'Edit Lot')
 
 @section('content')
-    <main>
+    <main class="edit-lot">
         <div class="container">
             <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
@@ -94,7 +94,7 @@
                 </div>
 
                 <button type="submit" class="form__submit button">Update Lot</button>
-                <a href="{{ route('profile.') }}" class="button button--secondary" style="margin-left: 10px;">Cancel</a>
+                <a href="{{ route('profile.') }}" class="button button--secondary">Cancel</a>
             </form>
         </div>
     </main>

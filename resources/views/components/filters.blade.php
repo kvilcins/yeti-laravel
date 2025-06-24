@@ -1,4 +1,4 @@
-<div class="filters">
+<section class="filters">
     <form method="GET" action="{{ request()->url() }}" class="filters__form" id="filtersForm">
         <div class="filters__row">
 
@@ -68,4 +68,4 @@
             </div>
         </div>
     </form>
-</div>
+</section>

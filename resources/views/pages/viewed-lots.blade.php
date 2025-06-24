@@ -3,7 +3,7 @@
 @section('title', 'Viewing History')
 
 @section('content')
-    <main>
+    <main class="viewed-items">
         <div class="container">
             <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 

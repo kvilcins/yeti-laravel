@@ -3,7 +3,7 @@
 @section('title', 'Site Search')
 
 @section('content')
-    <main>
+    <main class="search-page">
         <div class="container">
             <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
