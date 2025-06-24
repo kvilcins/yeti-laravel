@@ -7,6 +7,8 @@
         <div class="container">
             <x-partials.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
+            @include('components.filters')
+
             @include('components.lots', [
                 'lots__title' => 'All lots in category <span>"' . ($category_name ?? 'All categories') . '"</span>'
             ])

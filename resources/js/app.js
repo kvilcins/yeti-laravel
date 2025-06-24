@@ -8,3 +8,4 @@ import './modules/modals.js';
 import './modules/tabs.js';
 import './modules/image-preview.js';
 import './modules/form-validation.js';
+import './modules/filters.js';

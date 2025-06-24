@@ -21,6 +21,8 @@
                 </ul>
             </section>
 
+            @include('components.filters')
+
             @include('components.lots', [
                 'lots__title' => 'Open Lots',
                 'lots__tag' => 'h2'
