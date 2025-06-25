@@ -1,30 +1,30 @@
-@import 'global/vars';
-@import 'global/mixins';
-@import 'fonts/fonts';
-@import 'global/global';
+@import './global/vars.scss';
+@import './global/mixins.scss';
+@import './fonts/fonts.scss';
+@import './global/global.scss';
 
-@import 'partials/header';
-@import 'partials/footer';
-@import 'partials/nav';
-@import 'partials/pagination';
-@import 'partials/breadcrumbs';
+@import './partials/header.scss';
+@import './partials/footer.scss';
+@import './partials/nav.scss';
+@import './partials/pagination.scss';
+@import './partials/breadcrumbs.scss';
 
-@import 'components/promo';
-@import 'components/lots';
-@import 'components/timer';
-@import 'components/form';
-@import 'components/lot-item';
-@import 'components/history';
-@import 'components/rates';
-@import 'components/user-menu';
-@import 'components/search';
-@import 'components/errors';
-@import 'components/verify';
-@import 'components/filters';
+@import './components/promo.scss';
+@import './components/lots.scss';
+@import './components/timer.scss';
+@import './components/form.scss';
+@import './components/lot-item.scss';
+@import './components/history.scss';
+@import './components/rates.scss';
+@import './components/user-menu.scss';
+@import './components/search.scss';
+@import './components/errors.scss';
+@import './components/verify.scss';
+@import './components/filters.scss';
 
-@import 'modals/modal-notifications';
+@import './modals/modal-notifications.scss';
 
-@import 'pages/profile';
-@import 'pages/viewed-lots';
-@import 'pages/edit-lot';
-@import 'pages/add';
+@import './pages/profile.scss';
+@import './pages/viewed-lots.scss';
+@import './pages/edit-lot.scss';
+@import './pages/add.scss';
