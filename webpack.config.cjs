@@ -2,10 +2,10 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: './resources/js/app.js', // Одна точка входа для всех ресурсов
+    entry: './resources/js/app.js',
     output: {
         path: path.resolve(__dirname, 'public'),
-        filename: 'js/app.js', // Сохранение JavaScript в app.js
+        filename: 'js/app.js',
         assetModuleFilename: 'assets/[name][ext]',
     },
     module: {
@@ -29,21 +29,21 @@ module.exports = {
                 test: /\.(png|svg|jpg|jpeg|gif)$/,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'img/[name][ext]', // Путь для изображений
+                    filename: 'img/[name][ext]',
                 },
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'fonts/[name][ext]', // Путь для шрифтов
+                    filename: 'fonts/[name][ext]',
                 },
             },
         ],
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'css/app.css', // Объединенные стили сохраняются в app.css
+            filename: 'css/app.css',
         }),
     ],
     resolve: {
