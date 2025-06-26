@@ -1,5 +1,6 @@
 import path from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -50,6 +51,14 @@ export default {
     plugins: [
         new MiniCssExtractPlugin({
             filename: 'css/[name].css'
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: 'resources/img',
+                    to: 'img'
+                }
+            ]
         })
     ],
     resolve: {
