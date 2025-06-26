@@ -113,7 +113,7 @@
         background-color: darken($bg-10, 10%);
     }
 
-    &--visible {
+    &.visible {
         opacity: 1;
         pointer-events: auto;
 

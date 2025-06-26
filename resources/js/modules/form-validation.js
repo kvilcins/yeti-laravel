@@ -93,9 +93,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.modalNotification = new ModalNotification();
 
+    const initRegistrationAvatar = () => {
+        const avatarInput = document.getElementById('avatar');
+        const avatarContainer = document.getElementById('avatarContainer');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const deleteBtn = document.getElementById('deleteAvatarBtn');
+
+        if (!avatarInput || !avatarContainer || !avatarPreview || !deleteBtn) return;
+
+        avatarInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+
+            if (!file) {
+                hideAvatarPreview();
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                if (window.modalNotification) {
+                    window.modalNotification.error('File size must be less than 5MB');
+                } else {
+                    alert('File size must be less than 5MB');
+                }
+                e.target.value = '';
+                return;
+            }
+
+            if (!file.type.startsWith('image/')) {
+                if (window.modalNotification) {
+                    window.modalNotification.error('Please select a valid image file');
+                } else {
+                    alert('Please select a valid image file');
+                }
+                e.target.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                avatarPreview.src = event.target.result;
+                showAvatarPreview();
+            };
+            reader.readAsDataURL(file);
+        });
+
+        deleteBtn.addEventListener('click', () => {
+            avatarInput.value = '';
+            hideAvatarPreview();
+        });
+
+        const showAvatarPreview = () => {
+            avatarContainer.classList.remove('profile__avatar--hidden');
+            deleteBtn.classList.remove('profile__avatar-delete--hidden');
+        };
+
+        const hideAvatarPreview = () => {
+            avatarContainer.classList.add('profile__avatar--hidden');
+            deleteBtn.classList.add('profile__avatar-delete--hidden');
+            avatarPreview.src = '';
+        };
+    };
+
     const profileForm = document.querySelector('.profile__form');
+    const registrationForm = document.querySelector('.form');
     const profileNavBtns = document.querySelectorAll('.profile__nav-btn');
     const profilePanels = document.querySelectorAll('.profile__panel');
+
+    if (registrationForm && !profileForm) {
+        initRegistrationAvatar();
+        return;
+    }
 
     if (profileNavBtns.length > 0) {
         profileNavBtns.forEach(btn => {
@@ -170,8 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
             fields.avatar?.files[0] ||
             avatarMarkedForDeletion;
 
-        submitButton.disabled = !hasChanges;
-        submitButton.classList.toggle('profile__submit-btn--disabled', !hasChanges);
+        if (submitButton) {
+            submitButton.disabled = !hasChanges;
+            submitButton.classList.toggle('profile__submit-btn--disabled', !hasChanges);
+        }
 
         showHideFields();
     };
@@ -216,10 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const handleAvatarDelete = () => {
         const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
 
-        if (deleteAvatarBtn) {
-            deleteAvatarBtn.removeEventListener('click', handleDeleteClick);
-            deleteAvatarBtn.addEventListener('click', handleDeleteClick);
-        }
+        if (!deleteAvatarBtn) return;
 
         const handleDeleteClick = (e) => {
             e.preventDefault();
@@ -252,136 +318,139 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         };
 
-        const createRestoreButton = () => {
-            let restoreBtn = document.getElementById('restoreAvatarBtn');
-            if (restoreBtn) {
-                restoreBtn.remove();
-            }
+        deleteAvatarBtn.removeEventListener('click', handleDeleteClick);
+        deleteAvatarBtn.addEventListener('click', handleDeleteClick);
+    };
 
-            restoreBtn = document.createElement('button');
-            restoreBtn.type = 'button';
-            restoreBtn.id = 'restoreAvatarBtn';
-            restoreBtn.className = 'profile__avatar-restore';
-            restoreBtn.textContent = 'Restore';
-            restoreBtn.title = 'Restore avatar';
+    const createRestoreButton = () => {
+        let restoreBtn = document.getElementById('restoreAvatarBtn');
+        if (restoreBtn) {
+            restoreBtn.remove();
+        }
 
-            restoreBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                restoreAvatar();
-            });
+        restoreBtn = document.createElement('button');
+        restoreBtn.type = 'button';
+        restoreBtn.id = 'restoreAvatarBtn';
+        restoreBtn.className = 'profile__avatar-restore';
+        restoreBtn.textContent = 'Restore';
+        restoreBtn.title = 'Restore avatar';
 
-            return restoreBtn;
-        };
+        restoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            restoreAvatar();
+        });
 
-        const restoreAvatar = () => {
-            avatarMarkedForDeletion = false;
+        return restoreBtn;
+    };
 
-            const avatarPreview = document.getElementById('avatarPreview');
-            const deleteBtn = document.getElementById('deleteAvatarBtn');
-            const restoreBtn = document.getElementById('restoreAvatarBtn');
+    const restoreAvatar = () => {
+        avatarMarkedForDeletion = false;
 
-            if (avatarPreview) {
-                avatarPreview.src = avatarPreview.dataset.originalSrc || avatarPreview.src;
-                avatarPreview.style.opacity = '1';
-                avatarPreview.style.filter = 'none';
-            }
+        const avatarPreview = document.getElementById('avatarPreview');
+        const deleteBtn = document.getElementById('deleteAvatarBtn');
+        const restoreBtn = document.getElementById('restoreAvatarBtn');
 
-            if (deleteBtn) {
-                deleteBtn.style.display = 'inline-block';
-            }
+        if (avatarPreview) {
+            avatarPreview.src = avatarPreview.dataset.originalSrc || avatarPreview.src;
+            avatarPreview.style.opacity = '1';
+            avatarPreview.style.filter = 'none';
+        }
 
-            if (restoreBtn) {
-                restoreBtn.remove();
-            }
+        if (deleteBtn) {
+            deleteBtn.style.display = 'inline-block';
+        }
 
-            checkForChanges();
-        };
+        if (restoreBtn) {
+            restoreBtn.remove();
+        }
+
+        checkForChanges();
     };
 
     const handleAvatarUpload = () => {
-        if (fields.avatar) {
-            const avatarPreview = document.getElementById('avatarPreview');
-            if (avatarPreview && !avatarPreview.dataset.originalSrc) {
-                avatarPreview.dataset.originalSrc = avatarPreview.src;
-            }
+        if (!fields.avatar) return;
 
-            fields.avatar.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-
-                if (!file) {
-                    if (avatarMarkedForDeletion) {
-                        const avatarPreview = document.getElementById('avatarPreview');
-                        if (avatarPreview) {
-                            avatarPreview.src = getDefaultAvatarUrl();
-                            avatarPreview.classList.add('profile__avatar-img--deleted');
-                        }
-                    } else {
-                        restoreOriginalAvatar();
-                    }
-                    return;
-                }
-
-                if (file.size > 5 * 1024 * 1024) {
-                    window.modalNotification.error('File size must be less than 5MB');
-                    e.target.value = '';
-                    return;
-                }
-
-                if (!file.type.startsWith('image/')) {
-                    window.modalNotification.error('Please select a valid image file');
-                    e.target.value = '';
-                    return;
-                }
-
-                avatarMarkedForDeletion = false;
-
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    const avatarPreview = document.getElementById('avatarPreview');
-                    const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
-                    const restoreBtn = document.getElementById('restoreAvatarBtn');
-
-                    if (avatarPreview) {
-                        avatarPreview.src = event.target.result;
-                        avatarPreview.classList.remove('profile__avatar-img--deleted');
-                    }
-
-                    if (deleteAvatarBtn) {
-                        deleteAvatarBtn.style.display = 'inline-block';
-                    }
-
-                    if (restoreBtn) {
-                        restoreBtn.remove();
-                    }
-                };
-                reader.readAsDataURL(file);
-
-                checkForChanges();
-            });
+        const avatarPreview = document.getElementById('avatarPreview');
+        if (avatarPreview && !avatarPreview.dataset.originalSrc) {
+            avatarPreview.dataset.originalSrc = avatarPreview.src;
         }
 
-        const restoreOriginalAvatar = () => {
-            const avatarPreview = document.getElementById('avatarPreview');
-            const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
-            const restoreBtn = document.getElementById('restoreAvatarBtn');
+        fields.avatar.addEventListener('change', (e) => {
+            const file = e.target.files[0];
 
-            if (avatarPreview && avatarPreview.dataset.originalSrc) {
-                avatarPreview.src = avatarPreview.dataset.originalSrc;
-                avatarPreview.style.opacity = '1';
-                avatarPreview.style.filter = 'none';
+            if (!file) {
+                if (avatarMarkedForDeletion) {
+                    const avatarPreview = document.getElementById('avatarPreview');
+                    if (avatarPreview) {
+                        avatarPreview.src = getDefaultAvatarUrl();
+                        avatarPreview.classList.add('profile__avatar-img--deleted');
+                    }
+                } else {
+                    restoreOriginalAvatar();
+                }
+                return;
             }
 
-            if (deleteAvatarBtn) {
-                deleteAvatarBtn.style.display = 'inline-block';
+            if (file.size > 5 * 1024 * 1024) {
+                window.modalNotification.error('File size must be less than 5MB');
+                e.target.value = '';
+                return;
             }
 
-            if (restoreBtn) {
-                restoreBtn.remove();
+            if (!file.type.startsWith('image/')) {
+                window.modalNotification.error('Please select a valid image file');
+                e.target.value = '';
+                return;
             }
 
             avatarMarkedForDeletion = false;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const avatarPreview = document.getElementById('avatarPreview');
+                const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
+                const restoreBtn = document.getElementById('restoreAvatarBtn');
+
+                if (avatarPreview) {
+                    avatarPreview.src = event.target.result;
+                    avatarPreview.classList.remove('profile__avatar-img--deleted');
+                }
+
+                if (deleteAvatarBtn) {
+                    deleteAvatarBtn.style.display = 'inline-block';
+                }
+
+                if (restoreBtn) {
+                    restoreBtn.remove();
+                }
+            };
+            reader.readAsDataURL(file);
+
             checkForChanges();
-        };
+        });
+    };
+
+    const restoreOriginalAvatar = () => {
+        const avatarPreview = document.getElementById('avatarPreview');
+        const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
+        const restoreBtn = document.getElementById('restoreAvatarBtn');
+
+        if (avatarPreview && avatarPreview.dataset.originalSrc) {
+            avatarPreview.src = avatarPreview.dataset.originalSrc;
+            avatarPreview.style.opacity = '1';
+            avatarPreview.style.filter = 'none';
+        }
+
+        if (deleteAvatarBtn) {
+            deleteAvatarBtn.style.display = 'inline-block';
+        }
+
+        if (restoreBtn) {
+            restoreBtn.remove();
+        }
+
+        avatarMarkedForDeletion = false;
+        checkForChanges();
     };
 
     Object.values(fields).forEach(field => {
@@ -402,7 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
     profileForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        if (submitButton.disabled) return;
+        if (submitButton && submitButton.disabled) return;
 
         if (!validatePasswords()) return;
 

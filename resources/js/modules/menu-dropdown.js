@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const userImage = document.querySelector('.user-menu__avatar');
     const dropdown = document.querySelector('.user-menu__dropdown');
 
+    if (!userImage || !dropdown) return;
+
     userImage.addEventListener('click', e => {
         dropdown.classList.toggle('hidden');
     });
