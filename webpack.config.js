@@ -11,10 +11,18 @@ export default {
     },
     output: {
         path: path.resolve(__dirname, 'public'),
-        filename: 'js/[name].js'
+        filename: 'js/[name].js',
+        assetModuleFilename: 'assets/[name][ext]'
     },
     module: {
         rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader'
+                }
+            },
             {
                 test: /\.scss$/,
                 use: [
@@ -22,6 +30,20 @@ export default {
                     'css-loader',
                     'sass-loader'
                 ]
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'img/[name][ext]'
+                }
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'fonts/[name][ext]'
+                }
             }
         ]
     },
@@ -29,5 +51,10 @@ export default {
         new MiniCssExtractPlugin({
             filename: 'css/[name].css'
         })
-    ]
+    ],
+    resolve: {
+        extensions: ['.js', '.scss']
+    },
+    devtool: 'source-map',
+    mode: 'production'
 };
