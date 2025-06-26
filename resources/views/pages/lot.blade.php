@@ -15,7 +15,7 @@
                         <div class="lot-item__management">
                             <a href="{{ route('lot.edit', $lot->id) }}" class="button button--small button--secondary">Edit Lot</a>
 
-                            <form method="POST" action="{{ route('lot.toggle-status', $lot->id) }}" style="display: inline;">
+                            <form method="POST" action="{{ route('lot.toggle-status', $lot->id) }}">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="button button--small {{ $lot->status === 'active' ? 'button--warning' : 'button--success' }}">
@@ -24,7 +24,7 @@
                             </form>
 
                             @if(auth()->user()->isAdmin())
-                                <form method="POST" action="{{ route('lot.destroy', $lot->id) }}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this lot?')">
+                                <form method="POST" action="{{ route('lot.destroy', $lot->id) }}" onsubmit="return confirm('Are you sure you want to delete this lot?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="button button--small button--danger">Delete</button>

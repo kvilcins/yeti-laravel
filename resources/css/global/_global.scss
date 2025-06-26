@@ -151,19 +151,60 @@ p {
             background-color: $button-color-outlined;
         }
     }
-}
 
-.rub {
-    display: inline-block;
+    &--small {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
 
-    width: 12px;
-    height: 13px;
+    &--secondary {
+        background: linear-gradient(135deg, $button-color-disabled, darken($button-color-disabled, 5%));
+        box-shadow: 0 2px 8px rgba($button-color-disabled, 0.3);
+        color: $text-white;
 
-    margin-left: 4px;
+        &:hover {
+            box-shadow: 0 4px 12px rgba($button-color-disabled, 0.4);
+        }
+    }
 
-    font-size: 0;
-    vertical-align: baseline;
-    background: url("../img/rub.svg") 0 0 no-repeat;
+    &--success {
+        background: linear-gradient(135deg, $green, darken($green, 5%));
+        box-shadow: 0 2px 8px rgba($green, 0.3);
+        color: $text-white;
+
+        &:hover {
+            box-shadow: 0 4px 12px rgba($green, 0.4);
+        }
+    }
+
+    &--warning {
+        background: linear-gradient(135deg, $yellow, darken($yellow, 5%));
+        box-shadow: 0 2px 8px rgba($yellow, 0.3);
+        color: $text-black;
+
+        &:hover {
+            box-shadow: 0 4px 12px rgba($yellow, 0.4);
+        }
+    }
+
+    &--danger {
+        background: linear-gradient(135deg, $red, darken($red, 5%));
+        box-shadow: 0 2px 8px rgba($red, 0.3);
+        color: $text-white;
+
+        &:hover {
+            box-shadow: 0 4px 12px rgba($red, 0.4);
+        }
+    }
+
+    &--primary {
+        background: $button-color;
+        color: $text-white;
+
+        &:hover {
+            background: $button-color-hover;
+        }
+    }
 }
 
 .hidden {

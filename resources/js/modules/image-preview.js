@@ -11,8 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
             this.previewImg = this.preview?.querySelector('.form__preview-img, .profile__avatar-img');
             this.deleteBtn = this.preview?.querySelector('.form__delete-btn, .profile__avatar-delete');
 
-            this.isProfileMode = this.input.closest('.profile__form');
-            this.isLotEditMode = this.input.closest('.form--add-lot');
+            this.isAvatarField = this.input.id === 'avatar';
+            this.isLotImageField = this.input.id === 'lot_img';
+            this.isProfileForm = !!this.input.closest('.profile__form');
+            this.isRegistrationForm = !!this.input.closest('.form') && !this.input.closest('.profile__form');
+
             this.defaultAvatarUrl = '/img/default-avatar.jpg';
 
             this.init();
@@ -23,10 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             this.input.addEventListener('change', this.handleFileSelect.bind(this));
 
-            if (this.deleteBtn) {
+            if (this.deleteBtn && (!this.isProfileForm || this.isRegistrationForm)) {
                 this.deleteBtn.addEventListener('click', this.handleDelete.bind(this));
 
-                if (this.isLotEditMode && this.preview?.classList.contains('form__preview--visible')) {
+                if (this.isLotImageField && this.preview?.classList.contains('form__preview--visible')) {
                     this.deleteBtn.style.display = 'flex';
                 }
             }
@@ -36,7 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const file = e.target.files[0];
 
             if (!file) {
-                this.clearPreview();
+                const isPreviewVisible = this.isAvatarField ?
+                    !this.preview?.classList.contains('profile__avatar--hidden') :
+                    this.preview?.classList.contains('form__preview--visible');
+
+                if (!isPreviewVisible) {
+                    this.clearPreview();
+                }
                 return;
             }
 
@@ -47,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             this.displayPreview(file);
 
-            if (this.isLotEditMode) {
+            if (this.isLotImageField) {
                 const deleteImageInput = document.getElementById('delete_image');
                 if (deleteImageInput) {
                     deleteImageInput.value = '0';
@@ -56,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         validateFile(file) {
-            const maxSize = this.isProfileMode ? 5 * 1024 * 1024 : 2 * 1024 * 1024;
+            const maxSize = this.isAvatarField ? 5 * 1024 * 1024 : 2 * 1024 * 1024;
 
             if (file.size > maxSize) {
                 const sizeMB = maxSize / (1024 * 1024);
@@ -79,10 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.previewImg.src = event.target.result;
                 }
 
-                if (this.isProfileMode) {
+                if (this.isAvatarField) {
                     this.preview?.classList.remove('profile__avatar--hidden');
                     this.deleteBtn?.classList.remove('profile__avatar-delete--hidden');
-                } else {
+                } else if (this.isLotImageField) {
                     this.preview?.classList.add('form__preview--visible');
                     this.createOrShowDeleteBtn();
                 }
@@ -91,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         createOrShowDeleteBtn() {
-            if (!this.deleteBtn) {
+            if (!this.deleteBtn && this.isLotImageField) {
                 this.deleteBtn = document.createElement('button');
                 this.deleteBtn.type = 'button';
                 this.deleteBtn.className = 'form__delete-btn';
@@ -103,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.preview.appendChild(this.deleteBtn);
             }
 
-            if (this.deleteBtn) {
+            if (this.deleteBtn && this.isLotImageField) {
                 this.deleteBtn.style.display = 'flex';
             }
         }
@@ -111,34 +120,20 @@ document.addEventListener('DOMContentLoaded', () => {
         handleDelete(e) {
             e.preventDefault();
 
-            if (this.isProfileMode) {
-                this.handleProfileDelete();
-            } else if (this.isLotEditMode) {
-                this.handleLotEditDelete();
+            if (this.isAvatarField && this.isRegistrationForm) {
+                this.handleFormDelete();
+            } else if (this.isLotImageField) {
+                this.handleLotImageDelete();
             } else {
                 this.handleFormDelete();
             }
         }
 
-        handleProfileDelete() {
-            if (window.modalNotification) {
-                window.modalNotification.confirm(
-                    'Delete Avatar',
-                    'Are you sure you want to delete your avatar?',
-                    () => {
-                        this.setDefaultAvatar();
-                        this.input.value = '';
-                    }
-                );
-            } else {
-                if (confirm('Are you sure you want to delete your avatar?')) {
-                    this.setDefaultAvatar();
-                    this.input.value = '';
-                }
-            }
+        handleProfileAvatarDelete() {
+            return;
         }
 
-        handleLotEditDelete() {
+        handleLotImageDelete() {
             const confirmMessage = 'Are you sure you want to delete this image?';
 
             if (window.modalNotification) {
@@ -179,13 +174,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         clearPreview() {
-            if (this.isProfileMode) {
+            if (this.isAvatarField) {
                 this.preview?.classList.add('profile__avatar--hidden');
                 this.deleteBtn?.classList.add('profile__avatar-delete--hidden');
                 if (this.previewImg) {
                     this.previewImg.src = '';
                 }
-            } else {
+            } else if (this.isLotImageField) {
                 this.preview?.classList.remove('form__preview--visible');
                 if (this.deleteBtn) {
                     this.deleteBtn.style.display = 'none';
