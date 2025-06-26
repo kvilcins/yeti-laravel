@@ -93,76 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.modalNotification = new ModalNotification();
 
-    const initRegistrationAvatar = () => {
-        const avatarInput = document.getElementById('avatar');
-        const avatarContainer = document.getElementById('avatarContainer');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const deleteBtn = document.getElementById('deleteAvatarBtn');
-
-        if (!avatarInput || !avatarContainer || !avatarPreview || !deleteBtn) return;
-
-        avatarInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-
-            if (!file) {
-                hideAvatarPreview();
-                return;
-            }
-
-            if (file.size > 5 * 1024 * 1024) {
-                if (window.modalNotification) {
-                    window.modalNotification.error('File size must be less than 5MB');
-                } else {
-                    alert('File size must be less than 5MB');
-                }
-                e.target.value = '';
-                return;
-            }
-
-            if (!file.type.startsWith('image/')) {
-                if (window.modalNotification) {
-                    window.modalNotification.error('Please select a valid image file');
-                } else {
-                    alert('Please select a valid image file');
-                }
-                e.target.value = '';
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                avatarPreview.src = event.target.result;
-                showAvatarPreview();
-            };
-            reader.readAsDataURL(file);
-        });
-
-        deleteBtn.addEventListener('click', () => {
-            avatarInput.value = '';
-            hideAvatarPreview();
-        });
-
-        const showAvatarPreview = () => {
-            avatarContainer.classList.remove('profile__avatar--hidden');
-            deleteBtn.classList.remove('profile__avatar-delete--hidden');
-        };
-
-        const hideAvatarPreview = () => {
-            avatarContainer.classList.add('profile__avatar--hidden');
-            deleteBtn.classList.add('profile__avatar-delete--hidden');
-            avatarPreview.src = '';
-        };
-    };
-
     const profileForm = document.querySelector('.profile__form');
     const registrationForm = document.querySelector('.form');
     const profileNavBtns = document.querySelectorAll('.profile__nav-btn');
     const profilePanels = document.querySelectorAll('.profile__panel');
-
-    if (registrationForm && !profileForm) {
-        initRegistrationAvatar();
-        return;
-    }
 
     if (profileNavBtns.length > 0) {
         profileNavBtns.forEach(btn => {
@@ -378,79 +312,28 @@ document.addEventListener('DOMContentLoaded', () => {
         fields.avatar.addEventListener('change', (e) => {
             const file = e.target.files[0];
 
-            if (!file) {
-                if (avatarMarkedForDeletion) {
-                    const avatarPreview = document.getElementById('avatarPreview');
-                    if (avatarPreview) {
-                        avatarPreview.src = getDefaultAvatarUrl();
-                        avatarPreview.classList.add('profile__avatar-img--deleted');
-                    }
-                } else {
-                    restoreOriginalAvatar();
-                }
-                return;
-            }
+            if (file) {
+                avatarMarkedForDeletion = false;
 
-            if (file.size > 5 * 1024 * 1024) {
-                window.modalNotification.error('File size must be less than 5MB');
-                e.target.value = '';
-                return;
-            }
-
-            if (!file.type.startsWith('image/')) {
-                window.modalNotification.error('Please select a valid image file');
-                e.target.value = '';
-                return;
-            }
-
-            avatarMarkedForDeletion = false;
-
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const avatarPreview = document.getElementById('avatarPreview');
-                const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
+                const deleteBtn = document.getElementById('deleteAvatarBtn');
                 const restoreBtn = document.getElementById('restoreAvatarBtn');
 
                 if (avatarPreview) {
-                    avatarPreview.src = event.target.result;
-                    avatarPreview.classList.remove('profile__avatar-img--deleted');
+                    avatarPreview.style.opacity = '1';
+                    avatarPreview.style.filter = 'none';
                 }
 
-                if (deleteAvatarBtn) {
-                    deleteAvatarBtn.style.display = 'inline-block';
+                if (deleteBtn) {
+                    deleteBtn.style.display = 'inline-block';
                 }
 
                 if (restoreBtn) {
                     restoreBtn.remove();
                 }
-            };
-            reader.readAsDataURL(file);
+            }
 
             checkForChanges();
         });
-    };
-
-    const restoreOriginalAvatar = () => {
-        const avatarPreview = document.getElementById('avatarPreview');
-        const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
-        const restoreBtn = document.getElementById('restoreAvatarBtn');
-
-        if (avatarPreview && avatarPreview.dataset.originalSrc) {
-            avatarPreview.src = avatarPreview.dataset.originalSrc;
-            avatarPreview.style.opacity = '1';
-            avatarPreview.style.filter = 'none';
-        }
-
-        if (deleteAvatarBtn) {
-            deleteAvatarBtn.style.display = 'inline-block';
-        }
-
-        if (restoreBtn) {
-            restoreBtn.remove();
-        }
-
-        avatarMarkedForDeletion = false;
-        checkForChanges();
     };
 
     Object.values(fields).forEach(field => {
