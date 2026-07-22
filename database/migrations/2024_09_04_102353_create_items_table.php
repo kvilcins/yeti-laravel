@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('timer')->nullable();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->enum('status', ['active', 'inactive', 'completed', 'cancelled'])->default('active');
+            $table->enum('status', ['active', 'inactive', 'completed', 'cancelled', 'expired'])->default('active');
             $table->foreignId('winner_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
         });
